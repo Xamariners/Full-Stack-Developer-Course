@@ -30,3 +30,5 @@ This Hands-on Course covers the following topics grouped over 6 Projects Contain
 References: 
 1. https://github.com/lohithgn/blazor-contoso-university
 1. https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples
+
+Made In Singapore By Xamariners
