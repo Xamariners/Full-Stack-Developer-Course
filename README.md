@@ -27,4 +27,6 @@ This Hands-on Course covers the following topics grouped over 6 Projects Contain
 1. Xamarin with Azure Services
 1. Software Testing Fundamentals
 
-Reference: https://github.com/lohithgn/blazor-contoso-university
+References: 
+1. https://github.com/lohithgn/blazor-contoso-university
+1. https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples
