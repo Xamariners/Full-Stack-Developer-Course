@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>Contoso University</title>
+    <base href="./" />
+    <link href="../../css/bootstrap/pulse/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/site.css" rel="stylesheet" />
+</head>
+<body class="d-flex flex-column h-100">
+
+    <header>
+        <!-- Nav Bar -->
+        <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+            <div class="container">
+                <a href="../../index.html" class="navbar-brand">Contoso University</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../students/students.html">Students</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../courses/courses.html">Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../instructors/instructors.html">Instructors</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="../departments/departments.html">Departments</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main role="main" class="flex-shrink-0">
+        <div class="container mt-4">
+
+            <h2>Departments</h2>
+
+            <p>
+                <a href="/departments/create">Create New</a>
+            </p>
+
+            <table class="table table-sm table-striped">
+                <thead >
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Budget</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">Administrator</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">English</th>
+                        <td>$120000</td>
+                        <td>02 Sep 2020</td>
+                        <td>Kiuweras, Luwa</td>
+                        <td>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-eye text-primary" data-toggle="tooltip" title="View"></span></a>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-pencil text-warning" data-toggle="tooltip" title="Edit"></span></a>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-trash text-danger" data-toggle="tooltip" title="Delete"></span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Technology</th>
+                        <td>$891200</td>
+                        <td>01 Jan 2020</td>
+                        <td>Powerer, Xua</td>
+                        <td>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-eye text-primary" data-toggle="tooltip" title="View"></span></a>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-pencil text-warning" data-toggle="tooltip" title="Edit"></span></a>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-trash text-danger" data-toggle="tooltip" title="Delete"></span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Science</th>
+                        <td>$341290</td>
+                        <td>05 Jan 2020</td>
+                        <td>Kuiera, Lioni</td>
+                        <td>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-eye text-primary" data-toggle="tooltip" title="View"></span></a>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-pencil text-warning" data-toggle="tooltip" title="Edit"></span></a>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-trash text-danger" data-toggle="tooltip" title="Delete"></span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">History</th>
+                        <td>$123000</td>
+                        <td>23 Feb 2020</td>
+                        <td>Vunierp, Besgu</td>
+                        <td>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-eye text-primary" data-toggle="tooltip" title="View"></span></a>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-pencil text-warning" data-toggle="tooltip" title="Edit"></span></a>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-trash text-danger" data-toggle="tooltip" title="Delete"></span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Mathematics</th>
+                        <td>$600000</td>
+                        <td>12 Feb 2020</td>
+                        <td>Copeirnut, Pinu</td>
+                        <td>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-eye text-primary" data-toggle="tooltip" title="View"></span></a>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-pencil text-warning" data-toggle="tooltip" title="Edit"></span></a>
+                            <a class="btn btn-link pt-0 pb-0" href="#"><span class="oi oi-trash text-danger" data-toggle="tooltip" title="Delete"></span></a>
+                        </td>
+                    </tr>
+                    
+                    
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer bg-primary">
+        <div class="container">
+            <p class="text-secondary" style="margin-bottom: auto;">Copyrights @ Contoso University 2020</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</body>
+</html>

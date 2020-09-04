@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>Contoso University</title>
+    <base href="./" />
+    <link href="./css/bootstrap/pulse/bootstrap.min.css" rel="stylesheet" />
+    <link href="./css/site.css" rel="stylesheet" />
+</head>
+<body class="d-flex flex-column h-100">
+
+    <header>
+        <!-- Nav Bar -->
+        <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+            <div class="container">
+                <a href="./index.html" class="navbar-brand">Contoso University</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="./index.html" >Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./pages/students/students.html">Students</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./pages/courses/courses.html">Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./pages/instructors/instructors.html">Instructors</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./pages/departments/departments.html">Departments</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main role="main" class="flex-shrink-0">
+        <!-- Carousel -->
+        <div class="container mt-4">
+            <div id="carouselExampleCaptions" class="carousel slide shadow" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class=""></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="1" class="active"></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="2" class=""></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item">
+                        <img src="./images/banner1.jpg" class="d-block w-100" alt="./images/banner1.jpg">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h4>Welcome to Contoso University!</h4>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./images/banner2.jpg" class="d-block w-100" alt="./images/banner2.jpg">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h4>Staying safe and well in the Campus</h4>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item active">
+                        <img src="./images/banner3.jpg" class="d-block w-100" alt="./images/banner3.jpg">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h4>Mesage from the University Administration</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Welcome, Location and Weather -->
+        <div class="container mt-4">
+            <h2>Hello!</h2>
+
+            <div class="row mt-3">
+                <div class="col-md-7">
+                    <div class="card shadow border-primary mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Welcome to Contoso University!</h3>
+                                <p class="card-text" id="userDistanceText">Waiting to detect Location data...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="card shadow border-primary mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title" id="userWeatherLocationText">Weather in your Location...</h5>
+                            <div class="d-flex justify-content-between card-text" id="userWeatherText">
+                                Fetching weather...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="container">
+            <h2>Statistics</h2>
+
+            <div class="row mb-3">
+                <div class="col-xl-3 col-sm-6 py-2">
+                    <div class="card shadow bg-success text-white h-100">
+                        <div class="card-body bg-success">
+                            <div class="rotate">
+                                <span class="oi oi-people display-4"></span>
+                            </div>
+                            <h6 class="text-uppercase">Students</h6>
+                            <h1 class="display-4">230</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 py-2">
+                    <div class="card shadow text-white bg-danger h-100">
+                        <div class="card-body bg-danger">
+                            <div class="rotate">
+                                <span class="oi oi-book display-4"></span>
+                            </div>
+                            <h6 class="text-uppercase">Courses</h6>
+                            <h1 class="display-4">125</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 py-2">
+                    <div class="card shadow text-white bg-info h-100">
+                        <div class="card-body bg-info">
+                            <div class="rotate">
+                                <span class="oi oi-person display-4"></span>
+                            </div>
+                            <h6 class="text-uppercase">Instructors</h6>
+                            <h1 class="display-4">52</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 py-2">
+                    <div class="card shadow text-white bg-warning h-100">
+                        <div class="card-body">
+                            <div class="rotate">
+                                <span class="oi oi-briefcase display-4"></span>
+                            </div>
+                            <h6 class="text-uppercase">Departments</h6>
+                            <h1 class="display-4">12</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer bg-primary">
+        <div class="container">
+            <p class="text-secondary" style="margin-bottom: auto;">Copyrights @ Contoso University 2020</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    
+    <script type="text/javascript" src="./scripts/location.js"></script>
+    <script type="text/javascript" src="./scripts/weather.js"></script>
+</body>
+</html>
