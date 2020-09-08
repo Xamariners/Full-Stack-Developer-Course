@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>Contoso University</title>
+    <base href="./" />
+    <link href="../../css/bootstrap/pulse/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/site.css" rel="stylesheet" />
+</head>
+<body class="d-flex flex-column h-100">
+
+    <header>
+        <!-- Nav Bar -->
+        <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+            <div class="container">
+                <a href="../../index.html" class="navbar-brand">Contoso University</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../students/students.html">Students</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../courses/courses.html">Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../instructors/instructors.html">Instructors</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="../departments/departments.html">Departments</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main role="main" class="flex-shrink-0">
+        <div class="container mt-4">
+
+            <h2>Create</h2>
+
+            <h4>Department</h4>
+
+            <hr />
+
+            <div class="row">
+                <div class="col-md-4">
+                    <form novalidate="novalidate">
+                        <div class="form-group">
+                            <label for="departmentName" class="control-label"> Name</label>
+                            <input name="departmentName" id="departmentName" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="departmentBudget" class="control-label">Budget</label>
+                            <input name="departmentBudget" id="departmentBudget" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate" class="control-label">Start Date</label>
+                            <input type="date" name="startDate"  id="startDate" class="form-control" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="coursesList" class="control-label">Administrator</label>
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-item-primary">
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" name="adminId" id="adminId1" />
+                                        <label class="custom-control-label" for="adminId1">
+                                            1023 Jiers Miwquew
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item list-group-item-primary">
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" name="adminId" id="adminId2" />
+                                        <label class="custom-control-label" for="adminId2">
+                                            1198 Bwer Awesxe	
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item list-group-item-primary">
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" name="adminId" id="adminId3" />
+                                        <label class="custom-control-label" for="adminId3">
+                                            2109 Mieurays Cuyea	
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item list-group-item-primary">
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" name="adminId" id="adminId4" />
+                                        <label class="custom-control-label" for="adminId4">
+                                            1190 Xaioer Lowen	
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item list-group-item-primary">
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" name="adminId" id="adminId5" />
+                                        <label class="custom-control-label" for="adminId5">
+                                            1964 Kier Bwieore
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item list-group-item-primary">
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" name="adminId" id="adminId6" />
+                                        <label class="custom-control-label" for="adminId6">
+                                            1398 Zoiuere Pweour
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                    <div class="form-group">
+                        <a href="./departments.html" class="btn btn-secondary">Cancel</a>
+                        <a href="./departments.html"  class="btn btn-primary">Save</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer bg-primary">
+        <div class="container">
+            <p class="text-secondary" style="margin-bottom: auto;">Copyrights @ Contoso University 2020</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</body>
+</html>
