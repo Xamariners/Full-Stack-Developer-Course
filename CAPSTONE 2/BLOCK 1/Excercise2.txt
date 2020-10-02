@@ -1,0 +1,23 @@
+[Department]<>1 - 1...*<>[Course]
+
+[Department]<>1 - 0...*<>[Instructor]
+
+[Department]<>1 - 0...1<>[Instructor]
+
+[Instructor]<>1 - *<>[Course]
+
+
+[Student]<>1-1...*<>[Enrollment]
+
+[Enrollment]<>1...*-1<>[Course]
+
+[Department|DepartmentID: number;Name: string;Budget: money;StartDate: date;AdministratorID:number]
+
+[Course|CourseID: number;Title: string;Credits: number;DepartmentID: number;InstructorId:number]
+
+
+[Student|StudentID: number;FirstName: string;LastName: string;EnrollmentDate: date;]
+
+[Instructor|InstructorID: number;FirstName: string;LastName: string;HireDate: date;;DepartmentId:number]
+
+[Enrollment|EnrollmentID: number;CourseID: number;StudentID: number;Grade: char]
