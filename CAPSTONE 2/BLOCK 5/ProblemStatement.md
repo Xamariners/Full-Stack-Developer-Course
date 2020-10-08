@@ -49,11 +49,12 @@ Note: Statistics = calculate the number of records at the execution time. For e.
 - Instructor Changes
     - Create Instructor table with only instructor related columns.
     - Create InstructorDepartment join table with InstructorId and DepartmentId.
-    - Make sure 1 Instructor can belong to 1 Department only or 1 Department will only have 1 Administrator.
+    - Make sure 1 Instructor can belong to 1 Department only.
 - Course Changes
     - Create Course table with only course related columns.
     - Create CourseDepartment join table with CourseId and DepartmentId.
         - Make sure 1 Course can belong to 1 Department only.
     - Create CourseInstructor join table with CourseId and InstructorId.
         - Make sure 1 Course is taken by 1 Instructor only.
-- Recreate the DB Schema SQL.        
+- Recreate the DB Schema SQL file.
+- Recreate the DB Seed SQL file.
