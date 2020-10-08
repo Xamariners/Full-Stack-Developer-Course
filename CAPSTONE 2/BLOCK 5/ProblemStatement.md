@@ -13,8 +13,7 @@
 - For creating, updating & deleting Enrollment.
 
 ## 3. Management Reporting Stored Procedure
-- Generate a stored procedure which executed will return the following result set:
-
+- Generate a stored procedure which when executed will return the following result set:
 
 | No.      | Feature | Statistics |
 | ----------- | ----------- | ----------- |
