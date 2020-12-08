@@ -5,26 +5,38 @@ This Hands-on Course covers the following topics grouped over 6 Projects Contain
 
 ## Project 1:
 1. Software Development Fundamentals
-1. Programming in HTML5 with JavaScript and CSS3
 
 ## Project 2:
-1. Database Fundamentals
-1. Querying Data with Transact-SQL
-1. Developing SQL Databases
+1. Programming in HTML5 with JavaScript and CSS3
 
 ## Project 3:
-1. Programming in C# (SF)
+1. Database Fundamentals
 
 ## Project 4:
-1. Developing ASP.NET Core MVC Web Applications
-1. Developing and Hosting SPA (ReactJS), WASM (Blazor) & WPAs
+1. Querying Data with Transact-SQL
 
 ## Project 5:
+1. Developing SQL Databases
+
+## Project 5:
+1. Programming in C# (SF)
+
+## Project 7:
+1. Developing ASP.NET Core MVC Web Applications
+
+## Project 8:
+1. Developing and Hosting SPA (ReactJS), WASM (Blazor) & WPAs
+
+## Project 9:
 1. Developing solutions for Microsoft Azure
+
+## Project 10:
 1. Create Serverless Applications
 
-## Project 6:
+## Project 11:
 1. Xamarin with Azure Services
+
+## Project 12:
 1. Software Testing Fundamentals
 
 References: 
