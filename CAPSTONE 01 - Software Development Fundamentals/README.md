@@ -16,12 +16,12 @@ Course:- Course will have :-<br>
 
 ## Day 1
 
-In the first day revise fundamentals which are needed for the project during Day 2 , Day3 , Day4 and Day 5.
-Revise Flow charts , IF and CASE statements.
-Revise Concepts of visual studio , projects , solution and debugging
-Revise OOP Fundamentals.
-Revise SQL Server Fundamentals
-Revise ADO.NET 
+In the first day revise fundamentals which are needed for the project during Day 2 , Day3 , Day4 and Day 5.<br>
+Revise Flow charts , IF and CASE statements.<br>
+Revise Concepts of visual studio , projects , solution and debugging<br>
+Revise OOP Fundamentals.<br>
+Revise SQL Server Fundamentals<br>
+Revise ADO.NET <br>
 
 
 ## Day 2
