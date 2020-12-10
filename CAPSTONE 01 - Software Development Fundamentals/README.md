@@ -25,24 +25,21 @@ Revise ADO.NET <br>
 
 
 ## Day 2
-Introduce problem statement (tbd)
-Introduce tooling
-Design the project with flowcharts
-Go through solution
-
-Bonus: tbd
+Introduce and explain  Console Contoso university requirements <br>
+Task 1 :- Design flow chart for Contoso University.<br>
+Depending on the flow chart Create the Console Menu with following specs<br>
+ 
 
 ## Day 3
-Implementation of problem statement
-Review
+Design the class design for Contoso university.
+
 
 
 ## Day 4
-Implementation of problem statement
-Review
+Create the DB Design for Contoso university
 
 
 ## Day 5 
-Go through solution
+Use ADO.NET to insert data in to SQL Server
 
 
