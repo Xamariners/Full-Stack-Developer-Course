@@ -28,11 +28,15 @@ Revise ADO.NET <br>
 Introduce and explain  Console Contoso university requirements <br>
 Task 1 :- Design flow chart for Contoso University.<br>
 Depending on the flow chart Create the Console Menu with following specs<br>
- 
+Press 1 - Add new courses<br>
+Press 2 :- Add Students <br>
+Press 3 :- Display Students<br>
+Press 4 :- Display Courses<br>
+Press 5 :- Exit to main menu<br>
 
 ## Day 3
 Design the class design for Contoso university.
-
+Create the classes and integrate flow with the console application.
 
 
 ## Day 4
