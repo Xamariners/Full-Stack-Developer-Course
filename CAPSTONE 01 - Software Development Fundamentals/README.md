@@ -1,6 +1,6 @@
 # CAPSTONE 1 - Software Development Fundamentals
 
-In this course we will create a Console application for  Contonso university which can manage the following things:-
+In this course we will create a Console application for  Contonso university which can manage the following things:-<br>
 --Add a new Course
 --Add Students to Course
 --Display all Courses
