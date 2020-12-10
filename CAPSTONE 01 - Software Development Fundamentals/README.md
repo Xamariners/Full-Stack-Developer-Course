@@ -1,21 +1,20 @@
 # CAPSTONE 1 - Software Development Fundamentals
 
 In this course we will create a Console application for  Contonso university which can manage the following things:-
-•	Add a new Course
-•	Add Students to Course
-•	Display all Courses
-•	Display All Students
+--Add a new Course
+--Add Students to Course
+--Display all Courses
+--Display All Students
 
 Course:- Course will have :-
-•	Course name:- This is compulsory field.
-•	Students :- Students will have following details.
-•	Student name :- Name of student.This is compulsory.
-•	Course name :- This is referred from the course.
-•	Grade :- Grade of Student. Passed , Failed and Excelled.
+--Course name:- This is compulsory field.
+--Students :- Students will have following details.
+--Student name :- Name of student.This is compulsory.
+--Course name :- This is referred from the course.
+--Grade :- Grade of Student. Passed , Failed and Excelled.
 
 
 ## Day 1
-Revision on Software Development Fundamentals
 
 ## Day 2
 Introduce problem statement (tbd)
