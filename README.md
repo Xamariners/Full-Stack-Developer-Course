@@ -18,8 +18,8 @@ This Hands-on Course covers the following topics grouped over 6 Projects Contain
 ## Project 5:
 1. Developing SQL Databases
 
-## Project 5:
-1. Programming in C# (SF)
+## Project 6:
+1. Programming in C#
 
 ## Project 7:
 1. Developing ASP.NET Core MVC Web Applications
@@ -31,10 +31,10 @@ This Hands-on Course covers the following topics grouped over 6 Projects Contain
 1. Developing solutions for Microsoft Azure
 
 ## Project 10:
-1. Create Serverless Applications
+1. Xamarin with Azure Services
 
 ## Project 11:
-1. Xamarin with Azure Services
+1. Create Serverless Applications
 
 ## Project 12:
 1. Software Testing Fundamentals
