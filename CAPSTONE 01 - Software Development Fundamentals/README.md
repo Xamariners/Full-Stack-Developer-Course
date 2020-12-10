@@ -6,12 +6,12 @@ In this course we will create a Console application for  Contonso university whi
 --Display all Courses<br>
 --Display All Students<br>
 
-Course:- Course will have :-
---Course name:- This is compulsory field.
---Students :- Students will have following details.
---Student name :- Name of student.This is compulsory.
---Course name :- This is referred from the course.
---Grade :- Grade of Student. Passed , Failed and Excelled.
+Course:- Course will have :-<br>
+--Course name:- This is compulsory field.<br>
+--Students :- Students will have following details.<br>
+--Student name :- Name of student.This is compulsory.<br>
+--Course name :- This is referred from the course.<br>
+--Grade :- Grade of Student. Passed , Failed and Excelled.<br>
 
 
 ## Day 1
