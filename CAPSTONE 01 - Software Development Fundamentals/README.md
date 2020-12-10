@@ -1,6 +1,17 @@
 # CAPSTONE 1 - Software Development Fundamentals
 
-This Hands-on Course covers the following topics grouped over 6 Projects Containers, based on the famed Microsoft Contoso University
+In this course we will create a Console application for  Contonso university which can manage the following things:-
+•	Add a new Course
+•	Add Students to Course
+•	Display all Courses
+•	Display All Students
+
+Course:- Course will have :-
+•	Course name:- This is compulsory field.
+•	Students :- Students will have following details.
+•	Student name :- Name of student.This is compulsory.
+•	Course name :- This is referred from the course.
+•	Grade :- Grade of Student. Passed , Failed and Excelled.
 
 
 ## Day 1
