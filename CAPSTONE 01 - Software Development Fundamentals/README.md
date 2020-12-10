@@ -16,6 +16,10 @@ Course:- Course will have :-<br>
 
 ## Day 1
 
+Revise Flow charts , IF and CASE statements.
+
+
+
 ## Day 2
 Introduce problem statement (tbd)
 Introduce tooling
