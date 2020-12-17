@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 1: Explore alignment options</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM135 Layout in Xamarin.Forms</header>
+
+    <section id="main">
+        <h2>Exercise 1: Explore alignment options</h2>
+<p>The primary goal of this lab is see the effect of the four primary layout options when applied to a view contained in a <code>StackLayout</code>. There is no code to write for this exercise.</p>
+<figure class="figure">
+<img src="./images/Completed_Alignment.png" alt="Alignment demo app screenshot" style="border: 1px solid #000;" />
+</figure>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>Open the <strong>Alignment</strong> starter project from the <strong>Exercise 1 &gt; Start</strong> folder in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM135/">course materials</a> in either <strong>Visual Studio for Windows</strong> or <strong>Visual Studio for Mac</strong>.</p>
+
+<hr>
+<h2>Run the LayoutOptions app</h2>
+<p>The provided app has eight buttons paired with three labels and the &quot;Hello&quot; label. Four buttons change the <code>HorizontalOptions</code> on the label and four buttons change the <code>VerticalOptions</code>. The &quot;Hello&quot; <code>Label</code> has a gray background so you can determine its size (see below).</p>
+<figure class="figure">
+<img src="./images/Completed_Alignment.png" alt="Alignment demo app screenshot" style="border: 1px solid #000;" />
+</figure>
+<p>At startup, the &quot;Hello&quot; <code>Label</code> will have the default alignment option of <code>Fill</code> for both horizontal and vertical. It also has a <code>WidthRequest</code> and <code>HeightRequest</code> of <code>150</code>. Your goal is to run the app and see how the different layout options change the size and position of the &quot;Hello&quot; <code>Label</code>.</p>
+<ol>
+<li>
+Open the <strong>Alignment</strong> app.
+</li>
+<li>
+Run the app on a platform of your choice.
+</li>
+<li>
+At startup, with the default alignment of <code>Fill</code>, are the <code>WidthRequest</code> and <code>HeightRequest</code> settings respected?
+</li>
+</ol>
+<p class="spacing-top">
+<button class="spacing-both btn btn-toggle btn-purple" type="button" data-toggle="collapse" data-toggle-show-text="Show" data-toggle-hide-text="Hide" aria-expanded="false" data-target="#T754b5c05c65748508821b4d1a294dcb4">Show</button>
+<div class="collapse" id="T754b5c05c65748508821b4d1a294dcb4">
+<div class="card card-block">
+<p>
+The &quot;Hello&quot; <code>Label</code> is in a vertical <code>StackLayout</code> so you should see that the <code>WidthRequest</code> is ignored while the <code>HeightRequest</code> is respected.
+</p>
+</div>
+</div>
+</p>
+<ol start="4">
+<li>Try each of the vertical layout options and observe the behavior. Is there any change? Why or why not?</li>
+</ol>
+<p class="spacing-top">
+<button class="spacing-both btn btn-toggle btn-purple" type="button" data-toggle="collapse" data-toggle-show-text="Show" data-toggle-hide-text="Hide" aria-expanded="false" data-target="#Te7f361457dce482bb1a1b7652181c64c">Show</button>
+<div class="collapse" id="Te7f361457dce482bb1a1b7652181c64c">
+<div class="card card-block">
+<p>
+You should not see any change to the &quot;Hello&quot; <code>Label</code>: the <code>StackLayout</code> is vertical so it is using the <code>HeightRequest</code> and completely ignoring the vertical options.
+</p>
+</div>
+</div>
+</p>
+<ol start="5">
+<li>Try each of the horizontal layout options and observe the behavior. Are these options respected by the layout engine?</li>
+</ol>
+<p class="spacing-top">
+<button class="spacing-both btn btn-toggle btn-purple" type="button" data-toggle="collapse" data-toggle-show-text="Show" data-toggle-hide-text="Hide" aria-expanded="false" data-target="#Tf396e9fd485647dfa5cdfecf81ec5a36">Show</button>
+<div class="collapse" id="Tf396e9fd485647dfa5cdfecf81ec5a36">
+<div class="card card-block">
+<p>
+You should see both the alignment and the size update. With <code>Fill</code>, the &quot;Hello&quot; <code>Label</code> will occupy the full width of the <code>StackLayout</code> so the alignment is irrelevant since it completely fills the horizontal space. With <code>Start</code>, <code>Center</code>, and <code>End</code>, the <code>WidthRequest</code> will be respected and the alignment will also change since the <code>Label</code> no longer occupies the full width of the <code>StackLayout</code>.
+</p>
+</div>
+</div>
+</p>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>There are a few interesting points to take away from this exercise. First, notice that the alignment options (<code>Start</code>, <code>Center</code>, <code>End</code>, and <code>Fill</code>) can change both the size and the alignment of a view. Second, the container can overrule the view's settings; for example, the vertical <code>StackLayout</code> completely ignores the <code>VerticalOptions</code> of the Label. Third, the behavior might be different if we used a different layout such as a <code>Grid</code>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>XAM270 Data Binding in Xamarin.Forms</title>
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/prettify.css">
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/styles.css">
+</head>
+
+<body>
+    <!-- This will be filled in at runtime -->
+    <header role="course-title"></header>
+    <section id="main">
+        <h2>Data Binding in Xamarin.Forms - XAM270</h2>
+<p>Most apps need to load data from code-behind into their UI and transfer user-entered data to their code-behind models. Data Binding offers a clean way to perform both tasks. Data Binding uses binding objects that tie two properties together and keep their values in sync as either changes. This course shows you how to create bindings both in code and in XAML. You will also see how to implement value converters for use when the types of the two properties are different.</p>
+<h3>Upon completion you will be able to:</h3>
+<ul>
+<li>Use data binding to decouple code-behind from UI</li>
+<li>Use value converters to bind incompatible types</li>
+</ul>
+<h3>Course exercise download</h3>
+<p>Exercise materials are available from <a href="https://github.com/XamarinUniversity/XAM270/">GitHub</a>. The code can be cloned through a desktop Git client or <a href="https://github.com/XamarinUniversity/XAM270/archive/master.zip">downloaded directly</a> as a ZIP file.</p>
+<blockquote class="info-quote">If you are using Windows, try to select a location with a shorter path length to make sure you don't exceed the 260 character limit.
+</blockquote>
+<h2>Lecture</h2>
+<p>Here are the <a target="_blank" href="./parts/slides.pdf">lecture slides</a>.</p>
+<h2>Exercises</h2>
+<ol>
+<li>
+<a href="parts/part1.html">Exercise 1: Using data binding in a Xamarin.Forms application (XAM270)</a>
+<br>
+<p>This exercise introduces how you create and use bindings in code-behind and XAML.</p>
+</li>
+<li>
+<a href="parts/part2.html">Exercise 2: Keeping the UI and data in sync using bindings (XAM270)</a>
+<br>
+<p>In this exercise you'll implement two-way binding for your UI; this will ensure UI data changes are sent to the code-behind. You'll then implement <code>INotifyPropertyChanged</code> to ensure that the UI is updated when the underlying data is changed.</p>
+</li>
+<li>
+<a href="parts/part3.html">Exercise 3: Using value converters (XAM270)</a>
+<br>
+<p>There isn't always a 1:1 mapping between our available data and the user interface that presents that data. Value Converters are the bridge which spans this difference. In this exercise, you'll use a Value Converter to data bind images to our resources.</p>
+</li>
+<li>
+<a href="parts/part4.html">Exercise 4: Homework: Abstracting out the shared code (XAM270)</a>
+<br>
+<p>In this homework assignment, you will pull all the sharable code out of the code-behind now that it no longer depends on the UI controls and place it into a separate class which can be unit tested.</p>
+</li>
+</ol>
+
+            <!-- This section is for additional links and examples that are relevant to 
+                the material in this course -->
+            <h2>Additional resources</h2>
+                <h3>Additional Documentation</h3>
+                <div class="wslist">
+                    <a target="_blank" href="https://docs.microsoft.com/en-us/xamarin/xamarin-forms/xaml/xaml-basics/data-binding-basics">Data Binding Basics in Xamarin.Forms</a>        
+                    <a target="_blank" href="http://joshsmithonwpf.wordpress.com/2009/07/11/one-way-to-avoid-messy-propertychanged-event-handling/">Type-safe PropertyChanged event handling in code (blog)</a>        
+                </div>
+    </section>
+    <script src="./parts/res/js/jquery.min.js"></script>
+    <script src="./parts/res/js/prettify.js"></script>
+    <script src="./parts/res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data\countries.csv" />
+    <None Remove="Data\flags.xml" />
+    <None Remove="Images\australia.png" />
+    <None Remove="Images\bhutan.png" />
+    <None Remove="Images\brazil.png" />
+    <None Remove="Images\canada.png" />
+    <None Remove="Images\greece.png" />
+    <None Remove="Images\nepal.png" />
+    <None Remove="Images\usa.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\countries.csv" />
+    <EmbeddedResource Include="Data\flags.xml" />
+    <EmbeddedResource Include="Images\australia.png" />
+    <EmbeddedResource Include="Images\bhutan.png" />
+    <EmbeddedResource Include="Images\brazil.png" />
+    <EmbeddedResource Include="Images\canada.png" />
+    <EmbeddedResource Include="Images\greece.png" />
+    <EmbeddedResource Include="Images\nepal.png" />
+    <EmbeddedResource Include="Images\usa.png" />
+  </ItemGroup>
+
+</Project>

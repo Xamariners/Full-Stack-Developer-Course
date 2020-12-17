@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 1: Driving behavior through properties (XAM320)</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM320 Design an MVVM ViewModel in Xamarin.Forms</header>
+
+    <section id="main">
+        <h2>Exercise 1: Driving behavior through properties (XAM320)</h2>
+<p>In this exercise, you'll add in selection support, and use data triggers to change the UI based on property values exposed in view models.</p>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>Open the starter solution from the <strong>Exercise 1</strong> &gt; <strong>Start</strong> folder in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM320/">course materials</a> in either <strong>Visual Studio</strong> on Windows or <strong>Visual Studio for Mac</strong>.</p>
+<p>Build and run the application to make sure it is working before making changes. It displays quotes using an XML data file as the backing storage.
+There are two projects that implement the data infrastructure:</p>
+<ul>
+<li>
+<strong>GreatQuotes</strong>
+<p>This is the shared PCL which contains the XAML pages, converters and common data structures used in the application. The common data used is in the <strong>Data</strong> folder and consists of three files:</p>
+<ul>
+<li><strong>GreatQuote.cs</strong> is a model class for a single quote.</li>
+<li><strong>IQuoteLoader.cs</strong> is an interface which is implemented by the <strong>QuoteLoader</strong> class in the shared project which is used to load and save the quotes to an XML file.</li>
+<li><strong>QuoteManager.cs</strong> is a static class with two static methods to load and save the quotes. It resolves <strong>IQuoteLoader</strong> from the Xamarin.Forms Dependency Service.</li>
+</ul>
+</li>
+<li>
+<strong>GreatQuotes.Data</strong>
+<p>This is a Shared Project which contains a single source file to load the quotes from an XML file.</p>
+<ul>
+<li>
+<strong>QuoteLoader.cs</strong> is a static class which implements the <code>IQuoteLoader</code> interface.
+It uses compiler directives to split up the platform specific code.  This class is loaded into the Xamarin.Forms Dependency Service.
+</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+<h2>Add selection support</h2>
+<p>Your first step is to add some property support for selection.</p>
+<ol>
+<li>Open the <code>MainViewModel</code> and add a new public property of type <code>QuoteViewModel</code> named <strong>SelectedQuote</strong>. Use a public getter and setter, and use a backing field.</li>
+<li>
+<p>Make sure to implement property change notification when setting the new property - as a quick shortcut, you can use the <code>SetPropertyValue</code> method from the base view model - this will set the underlying field and raise a property change notification for you. It has the form:</p>
+<pre class="prettyprint"><code>SetPropertyValue&lt;T&gt;(ref T field, T newValue);
+</code></pre>
+
+<pre class="prettyprint-collapse"><code>QuoteViewModel selectedQuote;
+public QuoteViewModel SelectedQuote {
+    get {
+        return selectedQuote;
+    }
+    set {
+        SetPropertyValue(ref selectedQuote, value);
+    }
+}
+</code></pre>
+
+</li>
+<li>
+<p>Next, let's use the property. Open the <strong>QuoteListPage.xaml</strong> file and locate the <code>ListView</code>. Add a new property binding for the <code>SelectedItem</code> property to the view model property. Use a two-way binding (<code>Mode</code> property). Leave the <code>ItemTapped</code> event handler in place, you still need that for the moment to handle navigation.</p>
+<pre class="prettyprint-collapse"><code>&lt;ListView ItemsSource=&quot;{Binding Quotes}&quot;
+    <mark>SelectedItem=&quot;{Binding SelectedQuote, Mode=TwoWay}&quot;</mark>
+    ItemTapped=&quot;OnQuoteSelected&quot;&gt;
+</code></pre>
+
+</li>
+<li>
+Next, open the code behind file (<strong>QuoteListPage.xaml.cs</strong>) and locate the <code>OnQuoteSelected</code> method. It's currently passing the tapped item to the <code>QuoteDetailPage</code> as part of the constructor. Remove the parameter, you don't need it anymore as long as the second page has access to the view model!
+</li>
+<li>Finally, open the <strong>QuoteDetailPage.xaml.cs</strong> file and fix the constructor to not take the parameter. Instead, change the <code>BindingContext</code> to be the <code>SelectedQuote</code> property of the <code>MainViewModel</code>. Remember the view model is a singleton exposed by the <code>App</code> class.</li>
+<li>Run the application and make sure it still works properly - it should correctly navigate and still display the quote details when it's on the second screen. However, there is a minor, but annoying bug on some platforms. When you return to the original screen, the <code>ListView</code> still shows selection and the cell you tapped on is highlighted. Let's fix that.</li>
+<li>In the <code>QuoteDetailPage</code> constructor, clear the <code>SelectedQuote</code> property (set it to <code>null</code>) after you set the <code>BindingContext</code>. This will clear the <code>ListView</code> selection.</li>
+<li>Run the app again to verify the change.</li>
+</ol>
+
+<hr>
+<h2>Use DataTriggers</h2>
+<p>If you examine the <code>QuoteListPage</code> or <code>QuoteDetailPage</code> XAML, you will find it uses a value converter named <code>GenderToColorConverter</code> which is located in the <strong>Converters</strong> folder. This is located in the <em>application</em> resources and reused on both pages. You're going to remove it from the second page.</p>
+<ol>
+<li>Open the <code>QuoteDetailPage</code> XAML file and locate the <code>Label</code> which displays the author name.</li>
+<li>Change the <code>TextColor</code> property to just be &quot;Blue&quot; and remove the binding. Now all quote authors will be in blue.</li>
+<li>Add a <code>DataTrigger</code> to the <code>Label</code> which changes the <code>TextColor</code> property when the <code>Gender</code> is <code>Gender.Female</code>. Refer to the slides if you need some guidance, or check the code hint below.</li>
+<li>Run the application and navigate to the Eleanor Roosevelt quote. The quote author at the bottom of the page should be in pink.</li>
+<li>You might want to use the same technique on the <code>QuoteListPage</code> as well - however it won't work there. That's using a <code>TextCell</code> to display the quote - and unfortunately, <code>TextCell</code> does not derive from <code>VisualElement</code> where the trigger support lives. So, it will either need to be changed to a <code>ViewCell</code> with a full <code>Label</code> (which is less efficient than <code>TextCell</code>), or continue using a converter. Here, you've chosen the latter as it doesn't hurt anything, however you could try the former if you have some extra time.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>&lt;Label Grid.Row=&quot;1&quot; Text=&quot;{Binding Author}&quot;
+                TextColor=&quot;<mark>Blue</mark>&quot;
+                HorizontalOptions=&quot;End&quot; HorizontalTextAlignment=&quot;End&quot;&gt;
+    <mark>&lt;Label.Triggers&gt;</mark>
+    <mark>    &lt;DataTrigger TargetType=&quot;Label&quot;</mark>
+    <mark>                Binding=&quot;{Binding Gender}&quot;</mark>
+    <mark>                Value=&quot;Female&quot;&gt;</mark>
+    <mark>        &lt;Setter Property=&quot;TextColor&quot; Value=&quot;Pink&quot; /&gt;</mark>
+    <mark>    &lt;/DataTrigger&gt;</mark>
+    <mark>&lt;/Label.Triggers&gt;</mark>
+&lt;/Label&gt;
+</code></pre>
+
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you've pushed the selection management into the view model and started removing value converters, instead relying on properties with triggers to control the visual properties.</p>
+<p>You can view the completed solution in the <strong>Exercise 1</strong> &gt; <strong>Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM320/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

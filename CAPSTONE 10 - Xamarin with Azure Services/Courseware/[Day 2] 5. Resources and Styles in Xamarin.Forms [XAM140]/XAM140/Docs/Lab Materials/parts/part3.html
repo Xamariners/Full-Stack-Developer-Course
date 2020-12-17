@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 3: Dynamically update resources</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM140 Resources and Styles</header>
+
+    <section id="main">
+        <h2>Exercise 3: Dynamically update resources</h2>
+<p>The goal of this exercise is to have the UI of our Tip Calculator application update automatically when the Resource values change. Specifically, we'll be updating colors used within the UI.</p>
+<figure class="figure">
+<img src="./images/Completed.png" alt="image" />
+</figure>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>This exercise is a continuation of the previous exercise. You can use your existing solution or begin from the prior <strong>Exercise 2</strong> &gt; <strong>Completed</strong> solution in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM140/">course materials</a>.</p>
+
+<hr>
+<h2>Update resources from code</h2>
+<p>Here you will write code that updates a few resources stored in a page's Resource Dictionary.</p>
+<ol>
+<li>Open the <strong>TipCalculator</strong> project.</li>
+<li>Open <strong>StandardTipPage.xaml.cs</strong>.</li>
+<li>
+Locate the <code>OnLight</code> method and remove all the existing code inside it.
+Add two new lines of code so the method sets the <code>fgColor</code> Resource in the page's Resources dictionary to <strong>#606060</strong> and the <code>bgColor</code> resource to <strong>#C0C0C0</strong>. The static <code>Color.FromHex</code> method makes it easy to convert a hex string into a Color.
+</li>
+</ol>
+<pre class="prettyprint-collapse"><code>Resources[&quot;fgColor&quot;] = Color.FromHex(&quot;#606060&quot;);
+Resources[&quot;bgColor&quot;] = Color.FromHex(&quot;#C0C0C0&quot;);
+</code></pre>
+
+<ol start="4">
+<li>Repeat the previous step for the <code>OnDark</code> method but reverse the colors (i.e. set <code>fgColor</code> to #C0C0C0 and <code>bgColor</code> to #606060).</li>
+<li>Run the app on a platform of your choice. Click on the &quot;Dark&quot; and &quot;Light&quot; buttons. The UI will not update. </li>
+</ol>
+<p>The code is changing the Resource value in the dictionary; however, the new value is not being propagated to the UI controls.</p>
+<pre class="prettyprint-collapse"><code>void OnDark(object sender, EventArgs e)
+{
+    Resources[&quot;fgColor&quot;] = Color.FromHex(&quot;#C0C0C0&quot;);
+    Resources[&quot;bgColor&quot;] = Color.FromHex(&quot;#606060&quot;);
+}
+</code></pre>
+
+
+<hr>
+<h2>Update the UI dynamically</h2>
+<p>Here, you will modify your XAML so updated Resource values are loaded into your UI.</p>
+<ol>
+<li>Open <strong>StandardTipPage.xaml</strong>.</li>
+<li>Locate all of the places that you assign colors from Resource values. Replace the use of the <code>StaticResource</code> markup extension with <code>DynamicResource</code>.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>…
+&lt;Label x:Name=&quot;billLabel&quot; Text=&quot;Bill&quot; TextColor=&quot;{DynamicResource fgColor}&quot; … /&gt;
+&lt;Label x:Name=&quot;tipLabel&quot; Text=&quot;Tip&quot; TextColor=&quot;{DynamicResource fgColor}&quot; … /&gt;
+&lt;Label x:Name=&quot;totalLabel&quot; Text=&quot;Total&quot; TextColor=&quot;{DynamicResource fgColor}&quot; … /&gt;
+…
+</code></pre>
+
+
+<hr>
+<h2>Run the application</h2>
+<p>Run the app on a platform of your choice. Click on the &quot;Dark&quot; and &quot;Light&quot; buttons. The UI will now update correctly.</p>
+<figure class="figure">
+<img src="images/tips.gif" alt="image" />
+</figure>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you have used dynamic resources and updated the UI at runtime.</p>
+<p>You can view the completed solution in the <strong>Exercise 3 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM140/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

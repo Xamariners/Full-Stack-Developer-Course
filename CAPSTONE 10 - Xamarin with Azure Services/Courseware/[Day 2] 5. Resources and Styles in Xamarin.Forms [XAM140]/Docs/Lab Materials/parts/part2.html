@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 2: Use page-level resources</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM140 Resources and Styles</header>
+
+    <section id="main">
+        <h2>Exercise 2: Use page-level resources</h2>
+<p>In this exercise, you will use page-level Resources to eliminate repeated values in XAML.</p>
+<figure class="figure">
+<img src="./images/Completed.png" alt="image" />
+</figure>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>This exercise is a continuation of the previous exercise. You can use your existing solution or begin from the prior <strong>Exercise 1 &gt; Completed</strong> solution in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM140/">course materials</a>.</p>
+<p>If you're using Visual Studio on Windows, you'll see all of the platform or head projects: iOS, Android and Windows. If you're using macOS, the Windows projects will be disabled (grayed out).</p>
+
+<hr>
+<h2>Add a resource dictionary</h2>
+<p>Let's create a resource dictionary in XAML.</p>
+<ol>
+<li>Open the <strong>TipCalculator</strong> project.</li>
+<li>Open <strong>StandardTipPage.xaml</strong>.</li>
+<li>Create a <code>ResourceDictionary</code> in the Page's <code>Resources</code> property.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>&lt;Page.Resources&gt;
+  &lt;ResourceDictionary&gt;
+  &lt;/ResourceDictionary&gt;
+&lt;/Page.Resources&gt;
+</code></pre>
+
+
+<hr>
+<h2>Define color resources</h2>
+<ol>
+<li>Define a <code>Color</code> resource inside the resource dictionary. Give it an <code>x:Key</code> of &quot;bgColor&quot; and a value of <code>#c0c0c0</code>. </li>
+<li>Define a second <code>Color</code> resource inside the resource dictionary. Give it an <code>x:Key</code> of &quot;fgColor&quot; and a value of <code>#606060</code>.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>&lt;Page.Resources&gt;
+  &lt;ResourceDictionary&gt;
+    <mark>&lt;Color x:Key=&quot;bgColor&quot;&gt;#c0c0c0&lt;/Color&gt;</mark>
+    <mark>&lt;Color x:Key=&quot;fgColor&quot;&gt;#606060&lt;/Color&gt;</mark>
+  &lt;/ResourceDictionary&gt;
+&lt;/Page.Resources&gt;
+</code></pre>
+
+
+<hr>
+<h2>Use static resources</h2>
+<p>Now, let's apply the Resources you just created.</p>
+<ol>
+<li>Use the <code>StaticResource</code> markup extension to apply the <code>bgColor</code> resource to the <code>Background</code> property of the page's root <code>Grid</code>.</li>
+<li>Use the <code>StaticResource</code> markup extension to apply the <code>fgColor</code> resource to the <code>TextColor</code> property of all the <code>Label</code>s that use a <code>TextColor</code> of <code>Navy</code>.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>&lt;Grid x:Name =&quot;LayoutRoot&quot; BackgroundColor=&quot;{StaticResource bgColor}&quot; Padding=&quot;10&quot;&gt;
+&lt;Label x:Name=&quot;tipOutput&quot; Text=&quot;0.00&quot; TextColor=&quot;{StaticResource fgColor}&quot; FontSize=&quot;22&quot; Grid.Row=&quot;1&quot; Grid.Column=&quot;1&quot; /&gt;
+</code></pre>
+
+
+<hr>
+<h2>Run the application</h2>
+<p>Run the application on a platform of your choice and verify that the <strong>StandardTipPage</strong> displays dark text on a light background at startup.</p>
+<figure class="figure">
+<img src="images/Completed.png" alt="image" />
+</figure>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you created and applied page-level resources in XAML.</p>
+<p>You can view the completed solution in the <strong>Exercise 2 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM140/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

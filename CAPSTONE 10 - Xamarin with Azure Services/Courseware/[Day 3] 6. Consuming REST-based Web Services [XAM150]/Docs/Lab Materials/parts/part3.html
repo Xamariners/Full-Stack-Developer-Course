@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 3: Use the native platform network stack</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM150 REST-based Web Services</header>
+
+    <section id="main">
+        <h2>Exercise 3: Use the native platform network stack</h2>
+<p>In this final exercise, we will modify the bookshelf client to use the native platform's networking stack to improve the performance of the network activity and allow us to integrate tighter to the platform. You can either continue from the prior exercise, or use the completed project from the prior exercise if you'd like to start fresh.</p>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Techniques for using a native handler</h2>
+<p>We will modify the iOS and Android projects to use the proper HTTP message handler. There are two ways we could do this:</p>
+<ol>
+<li>We could pass in the platform-specific message handler into the <code>HttpClient</code> constructor for iOS and Android. Since we are using a PCL to create the client, we'd have to pass (inject) in the proper implementation from each of our platform head projects.</li>
+<li>We can use the IDE switch in iOS and an environment variable in Android to set the default message handler - by default it uses the Mono networking stack, but we can change the default handler supplied to the default <code>HttpClient</code> constructor to alter this behavior.</li>
+</ol>
+<p>Feel free to experiment with both approaches. The provided instructions use technique #2. </p>
+
+<hr>
+<h2>Install a native handler in iOS</h2>
+<p>Here we will specify the native HTTP handler we would like <code>HttpClient</code> to use in iOS.</p>
+<ol>
+<li>Open the project properties for <strong>BookClient.iOS</strong>.</li>
+<li>Go to the <strong>iOS Build</strong> properties.</li>
+</ol>
+<ide name="vs">
+<ol start="3">
+<li>Select the <strong>Advanced</strong> tab.</li>
+<li>Change the <strong>HttpClient implementation</strong> to be <strong>NSUrlSession (iOS 7+)</strong>.</li>
+</ol>
+<figure class="figure">
+<img src="./images/lab3-vs-ios-props.png" alt="iOS Properties" />
+</figure>
+<ol start="5">
+<li>Run the application. The iOS project might now throw an exception because we are using an untrusted/insecure endpoint. This will only happen if you happen to be using iOS9 or later. We could fix this by switching to an HTTPS endpoint, or by adding an ATS exclusion.</li>
+</ol>
+</ide>
+<ide name="xs">
+<ol start="3">
+<li>Change the <strong>HttpClient implementation</strong> to be <strong>NSUrlSession (iOS 7+)</strong>.</li>
+</ol>
+<figure class="figure">
+<img src="./images/lab3-xs-ios-props.png" alt="iOS Properties" />
+</figure>
+<ol start="4">
+<li>Run the application. The iOS project might now throw an exception because we are using an untrusted/insecure endpoint. This will only happen if you happen to be using iOS9 or later. We could fix this by switching to an HTTPS endpoint, or by adding an ATS exclusion.</li>
+</ol>
+</ide>
+
+<hr>
+<h2>Install a native handler in Android</h2>
+<p>Here we will specify the native HTTP handler we would like <code>HttpClient</code> to use in Android.</p>
+<ide name="vs">
+<ol>
+<li>Open the <strong>BookClient.Droid</strong> project <strong>Properties</strong> and switch to the <strong>Android Options</strong> tab.</li>
+<li>Within the <strong>Advanced</strong> settings, find the <strong>HttpClient implementation</strong> drop-down selector. </li>
+<li>Change from <strong>Default</strong> to <strong>AndroidClientHandler</strong>.</li>
+</ol>
+<figure class="figure">
+<img src="./images/lab3-vs-android-httpclient-setting.png" alt="Set the Android HttpClient handler" />
+</figure>
+</ide>
+<ide name="xs">
+<ol>
+<li>Open the <strong>BookClient.Droid</strong> project <strong>Options</strong> and switch to the <strong>Android Options</strong> tab.</li>
+<li>Within the <strong>General</strong> settings, find the <strong>HttpClient implementation</strong> drop-down selector. </li>
+<li>Change from <strong>Default</strong> to <strong>AndroidClientHandler</strong>.</li>
+</ol>
+<figure class="figure">
+<img src="./images/lab3-xs-android-httpclient-setting.png" alt="Set the Android HttpClient handler" />
+</figure>
+</ide>
+<ol start="4">
+<li>Run the application. The Android project should run just as it did before.</li>
+</ol>
+
+<hr>
+<h2>App transport security policy in iOS</h2>
+<p>In this final step, we will add keys into the <strong>info.plist</strong> for our iOS host application to allow the app to communicate with the book server even though it's not using TLS.</p>
+<ol>
+<li>Using an XML editor, open the <strong>info.plist</strong> file in the <strong>BookClient.iOS</strong> project. You can also use the GUI editor, but because this key is new, it may be difficult to add it in as a custom key until support is in the GUI.</li>
+<li>At the end of the XML file, just before the final <code>&lt;/dict&gt;</code>, add a <code>&lt;key&gt;</code> for <code>NSAppTransportSecurity</code> with a child <code>&lt;dict&gt;</code> section.</li>
+<li>Fill it with the following code to setup the exclusion for &lt;xam150.azurewebsites.net&gt;.</li>
+</ol>
+<pre class="prettyprint"><code>    ...
+    &lt;key&gt;UILaunchStoryboardName&lt;/key&gt;
+    &lt;string&gt;LaunchScreen&lt;/string&gt;
+    &lt;key&gt;CFBundleShortVersionString&lt;/key&gt;
+    &lt;string&gt;1.0&lt;/string&gt;
+    <mark>&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;NSExceptionDomains&lt;/key&gt;
+        &lt;dict&gt;
+           &lt;key&gt;xam150.azurewebsites.net&lt;/key&gt;
+           &lt;dict&gt;
+              &lt;key&gt;NSExceptionMinimumTLSVersion&lt;/key&gt;
+              &lt;string&gt;TLSv1.0&lt;/string&gt;
+              &lt;key&gt;NSExceptionRequiresForwardSecrecy&lt;/key&gt;
+              &lt;false/&gt;
+              &lt;key&gt;NSExceptionAllowsInsecureHTTPLoads&lt;/key&gt;
+              &lt;true/&gt;
+              &lt;key&gt;NSIncludesSubdomains&lt;/key&gt;
+              &lt;true/&gt;
+           &lt;/dict&gt;
+        &lt;/dict&gt;
+    &lt;/dict&gt;</mark>
+&lt;/dict&gt;
+&lt;/plist&gt;
+</code></pre>
+
+<ol start="4">
+<li>Run the application a final time and verify that it is now capable of pulling data for the iOS app.</li>
+</ol>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>We are now using an optimized, platform-specific web client implementation to access our REST based services.</p>
+<p>You can view the completed solution in the <strong>Exercise 3 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM150/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

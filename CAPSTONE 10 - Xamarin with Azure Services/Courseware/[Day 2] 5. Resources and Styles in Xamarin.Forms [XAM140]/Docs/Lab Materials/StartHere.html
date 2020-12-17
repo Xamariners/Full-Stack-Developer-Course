@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>XAM140 Resources and Styles</title>
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/prettify.css">
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/styles.css">
+</head>
+
+<body>
+    <!-- This will be filled in at runtime -->
+    <header role="course-title"></header>
+    <section id="main">
+        <h2>Resources and Styles in Xamarin.Forms (XAM140)</h2>
+<p>Using the same fonts and colors across your entire UI creates a consistent look-and-feel. Xamarin.Forms provides a way to define these values in one place and look them up everywhere they are used; this guarantees consistency across your app and makes updates simple. This course shows you how to define and apply a Resource both in code and in XAML. It also shows you how to group multiple settings into a Style so you can apply them all at once.</p>
+<h3>
+Recommended prerequisite for this course
+</h3>
+<ul>
+<li><a href="/forms/xam130/">XAML in Xamarin.Forms (XAM130)</a></li>
+</ul>
+<h3>Upon completion you will be able to:</h3>
+<ul>
+<li>Avoid duplicate XAML with Resources</li>
+<li>Create consistent UI with Styles</li>
+<li>Make your Resources and Styles available across your entire app</li>
+<li>Apply the user's accessibility choices with built-in Styles</li>
+</ul>
+<h3>Course exercise download</h3>
+<p>Exercise materials are available from <a href="https://github.com/XamarinUniversity/XAM140/">GitHub</a>. The code can be cloned through a desktop Git client or <a href="https://github.com/XamarinUniversity/XAM140/archive/master.zip">downloaded directly</a> as a ZIP file.</p>
+<blockquote class="info-quote">If you are using Windows, try to select a location with a shorter path length to make sure you don't exceed the 260 character limit.
+</blockquote>
+<h2>Lecture</h2>
+<p>Here are the <a target="_blank" href="./parts/slides.pdf">lecture slides</a>.</p>
+<h2>Exercises</h2>
+<ol>
+<li>
+<a href="parts/part1.html">Exercise 1: Examine an app containing repeated code</a>
+<br>
+<p>This lab will motivate the use of Resources and Styles. You will examine a pre-written app and find examples of repeated XAML and C# code. </p>
+</li>
+<li>
+<a href="parts/part2.html">Exercise 2: Use page-level resources</a>
+<br>
+<p>In this exercise, you will use page-level Resources to eliminate repeated values in XAML.</p>
+</li>
+<li>
+<a href="parts/part3.html">Exercise 3: Dynamically update resources</a>
+<br>
+<p>The goal of this exercise is to have the UI of our Tip Calculator application update automatically when the Resource values change. Specifically, we'll be updating colors used within the UI.</p>
+</li>
+<li>
+<a href="parts/part4.html">Exercise 4: Create and apply a style</a>
+<br>
+<p>The goal of this exercise is to define and apply a page-level style in your Xamarin.Forms application.</p>
+</li>
+<li>
+<a href="parts/part5.html">Exercise 5: Use style inheritance to refactor repeated code</a>
+<br>
+<p>The goal of this exercise is to use <em>Style Inheritance</em> to avoid repeated Setters in Styles that target the same type of control.</p>
+</li>
+<li>
+<a href="parts/part6.html">Exercise 6: Use application-wide resources</a>
+<br>
+<p>The goal of this exercise is to make resources available across multiple pages by moving them to a resource dictionary in your app class.</p>
+</li>
+</ol>
+
+            <!-- This section is for additional links and examples that are relevant to 
+                the material in this course -->
+            <h2>Additional resources</h2>
+                <h3>Additional Documentation</h3>
+                <div class="wslist">
+                    <a target="_blank" href="https://developer.xamarin.com/guides/xamarin-forms/xaml/xaml-basics/xaml_markup_extensions/">XAML Markup Extensions</a>        
+                    <a target="_blank" href="https://developer.xamarin.com/guides/xamarin-forms/user-interface/styles/">Working with Styles</a>        
+                    <a target="_blank" href="https://developer.xamarin.com/api/type/Xamarin.Forms.ResourceDictionary/">ResourceDictionary Class</a>        
+                    <a target="_blank" href="https://developer.xamarin.com/api/type/Xamarin.Forms.Style/">Style Class</a>        
+                    <a target="_blank" href="https://developer.xamarin.com/api/type/Xamarin.Forms.Setter/">Setter Class</a>        
+                </div>
+    </section>
+    <script src="./parts/res/js/jquery.min.js"></script>
+    <script src="./parts/res/js/prettify.js"></script>
+    <script src="./parts/res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

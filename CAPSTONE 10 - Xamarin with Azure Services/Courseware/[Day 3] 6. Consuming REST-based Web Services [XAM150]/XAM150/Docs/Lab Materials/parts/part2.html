@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 2: Communicate with a book service</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM150 REST-based Web Services</header>
+
+    <section id="main">
+        <h2>Exercise 2: Communicate with a book service</h2>
+<p>In this exercise you will extend a provided Xamarin.Forms application to work with an existing REST service which manages a library of books. You will authenticate with the service, retrieve existing books, add new books, update books and delete books from your bookshelf.</p>
+<figure class="figure">
+<img src="./images/lab2-final.png" alt="Completed Screenshot" />
+</figure>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Explore the REST service</h2>
+<p>This exercise uses an existing REST service. This part covers the capabilities of the service; there is no code to write here.</p>
+<p>The <strong>Book service</strong> is located at http://xam150.azurewebsites.net/api/books. This URL alone will return an HTTP 401 error. Here are the valid operations you can perform with this API using an HTTP request tool:</p>
+<ul>
+<li>Call <code>GET /login</code> to get a token (if you don't pass this token to the other methods, you'll get an <code>Unauthorized</code> status returned). This will create a unique session for your application and will populate the session with a few default books.</li>
+<li>All other calls need to add the string-based token (with no quotes) as the <code>Authorization</code> header. This is what identifies you to the service. In addition, you should set the <code>Accept</code> header to <code>application/json</code>.</li>
+<li>Call <code>GET</code> to get a list of the books in your session. This will return a JSON array of books which have the shape:</li>
+</ul>
+<pre class="prettyprint"><code>[
+    {
+        &quot;isbn&quot;:&quot;1025801012&quot;,
+        &quot;title&quot;:&quot;Answers to Absurd Hypothetical Questions&quot;,
+        &quot;authors&quot;:[&quot;Randall Munroe&quot;],
+        &quot;publishDate&quot;:&quot;2014-09-04T00:00:00+00:00&quot;,
+        &quot;genre&quot;:&quot;Nonfiction&quot;
+    }
+]
+</code></pre>
+
+<ul>
+<li>Call <code>PUT /xxxx</code> to update a book, where <code>xxxx</code> is the ISBN code for an existing book with the JSON book as the body of the request.</li>
+<li>Call <code>DELETE /xxxx</code> to delete a book, where <code>xxxx</code> is the ISBN code for the book.</li>
+<li>Call <code>POST</code> to add a new book, with the JSON book as the body of the request, the ISBN code must be empty. This will return the JSON book with the ISBN code filled in.</li>
+</ul>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>This exercise utilizes a provided solution. Open the <strong>Exercise 2 &gt; Start</strong> solution from your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM150/">course materials</a> in either <strong>Visual Studio for Windows</strong> or <strong>Visual Studio for Mac</strong>.</p>
+<p>Examine the project structure. It has several projects in the solution.</p>
+<p>The <strong>BookClient</strong> project is the PCL which contains all the code to create and process the UI for the application. You will do all of your work in this project. There are two <code>Page</code> classes in the project, one for the main view which shows a <code>ListView</code> for the books, and a second to add or edit a specific book. </p>
+<p>The remaining projects are platform-specific. You will not need to modify any code in these projects; however, you will need to add packages to them and select one as your Startup Project for testing.</p>
+
+<hr>
+<h2>Add the NuGet packages</h2>
+<p>Here you will add the NuGet packages you will need and to make sure the app builds correctly.</p>
+<ol>
+<li>Add the Microsoft HTTP Client Libraries, <strong>Microsoft.Net.Http</strong>, NuGet package to the <strong>BookClient</strong> PCL project. It is not necessary to install it in the platform-specific projects.</li>
+</ol>
+<ide name="vs">
+<p class="spacing-top">
+<button class="spacing-both btn btn-toggle btn-purple" type="button" data-toggle="collapse" data-toggle-show-text="Add via Package Manager Console" data-toggle-hide-text="Hide" aria-expanded="false" data-target="#T4d88ab55929e4c9abe0e558f8c4e3e42">Add via Package Manager Console</button>
+<div class="collapse" id="T4d88ab55929e4c9abe0e558f8c4e3e42">
+<div class="card card-block">
+<p>
+<p>To add this NuGet package via the Package Manager Console, found in the menu under <strong>Tools &gt; NuGet Package Manager &gt; Package Manager Console</strong>, run the following command:</p>
+<pre class="prettyprint"><code>Install-Package Microsoft.Net.Http
+</code></pre>
+
+</p>
+</div>
+</div>
+</p>
+</ide>
+<ol start="2">
+<li>Add the <strong>Json.NET</strong> NuGet package to the <strong>BookClient</strong> project and to any platform projects you intend to test with (iOS, Android and/or Windows). If you are using Visual Studio on Windows, you can do this at the solution level by right-clicking on the solution node and selecting <strong>Manage NuGet Packages for Solution</strong>. On Visual Studio for Mac, you will need to add the packages individually to each project through <strong>Add &gt; Add Packages...</strong>.</li>
+</ol>
+<ide name="vs">
+<p class="spacing-top">
+<button class="spacing-both btn btn-toggle btn-purple" type="button" data-toggle="collapse" data-toggle-show-text="Add via Package Manager Console" data-toggle-hide-text="Hide" aria-expanded="false" data-target="#T468446cb6ac946ea8a3ca60f32891c4b">Add via Package Manager Console</button>
+<div class="collapse" id="T468446cb6ac946ea8a3ca60f32891c4b">
+<div class="card card-block">
+<p>
+<p>To add this NuGet package via the Package Manager Console, found in the menu under <strong>Tools &gt; NuGet Package Manager &gt; Package Manager Console</strong>, run the following command:</p>
+<pre class="prettyprint"><code>Install-Package Newtonsoft.Json
+</code></pre>
+
+</p>
+</div>
+</div>
+</p>
+</ide>
+<ol start="3">
+<li>
+You should be able to build the application, but do not attempt to run it yet as it has some unimplemented methods which throw exceptions.
+</li>
+<li>
+If your project builds correctly then you are done with this part. If not, you could be encountering a bug. When you add <strong>Microsoft HTTP Client Libraries</strong> to your projects, NuGet will also add dependencies to a few other packages to provide compile-time dependencies against core BCL classes. There is a known problem with certain versions of the NuGet client which causes a build error in the Xamarin.iOS and Xamarin.Android projects when they have a reference to these build packages. The error message will say something similar to:
+</li>
+</ol>
+<blockquote class="danger-quote"><strong>warning MSB3277:</strong> Found conflicts between different versions of the same dependent assembly that could not be resolved. These reference conflicts are listed in the build log when log verbosity is set to detailed.
+</blockquote>
+<p>To resolve this issue, remove the following references from the Xamarin.iOS and Xamarin.Android platform-specific project - leave the package, just delete the references from the References folder. You should be able to build at that point.
+	* <strong>System.Runtime</strong>
+	* <strong>System.IO</strong>
+	* <strong>System.Threading.Tasks</strong></p>
+<p>For more information on this error, see this <a href="http://blogs.msdn.com/b/dotnet/p/pcl_known_issues.aspx" target="_blank">MSDN blog post</a>.</p>
+
+<hr>
+<h2>Examine the Book and BookManager classes</h2>
+<p>The service works with a set of books described in JSON. We've added a JSON parser (Json.NET), and have some code in the project for the object representation of the book.</p>
+<ol>
+<li>Expand the <strong>Data</strong> folder. You will find two files inside.</li>
+</ol>
+<table class="table table-striped">
+<thead>
+<tr>
+	<th>Source File</th>
+	<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td><strong>Book.cs</strong></td>
+	<td>This is the object representation for a single book. The definition should match the JSON description above. It has public properties defined for each of the passed fields. Json.NET is smart enough to manage camel-casing vs. pascal-casing so you can name the properties with standard C# conventions, the key thing is that the names are spelled correctly.</td>
+</tr>
+<tr>
+	<td><strong>BookManager.cs</strong></td>
+	<td>This is the manager class which wraps the web service. It has stubbed out methods (with <code>NotImplementedException</code> code) for each of the operations you need to implement. The UI already has code in place to call each of these methods.</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+<h2>Login to the service</h2>
+<p>The service requires you &quot;login&quot; first to get a token. There is no user authentication (i.e. you do not have to enter any credentials); however, you must call a specific endpoint first to get a token. You must then send the token back to the server on each subsequent request in the HTTP header.</p>
+<ol>
+<li>In the <strong>Data</strong> folder, open <strong>BookManager.cs</strong>.</li>
+<li>Add the following field to your code. This is the base address of the service.</li>
+</ol>
+<pre class="prettyprint"><code>const string Url = &quot;http://xam150.azurewebsites.net/api/books/&quot;;
+</code></pre>
+
+<ol start="3">
+<li>Add the following field to hold the token.</li>
+</ol>
+<pre class="prettyprint"><code>private string authorizationKey;
+</code></pre>
+
+<ol start="4">
+<li>Create a <code>private</code> method named <code>GetClient</code> which returns a <code>Task&lt;HttpClient&gt;</code>.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>private async Task&lt;HttpClient&gt; GetClient()
+{
+   ...
+}
+</code></pre>
+
+<ol start="5">
+<li>
+In the method, create a new <code>HttpClient</code>.
+</li>
+<li>
+If this is the first time the method has been called, then the <code>authorizationKey</code> field will not be set. In this case, you need to use <code>GetStringAsync</code> with the base URL + <code>login</code> to get the token.
+</li>
+<li>
+The returned token will have quotes around it which need to be removed. An easy way to do this is to use <code>JsonConvert.DeserializeObject&lt;string&gt;(...)</code>. Save the result into the <code>authorizationKey</code> field.
+</li>
+<li>
+Add an <code>Authorization</code> header to the <code>DefaultRequestHeaders</code> collection of the <code>HttpClient</code>. Use the token as the value.
+</li>
+<li>
+Add an <code>Accept</code> header to the <code>DefaultRequestHeaders</code> collection of the <code>HttpClient</code>. Use <code>application/json</code> as the value.
+</li>
+<li>
+Return the <code>HttpClient</code> object from the method.
+</li>
+</ol>
+<pre class="prettyprint-collapse"><code>private async Task&lt;HttpClient&gt; GetClient()
+{
+    HttpClient client = new HttpClient();
+    if (string.IsNullOrEmpty(authorizationKey))
+    {
+        authorizationKey = await client.GetStringAsync(Url + &quot;login&quot;);
+        authorizationKey = JsonConvert.DeserializeObject&lt;string&gt;(authorizationKey);
+    }
+
+    client.DefaultRequestHeaders.Add(&quot;Authorization&quot;, authorizationKey);
+    client.DefaultRequestHeaders.Add(&quot;Accept&quot;, &quot;application/json&quot;);
+    return client;
+}
+</code></pre>
+
+
+<hr>
+<h2>Perform a GET operation</h2>
+<p>Now that we can authenticate to the service, let's add our code to retrieve the books from the base Url.</p>
+<ol>
+<li>In the <strong>BookManager.cs</strong> file, find the method named <code>GetAll</code> which returns a <code>Task&lt;IEnumerable&lt;Book&gt;&gt;</code>.</li>
+<li>Use your <code>GetClient</code> method to retrieve an <code>HttpClient</code> to work with.</li>
+<li>Use <code>GetStringAsync</code> on the base Url to retrieve the array of books. You can use the C# <code>async</code> / <code>await</code> feature to make this easy to consume - make sure you add the <code>async</code> keyword to the method definition.</li>
+<li>Pass the returned string into <code>JsonConvert.DeserializeObject</code> to turn the JSON data into an object graph and return it back to the caller.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public class BookManager
+{
+    ...
+    public async Task&lt;IEnumerable&lt;Book&gt;&gt; GetAll()
+    {
+        HttpClient client = await GetClient();
+        string result = await client.GetStringAsync(Url);
+        return JsonConvert.DeserializeObject&lt;IEnumerable&lt;Book&gt;&gt;(result);
+    }
+}
+</code></pre>
+
+<ol start="5">
+<li>Run the application and press the <strong>Refresh</strong> icon in the toolbar (at the top or bottom depending on the platform, but the icon looks like a pair of arrows in a circle).</li>
+<li>After a few seconds, the app should load a set of existing books and display them. Debug through the application if you do not see the data get loaded. Verify it is properly calling <code>Login</code> and then passing the authorization token into the <code>GET</code> call to retrieve the books.</li>
+</ol>
+
+<hr>
+<h2>Perform a POST (add) operation</h2>
+<p>We are now displaying the books, let's add support to add a new book using <strong>POST</strong>.</p>
+<ol>
+<li>Open the <code>BookManager</code> code and locate the method named <code>Add</code> which takes a title, author and genre and returns a <code>Task&lt;Book&gt;</code>.</li>
+<li>
+<p>In the method, create a new <code>Book</code> object and populate the fields with the passed data:</p>
+<ul>
+<li>Set the <code>ISBN</code> field to an empty string.</li>
+<li>Make sure to create a new <code>List</code> to hold the passed author (we only allow a single author here for simplicity, but you could expand this code if you like to allow for multiples using a comma separator or some other convention).</li>
+<li>Set the <code>PublishDate</code> to <code>DateTime.Now</code>.</li>
+</ul>
+</li>
+<li>
+Get a client from your <code>GetClient</code> method.
+</li>
+<li>
+<p>Use the <code>PostAsync</code> method against the base URL to add the book.</p>
+<ul>
+<li>You will need to turn the <code>Book</code> object into JSON using <code>JsonConvert.SerializeObject</code>.</li>
+<li>Create the <code>HttpContent</code> from the JSON string by creating a new <code>StringContent</code> object, use the constructor which also takes an encoding and media type.</li>
+<li>The encoding should be <code>Encoding.UTF8</code> and the media type should be <code>application/json</code>.</li>
+</ul>
+</li>
+<li>
+The response from <strong>POST</strong> will be a JSON string represent the returned book. Deserialize it to a <code>Book</code> object and return the <code>Book</code> instance from the method. 
+</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public async Task&lt;Book&gt; Add(string title, string author, string genre)
+{
+    Book book = new Book() {
+        Title = title,
+        Authors = new List&lt;string&gt;(new[] { author }),
+        ISBN = string.Empty,
+        Genre = genre,
+        PublishDate = DateTime.Now.Date,
+    };
+
+    HttpClient client = await GetClient();
+    var response = await client.PostAsync(Url, 
+        new StringContent(
+            JsonConvert.SerializeObject(book), 
+            Encoding.UTF8, &quot;application/json&quot;));
+
+    return JsonConvert.DeserializeObject&lt;Book&gt;(
+        await response.Content.ReadAsStringAsync());
+}
+</code></pre>
+
+<ol start="6">
+<li>Build and run the application. Press the <strong>Add</strong> button ([+]). When you press the add button, it will add the book and return to the main screen.</li>
+</ol>
+
+<hr>
+<h2>Perform a PUT (update) operation</h2>
+<p>We are now able to display and add new books. Here you add the code necessary to update an existing book.</p>
+<ol>
+<li>Open the <code>BookManager</code> class and locate the method named <code>Update</code> which takes a <code>Book</code> and returns a <code>Task</code>.</li>
+<li>
+<p>In the method implementation, get a new client and use the <code>PutAsync</code> method to send a JSON-encoded book to the base URL with the ISBN added to it.</p>
+<ul>
+<li>So, if the ISBN is <code>12345678</code>, then the URL would be <code>api/books/12345678</code>.</li>
+</ul>
+</li>
+<li>
+You can use the same code to create the message body that you did when adding a book - but in this case we know where to put the book since it already has an assigned ISBN. Make sure to set the encoding and content-type as you did before.
+</li>
+<li>In this case, we don't have an explicit return type - but we want to return <code>Task</code> so that exceptions are properly returned back to the caller, and so the caller can use the <code>await</code> keyword to pause the progress of the method until the asynchronous method is finished.</li>
+<li>Try out the logic by running the application and tapping on an existing book to edit it.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public async Task Update(Book book)
+{
+    HttpClient client = await GetClient();
+    await client.PutAsync(Url + &quot;/&quot; + book.ISBN, 
+        new StringContent(
+            JsonConvert.SerializeObject(book), 
+            Encoding.UTF8, &quot;application/json&quot;));
+}
+</code></pre>
+
+
+<hr>
+<h2>Perform a DELETE operation</h2>
+<p>The final operation (and easiest) we have is <strong>DELETE</strong>.</p>
+<ol>
+<li>Open the <code>BookManager</code> class and locate the <code>Delete</code> method which takes a string ISBN and returns a <code>Task</code>.</li>
+<li>In the method body, get a new client and use the <code>DeleteAsync</code> method against the base URL + the ISBN (just like the <strong>UPDATE</strong> case).</li>
+<li>Run the application to test the delete logic - you can get to the functionality by swiping to the left on iOS, or by performing a long-click on Android and Windows (press + hold).</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public async Task Delete(string isbn)
+{
+    HttpClient client = await GetClient();
+    await client.DeleteAsync(Url + isbn);
+}
+</code></pre>
+
+
+<hr>
+<h2>Exercise summary</h2>
+<p>You have successfully utilized a REST service within your Xamarin application. As a fun side exercise, try adding an <code>ActivityIndicator</code> to the UI while you are loading the books. The completed solution has this code implemented through a <code>Binding</code> to the <code>Page.IsBusy</code> property if you'd like to just examine one way to accomplish this. </p>
+<p>You can view the completed solution in the <strong>Exercise 2 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM150/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

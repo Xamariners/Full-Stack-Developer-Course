@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 1: Determine the network connectivity</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM150 REST-based Web Services</header>
+
+    <section id="main">
+        <h2>Exercise 1: Determine the network connectivity</h2>
+<p>The primary goal of this lab will be to create a new Xamarin.Forms application and utilize the <a href="https://github.com/jamesmontemagno/ConnectivityPlugin" target="_blank">Xam.Plugin.Connectivity</a> component to detect the network availability and state. You will display the current network status on two pages as shown in the screenshots below. </p>
+<figure class="figure">
+<img src="./images/lab1-final.png" alt="Completed Screenshot" />
+</figure>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Create the solution</h2>
+<p>Let's start by creating a new Xamarin.Forms application with Visual Studio.</p>
+<ide name="xs">
+<p>Using Visual Studio, create a new Xamarin.Forms <strong>Blank Forms App</strong> application. Name it <strong>NetStatus</strong>.</p>
+<blockquote class="info-quote">Make sure you select <strong>Use Portable Class Library</strong> under Shared Code to match up with the rest of the instructions of this course's exercises.
+</blockquote>
+</ide>
+<ide name="vs">
+<p>Using Visual Studio, create a new <strong>Mobile App (Xamarin.Forms)</strong> application. Name it <strong>NetStatus</strong>.</p>
+<blockquote class="info-quote">Make sure you select the <strong>.NET Standard</strong> under Code Sharing Strategy to match up with the rest of the instructions of this course's exercises.
+</blockquote>
+</ide>
+
+<hr>
+<h2>Add the Connectivity plugin</h2>
+<p>Add the NuGet package <strong>Xam.Plugin.Connectivity</strong> to all of your projects.</p>
+<ide name="vs">
+<p class="spacing-top">
+<button class="spacing-both btn btn-toggle btn-purple" type="button" data-toggle="collapse" data-toggle-show-text="Add via Package Manager Console" data-toggle-hide-text="Hide" aria-expanded="false" data-target="#Ta7ae68da3bda4cecb927370a646fd5ba">Add via Package Manager Console</button>
+<div class="collapse" id="Ta7ae68da3bda4cecb927370a646fd5ba">
+<div class="card card-block">
+<p>
+<p>To add this NuGet package via the Package Manager Console, found in the menu under <strong>Tools &gt; NuGet Package Manager &gt; Package Manager Console</strong>, run the following command:</p>
+<pre class="prettyprint"><code>Install-Package Xam.Plugin.Connectivity
+</code></pre>
+
+</p>
+</div>
+</div>
+</p>
+</ide>
+<figure class="figure">
+<img src="./images/nuget-connectivity.png" alt="image" />
+</figure>
+<p>This adds an abstraction to detect network state for iOS, Android and Windows devices at runtime.</p>
+<p>You can examine the source code to the Connectivity plugin available on <a href="https://github.com/jamesmontemagno/ConnectivityPlugin" target="_blank">GitHub</a>.</p>
+
+<hr>
+<h2>Add Android permissions</h2>
+<p>Android requires applications request specific permissions in the manifest in order to check for network connectivity.</p>
+<p>If you plan to run the application on an Android device then add the <strong>ACCESS_NETWORK_STATE</strong> and <strong>ACCESS_WIFI_STATE</strong> permissions to the Android manifest (accessible through the <strong>Android Application</strong> tab in the project properties, or by opening the <strong>Properties/AndroidManifest.xml</strong> file).</p>
+<figure class="figure">
+<img src="./images/android-permissions.png" alt="Android Manifest Dialog showing permissions" />
+</figure>
+
+<hr>
+<h2>Add Windows capabilities</h2>
+<p>Windows 10 UWP must have the Private Networks (Client &amp; Server) capability and Internet (Client &amp; Server) capability checked in the app manifest (<strong>Package.appxmanifest</strong>) to work with network features on the device.</p>
+<p>Open the manifest in the Windows project, switch to the <strong>Capabilities</strong> tab and check these two options.</p>
+<figure class="figure">
+<img src="./images/win8-permissions.png" alt="Windows Permissions in the Package Manifest" />
+</figure>
+
+<hr>
+<h2>Create the no-network page</h2>
+<p>The app will have two pages: One for when we are connected to a network, and another to display a &quot;No connection available&quot; view. Here we will create the &quot;No connection available&quot; page.</p>
+<ide name="vs">
+<ol>
+<li>Add a new <strong>Xamarin.Forms</strong> &gt; <strong>ContentPage (C#)</strong> item to the shared <strong>NetStatus</strong> project. Name it <code>NoNetworkPage</code>.</li>
+</ol>
+</ide>
+<ide name="xs">
+<ol>
+<li>Add a new <strong>Forms</strong> &gt; <strong>Forms ContentPage</strong> item to the shared <strong>NetStatus</strong> project. Name it <code>NoNetworkPage</code>.</li>
+</ol>
+</ide>
+<ol start="2">
+<li>In the constructor for the class, set the <code>Content</code> property to a new <code>Label</code> which is centered and displays the text &quot;No Network Connection Available&quot;.</li>
+<li>Set the text color to the RGB value <strong>(0x40,0x40,0x40)</strong> to make it a dark gray color.</li>
+<li>Set the <code>BackgroundColor</code> for the page to be the RGB value <strong>(0xf0,0xf0,0xf0)</strong> to make it a light gray color.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public class NoNetworkPage : ContentPage
+{
+    public NoNetworkPage()
+    {
+        BackgroundColor = Color.FromRgb(0xf0, 0xf0, 0xf0);
+        Content = new Label() {
+            Text = &quot;No Network Connection Available&quot;,
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center,
+            TextColor = Color.FromRgb(0x40, 0x40, 0x40),
+        };
+    }
+}
+</code></pre>
+
+<ol start="5">
+<li>Set the <code>MainPage</code> property in the <strong>App.cs</strong> file to the new <code>NoNetworkPage</code>.</li>
+<li>Run the application to verify that it is displayed properly.</li>
+</ol>
+
+<hr>
+<h2>Create the network-view page</h2>
+<p>Next we will create the page that will display the connection type when one is available.</p>
+<ol>
+<li>
+Add a page named <code>NetworkViewPage</code>, you can use either C# code or a mix of XAML and code. This will be the page where we display the network type (WiFi vs. Cellular) and provide a way to ping a host or IP address (a feature included in the connectivity library we added earlier).
+</li>
+<li>
+Add a <code>Label</code> to the page. The <code>Label</code> will display the current connection type to the user. Name it <code>ConnectionDetails</code>. Feel free to use whatever sizing / spacing you prefer. You can also deviate from the names if you like - they are provided just for comparison to the provided lab solution.
+</li>
+</ol>
+
+<hr>
+<h2>Detect the network connectivity</h2>
+<p>Next we will determine the current state of the network and display the appropriate page to the user.</p>
+<ol>
+<li>Open the <strong>App.cs</strong> file. You will be adding code to the <code>App</code>'s constructor.</li>
+<li>Use the <code>CrossConnectivity.Current.IsConnected</code> static property to determine the network state. Based on the state, set the <code>MainPage</code> property to either our &quot;No-network&quot; screen or the &quot;Network-view&quot; page.</li>
+<li>Run the application with the network disabled on the device and verify that it displays the correct page on launch. (Note that the iOS Simulator will still appear to have network capabilities even when airplane mode is enabled; you will have to disable the host machine's network connection.)</li>
+<li>Close the application. Enable the network on the device and run the app again - verify that it launches the other page.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>...
+using Plugin.Connectivity.Abstractions;
+
+public App()
+{
+   // The root page of your application
+   MainPage = CrossConnectivity.Current.IsConnected 
+        ? (Page) new NetworkViewPage() 
+        : new NoNetworkPage();
+}
+</code></pre>
+
+
+<hr>
+<h2>Monitor connectivity changed</h2>
+<p>Now we need to add code to switch between the pages when the network status changes. We will use the <code>CrossConnectivity.Current.ConnectivityChanged</code> static event to detect network changes. The event args, <code>ConnectivityChangedEventArgs</code>, includes a Boolean indicating whether there is an active connection.</p>
+<ol>
+<li>Override the <code>Application.OnStart</code> method in your <strong>App.cs</strong> class.</li>
+<li>In <code>OnStart</code>, subscribe to the <code>CrossConnectivity.Current.ConnectivityChanged</code> event.</li>
+<li>In your handler, check the connected state and update the <code>MainPage</code> property to reflect the connection state.</li>
+<li>Run the app. Change the network availability while the app is running - it should now switch pages dynamically as you enable and disable the network connectivity.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>protected override void OnStart()
+{
+    base.OnStart();
+    CrossConnectivity.Current.ConnectivityChanged += HandleConnectivityChanged;
+}
+
+void HandleConnectivityChanged (object sender, ConnectivityChangedEventArgs e)
+{
+    Type currentPage = this.MainPage.GetType();
+    if (e.IsConnected &amp;&amp; currentPage != typeof(NetworkViewPage))
+        this.MainPage = new NetworkViewPage();
+    else if (!e.IsConnected &amp;&amp; currentPage != typeof(NoNetworkPage))
+        this.MainPage = new NoNetworkPage();
+}
+</code></pre>
+
+
+<hr>
+<h2>Display the network type</h2>
+<p>In this final step, we will display the current network type when we have a connection. We might want to know this to determine if we should download a large amount of content or perform some type of network activity only when WiFi is active.</p>
+<ol>
+<li>Open the <code>NetworkViewPage</code> code file.</li>
+<li>Override the <code>OnAppearing</code> method.</li>
+<li>In <code>OnAppearing</code>, set the <code>ConnectionDetails</code> label to show the type of the first connection in the <code>CrossConnectivity.Current.ConnectionTypes</code> list.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>using System.Linq;
+...
+protected override void OnAppearing()
+{
+    base.OnAppearing();
+
+    ConnectionDetails.Text = CrossConnectivity.Current.ConnectionTypes.First().ToString();
+}
+</code></pre>
+
+<ol start="4">
+<li>Still in <code>OnAppearing</code>, subscribe a handler to the <code>ConnectivityChanged</code> event.</li>
+<li>In your handler, set the <code>ConnectionDetails</code> label to the current network type just as you did in <code>OnAppearing</code> (feel free to refactor to avoid duplicate code if you would like to).</li>
+<li>Override the <code>OnDisappearing</code> method and unsubscribe from the event. This will ensure we don't have a memory leak since the event is static.</li>
+<li>Run the app and try switching between WiFi and Cellular (best tested on a physical phone device, many emulators/simulators do not support this capability).</li>
+</ol>
+<pre class="prettyprint-collapse"><code>protected override void OnAppearing()
+{
+    base.OnAppearing();
+
+    if(CrossConnectivity.Current == null)
+        return;
+
+    ConnectionDetails.Text = CrossConnectivity.Current.ConnectionTypes.First().ToString();
+
+    <mark>CrossConnectivity.Current.ConnectivityChanged += UpdateNetworkInfo;</mark>
+}
+
+protected override void OnDisappearing()
+{
+    base.OnDisappearing();
+
+    <mark>if(CrossConnectivity.Current != null)</mark>
+    <mark>  CrossConnectivity.Current.ConnectivityChanged -= UpdateNetworkInfo;</mark>
+}
+
+private void UpdateNetworkInfo(object sender, ConnectivityChangedEventArgs e)
+{
+    if (CrossConnectivity.Current != null &amp;&amp; CrossConnectivity.Current.ConnectionTypes != null)
+    {
+        var connectionType = CrossConnectivity.Current.ConnectionTypes.FirstOrDefault ();
+        ConnectionDetails.Text = connectionType.ToString ();
+    }
+}
+</code></pre>
+
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you have successfully detected the network state and transitioned your application to and from different screens based on the connectivity available.</p>
+<p>You can view the completed solution in the <strong>Exercise 1 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM150/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

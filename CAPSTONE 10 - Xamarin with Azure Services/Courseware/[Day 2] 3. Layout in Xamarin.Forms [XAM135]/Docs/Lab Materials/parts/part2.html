@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 2: Use StackLayout to build a UI</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM135 Layout in Xamarin.Forms</header>
+
+    <section id="main">
+        <h2>Exercise 2: Use StackLayout to build a UI</h2>
+<p>The goal of this lab is to use nested <code>StackLayout</code>s to arrange the views in a UI.</p>
+<p>The first screenshot below shows the <strong>Starter</strong> project and the second shows the <strong>Completed</strong> project. Your job is to use <code>StackLayout</code>s and <code>LayoutOptions</code> to turn the starter project into the completed version. There is no single &quot;correct&quot; answer here. Use your judgment to produce a UI that looks good to you.  </p>
+<figure class="figure">
+<img src="./images/ex2-start.png" alt="Initial application screenshot" style="max-width: 250px; border: 1px solid #000;" />
+</figure>
+<figure class="figure">
+<img src="./images/ex2-completed.png" alt="Final application screenshot" style="max-width: 250px; border: 1px solid #000;" />
+</figure>
+<p>The images shown above may be sufficient to allow you to complete the lab. If you would like addition guidance, please use the steps on the next pages.</p>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Explore the starter code</h2>
+<p>The starter solution contains a fully functional <strong>TipCalculator</strong> app. Your goal in this first part is to explore how the app works.</p>
+<ol>
+<li>
+Open the <strong>Exercise 2 &gt; Start</strong> solution from your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM135/">course materials</a> in either <strong>Visual Studio for Windows</strong> or <strong>Visual Studio for Mac</strong>.
+</li>
+<li>
+Run the app on a platform of your choice.
+</li>
+<li>Enter a number into the <code>Entry</code> control - the app should then look similar to the image shown below:</li>
+</ol>
+<figure class="figure">
+<img src="./images/ex2-start.png" alt="Initial application screenshot" style="max-width: 250px; border: 1px solid #000;" />
+</figure>
+<ol start="4">
+<li>Work with the app for a minute or two to get a feel for its behavior.</li>
+<li>Stop the app.</li>
+<li>Open <strong>MainPage.xaml</strong>.</li>
+<li>Notice that all the views are placed into one vertical <code>StackLayout</code>.</li>
+<li>If you would like to, feel free to open <strong>MainPage.xaml.cs</strong> and look at the code; however, you will not need to modify the code-behind during the exercise.</li>
+</ol>
+
+<hr>
+<h2>Detailed instructions</h2>
+<p>This section gives step-by-step guidance to layout the <strong>TipCalculator</strong> UI as it was pictured in the <strong>Completed</strong> screenshot. Attempt to create the UI yourself before following these steps. If you have already finished the exercise based on the high-level goals given earlier, you can either review these instructions or skip to the next section.</p>
+<p>Please run the app as needed to test your work as you go through these steps.</p>
+<ol>
+<li>Add <code>Padding</code> to the page to avoid overlap of the UI and the iOS status bar. The <code>Top</code> value for the <code>Padding</code> should be at least <code>20</code>. The code shown below will yield a uniform <code>Padding</code> of <code>40</code> units:</li>
+</ol>
+<pre class="prettyprint"><code>&lt;ContentPage ... Padding=&quot;40&quot;&gt;
+</code></pre>
+
+<ol start="2">
+<li>Use a horizontal <code>StackLayout</code> to group the <code>Label</code> that says &quot;Bill&quot; with the <code>Entry</code> field as shown below:</li>
+</ol>
+<pre class="prettyprint"><code>&lt;StackLayout Orientation=&quot;Horizontal&quot;&gt;
+   &lt;Label Text=&quot;Bill&quot; ... /&gt;
+   &lt;Entry ... /&gt;
+&lt;/StackLayout&gt;
+</code></pre>
+
+<ol start="3">
+<li>Use a horizontal <code>StackLayout</code> to group the <code>Label</code> that says &quot;Tip&quot; with the <code>Label</code> named <code>tipOutput</code>.</li>
+<li>Set a <code>Margin</code> on the <code>StackLayout</code> you just added. The top should be 20 units while the left, right, and bottom values should be 0 (see below).</li>
+</ol>
+<pre class="prettyprint"><code>&lt;StackLayout Orientation=&quot;Horizontal&quot; Margin=&quot;0,20,0,0&quot;&gt;
+   ...
+&lt;/StackLayout&gt;
+</code></pre>
+
+<ol start="5">
+<li>Use a horizontal <code>StackLayout</code> to group the <code>Label</code> that says &quot;Total&quot; with the <code>Label</code> named <code>totalOutput</code>.</li>
+<li>Use a horizontal <code>StackLayout</code> to group the <code>Label</code> that says &quot;Tip Percentage&quot; with the <code>Label</code> named <code>tipPercent</code>.</li>
+<li>Set a <code>VerticalOptions</code> value of <code>EndAndExpand</code> on the <code>StackLayout</code> you just added (see below).</li>
+</ol>
+<pre class="prettyprint"><code>&lt;StackLayout Orientation=&quot;Horizontal&quot; VerticalOptions=&quot;EndAndExpand&quot;&gt;
+   ...
+&lt;/StackLayout&gt;
+</code></pre>
+
+<ol start="8">
+<li>Use a horizontal <code>StackLayout</code> to group the <code>Button</code> with text of &quot;15%&quot; and the Button with text &quot;20%&quot;.</li>
+<li>Use a horizontal <code>StackLayout</code> to group the <code>Button</code> with text of &quot;Round Down&quot; and the <code>Button</code> with text &quot;Round Up&quot;.</li>
+<li>Set a <code>HorizontalOptions</code> value of <code>CenterAndExpand</code> on all four of the <code>Buttons</code> (see below).</li>
+</ol>
+<pre class="prettyprint"><code>&lt;Button HorizontalOptions=&quot;CenterAndExpand&quot; ...&gt;
+</code></pre>
+
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you used nested <code>StackLayout</code>s to improve the aesthetics of an existing UI. <code>StackLayout</code> is the simplest layout panel, yet it is powerful enough to produce a reasonable UI.</p>
+<p>You can view the completed solution in the <strong>Exercise 2 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM135/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

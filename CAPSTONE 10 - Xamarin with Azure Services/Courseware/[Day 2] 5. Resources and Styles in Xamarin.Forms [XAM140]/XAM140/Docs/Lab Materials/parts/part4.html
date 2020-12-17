@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 4: Create and apply a style</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM140 Resources and Styles</header>
+
+    <section id="main">
+        <h2>Exercise 4: Create and apply a style</h2>
+<p>The goal of this exercise is to define and apply a page-level style in your Xamarin.Forms application.</p>
+<figure class="figure">
+<img src="./images/FontChange.png" alt="image" />
+</figure>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>This exercise is a continuation of the previous exercise. You can use your existing solution or begin from the prior <strong>Exercise 3 &gt; Completed</strong> solution in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM140/">course materials</a>.</p>
+
+<hr>
+<h2>Define a style</h2>
+<p>Here you will implement a Style and store it in a page-level dictionary.</p>
+<ol>
+<li>Open the <strong>TipCalculator</strong> project.</li>
+<li>Open <strong>StandardTipPage.xaml</strong>.</li>
+<li>Add a <code>Style</code> to the page's resource dictionary. Use a <code>Key</code> of <code>infoLabelStyle</code> and a <code>TargetType</code> of <code>Label</code>.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>&lt;Style x:Key=&quot;infoLabelStyle&quot; TargetType=&quot;Label&quot;&gt;&lt;/Style&gt;
+</code></pre>
+
+
+<hr>
+<h2>Add a setter to your style</h2>
+<ol>
+<li>Add a <code>Setter</code> to your <code>Style</code> that sets the <code>FontSize</code> property to <strong>22</strong>.</li>
+<li>Add a <code>Setter</code> to your <code>Style</code> that sets the <code>FontAttributes</code> property to <strong>Bold</strong>.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>&lt;Style x:Key=&quot;infoLabelStyle&quot; TargetType=&quot;Label&quot;&gt;
+    &lt;Setter Property=&quot;FontSize&quot; Value=&quot;22&quot; /&gt;
+    &lt;Setter Property=&quot;FontAttributes&quot; Value=&quot;Bold&quot; /&gt;
+&lt;/Style&gt;
+</code></pre>
+
+
+<hr>
+<h2>Apply the style</h2>
+<p>Now, you will apply the style to the appropriate elements in your XAML.</p>
+<ol>
+<li>Locate the three <code>Labels</code> that use <code>TextSize</code> of <strong>22</strong> and <code>FontAttributes</code> of <strong>Bold</strong>. Remove those property assignments from the labels.</li>
+<li>Use the <code>StaticResource</code> markup extension to assign the <code>Style</code> that you just defined to the <code>Style</code> property of the three labels. Sample code for one <code>Label</code> is provided:</li>
+</ol>
+<pre class="prettyprint-collapse"><code>&lt;Label Style=&quot;{StaticResource infoLabelStyle}&quot; … /&gt;
+</code></pre>
+
+
+<hr>
+<h2>Run the application</h2>
+<p>Run the app on a platform of your choice. The app should look exactly like it did before, however now the font attributes are being set with Styles.</p>
+<figure class="figure">
+<img src="images/tips.gif" alt="image" />
+</figure>
+
+<hr>
+<h2>Change the font styles</h2>
+<p>Let's take a look at how easy it is to update the styles now that they have been created.</p>
+<ol>
+<li>Go back to your style in the resource dictionary and change the font size to <strong>32</strong>.</li>
+<li>Run the app again to view the changes.</li>
+</ol>
+<figure class="figure">
+<img src="images/FontChange.png" alt="image" />
+</figure>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you replaced individual property settings with a <code>Style</code>. This reduced the clutter of multiple property settings on each control and made the XAML easier to read.</p>
+<p>You can view the completed solution in the <strong>Exercise 4 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM140/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>
