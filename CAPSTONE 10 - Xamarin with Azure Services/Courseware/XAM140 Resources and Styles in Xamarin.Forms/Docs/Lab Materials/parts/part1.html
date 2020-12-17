@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 1: Examine an app containing repeated code</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM140 Resources and Styles</header>
+
+    <section id="main">
+        <h2>Exercise 1: Examine an app containing repeated code</h2>
+<p>This lab will motivate the use of Resources and Styles. You will examine a pre-written app and find examples of repeated XAML and C# code. </p>
+<figure class="figure">
+<img src="./images/Completed.png" alt="image" />
+</figure>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>Open the <strong>Exercise 1 &gt; Start</strong> <strong>TipCalculator</strong> solution in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM140/">course materials</a> with either <strong>Visual Studio for Windows</strong> or <strong>Visual Studio for Mac</strong>.</p>
+<p>If you're using Visual Studio on Windows, you'll see all of the platform or head projects: iOS, Android and Windows. If you're using macOS, the Windows projects will be disabled (grayed out).</p>
+
+<hr>
+<h2>Find repeated XAML</h2>
+<p>Here you will locate several places where repeated XAML values are used. </p>
+<ol>
+<li>Run the app on any platform you prefer. Take a few minutes to work with the app so you understand how it behaves.</li>
+<li>Open <strong>StandardTipPage.xaml</strong>.</li>
+<li>Find the code that sets the background color of the root grid. Notice that a hard coded value is used.</li>
+<li>Find the code that sets the &quot;left column&quot; labels to navy/22/bold. Notice that these same values are used on three labels.</li>
+</ol>
+<pre class="prettyprint"><code>&lt;!-- Left column = static labels --&gt;
+&lt;Label x:Name=&quot;billLabel&quot;  Text=&quot;Bill&quot;  <mark>TextColor=&quot;Navy&quot; FontSize=&quot;22&quot; FontAttributes=&quot;Bold&quot;</mark> ... /&gt;
+&lt;Label x:Name=&quot;tipLabel&quot;   Text=&quot;Tip&quot;   <mark>TextColor=&quot;Navy&quot; FontSize=&quot;22&quot; FontAttributes=&quot;Bold&quot;</mark> ... /&gt;
+&lt;Label x:Name=&quot;totalLabel&quot; Text=&quot;Total&quot; <mark>TextColor=&quot;Navy&quot; FontSize=&quot;22&quot; FontAttributes=&quot;Bold&quot;</mark> ... /&gt;
+</code></pre>
+
+<ol start="5">
+<li>Find the code that sets the &quot;right column&quot; labels to navy/22. Notice that these same values are used on two labels.</li>
+<li>Notice that some of the property settings seem to form a logical group. For example, the combination of navy/22 is used on multiple labels.</li>
+<li>Consider the difficulty of modifying the FontSize value. You would need to change it in five places which is error prone.</li>
+</ol>
+
+<hr>
+<h2>Find repeated code</h2>
+<p>The provided project implements a simplified version of &quot;light&quot; and &quot;dark&quot; color schemes for the StandardTipPage. Here, you will examine how this is coded. </p>
+<ol>
+<li>Open StandardTipPage.xaml.cs.</li>
+<li>Locate the two click handlers that update the UI colors.</li>
+</ol>
+<pre class="prettyprint"><code>void OnLight(object sender, EventArgs e)
+{
+    <mark>LayoutRoot.BackgroundColor = Color.Silver;</mark>
+
+    <mark>tipLabel   .TextColor = Color.Navy;</mark>
+    <mark>billLabel  .TextColor = Color.Navy;</mark>
+    <mark>totalLabel .TextColor = Color.Navy;</mark>
+    <mark>tipOutput  .TextColor = Color.Navy;</mark>
+    <mark>totalOutput.TextColor = Color.Navy;</mark>
+}
+
+void OnDark(object sender, EventArgs e)
+{
+    ...
+}
+</code></pre>
+
+<ol start="3">
+<li>Notice how the code must update the colors for each control individually resulting in repeated code.</li>
+</ol>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you observed how difficult it is to maintain an app that contains repeated code. Subsequent exercises will use Resources and Styles to eliminate much of the repeated XAML. </p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>XAM150 REST-based Web Services</title>
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/prettify.css">
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/styles.css">
+</head>
+
+<body>
+    <!-- This will be filled in at runtime -->
+    <header role="course-title"></header>
+    <section id="main">
+        <h2>Consuming REST-based Web Services (XAM150)</h2>
+<p>Users expect to access their information anytime from any location using any device. This leads most app developers to store data in the cloud and retrieve it as needed from client devices. REST-based web services are the dominant strategy for this type of device-to-server communication. In this course, you will see how to consume REST-based web services with HttpClient using both the managed networking stack and the platform-specific handlers that boost performance. You will also learn some common strategies for dealing with the unique challenges that mobile devices face when communicating over the network.</p>
+<h3>Upon completion you will be able to:</h3>
+<ul>
+<li>Obtain the device's network capabilities</li>
+<li>Describe the strengths of using REST-based services</li>
+<li>Consume REST services in Xamarin-based applications</li>
+<li>Leverage the platform-specific networking stacks</li>
+</ul>
+<h3>Course exercise download</h3>
+<p>Exercise materials are available from <a href="https://github.com/XamarinUniversity/XAM150/">GitHub</a>. The code can be cloned through a desktop Git client or <a href="https://github.com/XamarinUniversity/XAM150/archive/master.zip">downloaded directly</a> as a ZIP file.</p>
+<blockquote class="info-quote">If you are using Windows, try to select a location with a shorter path length to make sure you don't exceed the 260 character limit.
+</blockquote>
+<h2>Lecture</h2>
+<p>Here are the <a target="_blank" href="./parts/slides.pdf">lecture slides</a>.</p>
+<h2>Exercises</h2>
+<ol>
+<li>
+<a href="parts/part1.html">Exercise 1: Determine the network connectivity</a>
+<br>
+<p>The primary goal of this lab will be to create a new Xamarin.Forms application and utilize the <a href="https://github.com/jamesmontemagno/ConnectivityPlugin" target="_blank">Xam.Plugin.Connectivity</a> component to detect the network availability and state. You will display the current network status on two pages as shown in the screenshots below. </p>
+</li>
+<li>
+<a href="parts/part2.html">Exercise 2: Communicate with a book service</a>
+<br>
+<p>In this exercise you will extend a provided Xamarin.Forms application to work with an existing REST service which manages a library of books. You will authenticate with the service, retrieve existing books, add new books, update books and delete books from your bookshelf.</p>
+</li>
+<li>
+<a href="parts/part3.html">Exercise 3: Use the native platform network stack</a>
+<br>
+<p>In this final exercise, we will modify the bookshelf client to use the native platform's networking stack to improve the performance of the network activity and allow us to integrate tighter to the platform. You can either continue from the prior exercise, or use the completed project from the prior exercise if you'd like to start fresh.</p>
+</li>
+</ol>
+
+            <!-- This section is for additional links and examples that are relevant to 
+                the material in this course -->
+            <h2>Additional resources</h2>
+                <h3>Additional Resources</h3>
+                <div class="wslist">
+                    <a target="_blank" href="http://developer.xamarin.com/guides/cross-platform/application_fundamentals/web_services/">Introduction to Web Services</a>        
+                    <a target="_blank" href="http://www.asp.net/web-api/overview/advanced/calling-a-web-api-from-a-net-client">Calling a REST API From a .NET Client</a>        
+                    <a target="_blank" href="https://github.com/Microsoft/api-guidelines">Microsoft REST API Guidelines</a>        
+                    <a target="_blank" href="https://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf">Architectural Styles and the Design of Network-based Software Architectures</a>        
+                    <a target="_blank" href="http://www.thomashanning.com/network-link-conditioner/">Simulating network failure on a Mac with the Network Link Conditioner</a>        
+                </div>
+    </section>
+    <script src="./parts/res/js/jquery.min.js"></script>
+    <script src="./parts/res/js/prettify.js"></script>
+    <script src="./parts/res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

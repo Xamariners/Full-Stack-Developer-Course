@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 2: Keeping the UI and data in sync using bindings (XAM270)</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM270 Data Binding in Xamarin.Forms</header>
+
+    <section id="main">
+        <h2>Exercise 2: Keeping the UI and data in sync using bindings (XAM270)</h2>
+<p>In this exercise you'll implement two-way binding for your UI; this will ensure UI data changes are sent to the code-behind. You'll then implement <code>INotifyPropertyChanged</code> to ensure that the UI is updated when the underlying data is changed.</p>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>This exercise is a continuation of the previous exercise. You can use your existing solution or begin from the prior <strong>Exercise 1</strong> &gt; <strong>Completed</strong> solution in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM270/">course materials</a>.</p>
+
+<hr>
+<h2>Add support for two-way bindings</h2>
+<p>Not all properties default to two-way binding so you'll set the binding mode explicitly.</p>
+<ol>
+<li>Open the <strong>MainPage.xaml</strong> markup file and on each <code>{Binding}</code> you created earlier, set the <code>Mode</code> to be &quot;TwoWay&quot;. Remember you won't use quotes in the markup extension properties!</li>
+</ol>
+<pre class="prettyprint-collapse"><code>&lt;Picker x:Name=&quot;country&quot; SelectedItem=&quot;{Binding Country<mark>, Mode=TwoWay</mark>}&quot; /&gt;
+
+&lt;Label Text=&quot;Current Design was Adopted on&quot; FontAttributes=&quot;Bold&quot; /&gt;
+&lt;DatePicker x:Name=&quot;adopted&quot; MinimumDate=&quot;01/01/1700&quot; HorizontalOptions=&quot;Start&quot; 
+            Date=&quot;{Binding DateAdopted<mark>, Mode=TwoWay</mark>}&quot; /&gt;
+
+&lt;Label Text=&quot;Has Shield&quot; FontAttributes=&quot;Bold&quot; /&gt;
+&lt;Switch x:Name=&quot;hasShield&quot; IsToggled=&quot;{Binding IncludesShield<mark>, Mode=TwoWay</mark>}&quot; /&gt;
+
+&lt;Label Text=&quot;Fun Fact&quot; FontAttributes=&quot;Bold&quot; /&gt;
+&lt;Label x:Name=&quot;description&quot; Text=&quot;{Binding Description}&quot; /&gt;
+</code></pre>
+
+
+<hr>
+<h2>Add support for property change notifications</h2>
+<p>In this part, you'll see why you need <code>INotifyPropertyChanged</code>, and then implement it on our <code>Flag</code> object.</p>
+<ol>
+<li>Open the <strong>MainPage.xaml.cs</strong> code behind file and locate the <code>OnShow</code> method.</li>
+<li>
+<p>You want to modify your <code>Flag</code> object in some way that is independent of the UI.</p>
+<p>Add a year to the <code>Flag.DateAdopted</code> property by calling <code>.AddYears(1)</code> and assigning the returning value back to the <code>DateAdopted</code> property. <em>Note: you must assign the property since <code>DateTime</code> is immutable</em>.</p>
+<pre class="prettyprint-collapse"><code>private async void OnShow(object sender, EventArgs e)
+{
+    <mark>CurrentFlag.DateAdopted = CurrentFlag.DateAdopted.AddYears(1);</mark>
+
+    await DisplayAlert(CurrentFlag.Country,
+        $&quot;{CurrentFlag.DateAdopted:D} - {CurrentFlag.IncludesShield}: {CurrentFlag.MoreInformationUrl}&quot;,
+        &quot;OK&quot;);
+}
+</code></pre>
+
+</li>
+<li>
+Run the application and note the current date displayed. Press the <strong>Show</strong> button in the tool bar. It should display the flag details but the year should be incremented in the alert dialog. Make note of the year displayed.
+</li>
+<li>
+<p>Dismiss the alert dialog and notice that the UI is still displaying the <em>original</em> year even though the data is changing in the underlying model.</p>
+<blockquote class="info-quote">The problem is that Xamarin.Forms is unaware of the property being changed - to make it aware, you need to implement the <code>INotifyPropertyChanged</code> interface on the <code>Flag</code> class.
+</blockquote>
+</li>
+<li>
+Open <strong>Flag.cs</strong> in the <strong>FlagData</strong> project.
+</li>
+<li>
+<p>Modify the <code>Flag</code> class to implement <code>System.ComponentModel.INotifyPropertyChanged</code>. The implementation requires a single event named <code>PropertyChanged</code>.</p>
+<blockquote class="info-quote">If you add the interface definition to the class, you can place your cursor on it and use ALT+ENTER (Windows) or CMD+ENTER (macOS) to get Visual Studio to provide a dummy implementation for you.
+</blockquote>
+<pre class="prettyprint-collapse"><code>public class Flag <mark>: INotifyPropertyChanged</mark>
+{
+    <mark>public event PropertyChangedEventHandler PropertyChanged;</mark>
+    ...
+}
+</code></pre>
+
+</li>
+<li>
+<p>You'll create a helper-method to raise the <code>PropertyChanged</code> event named <code>RaisePropertyChanged</code>. The method will accept a <code>string</code> parameter which is the text name of the property that has changed.</p>
+<ul>
+<li>.NET 4.5 includes an attribute <code>CallerMemberNameAttribute</code> in the <code>System.Runtime.CompilerServices</code> namespace which you can use to get the compiler to identify the property that has been changed. Check the code below for an example. Alternatively, you can have the caller pass the name using the C# <code>nameof()</code> compiler feature.</li>
+<li>Make sure to test the event for <code>null</code> before raising it. You can either use the built-in C# null check support, or for earlier versions of C#, test the event for <code>null</code>, or assign the event to an empty delegate (this is called the <em>null pattern</em>).</li>
+</ul>
+<pre class="prettyprint-collapse"><code>using System.Runtime.CompilerServices;
+...
+public class Flag : INotifyPropertyChanged
+{
+    public event PropertyChangedEventHandler PropertyChanged;
+    ...
+    <mark>private void RaisePropertyChanged([CallerMemberName] string propertyName = &quot;&quot;)</mark>
+    <mark>{</mark>
+    <mark>    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));</mark>
+    <mark>}</mark>
+}
+</code></pre>
+
+</li>
+<li>
+You'll change the <code>DateAdopted</code> property first but you should perform these steps for <em>every</em> property which could be changed independent of the UI.
+</li>
+<li>
+<p>Change the existing <code>DateAdopted</code> auto-property into a field-backed property and when it is changed, call the new <code>RaisePropertyChanged</code> method to notify the UI.</p>
+<p>Hints:</p>
+<ul>
+<li>Make sure to compare the two values - it's inefficient to raise a property change notification if the value has not changed.</li>
+<li>Assign the new value.</li>
+<li>Raise the property change notification using your new method.</li>
+</ul>
+<pre class="prettyprint-collapse"><code>private DateTime _dateAdopted;
+...
+public DateTime DateAdopted
+{
+    get { return _dateAdopted; }
+    set
+    {
+        if (_dateAdopted != value)
+        {
+            _dateAdopted = value;
+            // Can pass the property name as a string,
+            // -or- let the compiler do it because of the
+            // CallerMemberNameAttribute on the RaisePropertyChanged method.
+            RaisePropertyChanged();
+        }
+    }
+}
+</code></pre>
+
+</li>
+<li>
+<p>Run the application, scroll down to the Current Design was Adopted On <code>DatePicker</code> and tab the <strong>Show</strong> button - you should see the date changing when it's changed in the underlying <code>Flag</code> object. You can fix the other properties if you like - you aren't changing any of them, but they would all need to raise the <code>PropertyChanged</code> notification to properly notify the UI in a production application. The completed project included with the lab materials will take this extra step.</p>
+<ul>
+<li>It can be helpful to create a method which does the field comparison and assignment so you only have to call that method in each property setter. Check the completed project for an example.</li>
+</ul>
+</li>
+<li>
+You can also remove the <code>x:Name</code> attributes off all the XAML objects you are now binding - this removes the private field mapped to the control and reduces the Intellisense &quot;clutter&quot; with unused objects.
+</li>
+</ol>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you have taken an existing Xamarin.Forms application and modified it to use Data Binding to populate the UI. You have successfully added two-way binding and implemented the <code>INotifyPropertyChanged</code> interface on your model object.</p>
+<p>You can view the completed solution in the <strong>Exercise 2</strong> &gt; <strong>Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM270/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

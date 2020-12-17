@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<flags>
+  <flag country="Nepal"
+        imageUrl="Images.nepal.png"
+        adopted="12-16-1962"
+        hasShield="true"
+        url="https://en.wikipedia.org/wiki/Flag_of_Nepal">
+    This is the only country that does not have a standard rectangular flag; it's also the oldest official flag in the world - with the basic design going back over 2000 years. The blue frame stands for harmony and peace, reminiscent of Buddha, who was born here. Crimson, on the other hand, is the national color. Some people compare the triangles with the Himalayan summits, but they are actually a Hindu symbol.
+  </flag>
+
+  <flag country="Greece"
+        imageUrl="Images.greece.png"
+        adopted="01-13-1822"
+        hasShield="false"
+        url="https://en.wikipedia.org/wiki/Flag_of_Greece">
+    The blue in the Greek flag is thought to represent the Mediterranean Sea and the white – the white houses along the shore, while others think that the five stripes on the flag stand for the national slogan ‘Freedom or Death’. All agree on one thing – the cross represents Orthodox Christianity.
+  </flag>
+
+  <flag country="Brazil"
+        imageUrl="Images.brazil.png"
+        adopted="11-15-1889"
+        hasShield="true"
+        url="https://en.wikipedia.org/wiki/Flag_of_Brazil">
+    The green background and the yellow rhombus symbolize the former colonial government, the Braganza-Habsburg dynasty. The former coat of arms was replaced by a blue circle with 27 white stars, with the identical positioning of the stars above Rio on the 15th November 1889, each star representing a state. The slogan in the middle means ‘order and progress’.
+  </flag>
+
+  <flag country="Canada"
+        imageUrl="Images.canada.png"
+        adopted="02-15-1965"
+        hasShield="true"
+        url="https://en.wikipedia.org/wiki/Flag_of_Canada">
+    The red colour is reminiscent of the cross of St. George, the protector of the state, and white is taken from the French royal Coat of arms. The maple leaf represents the beautiful Canadian nature, at least during the summer.
+  </flag>
+
+  <flag country="Bhutan"
+        imageUrl="Images.bhutan.png"
+        adopted="01-01-1947"
+        hasShield="true"
+        url="https://en.wikipedia.org/wiki/Flag_of_Bhutan">
+    The Bhutan flag stands out for one feature – the dragon. The name of the country means ’dragon’ so it is logical to be placed on the flag. The dragon originates from the Bhutan mythology, and holds jewels in his paws, that represent wealth.
+  </flag>
+
+  <flag country="United States"
+      imageUrl="Images.usa.png"
+      adopted="06-14-1777"
+      hasShield="false"
+      url="https://en.wikipedia.org/wiki/Flag_of_the_United_States">
+    The popular nickname for USA’s flag is Betsy Ross, after the woman that made the first flag. The interesting facts about flags of USA is that it consists of thirteen horizontal red and white stripes that symbolize the first thirteen states that declared independence in 1776. The blue rectangular with the white stars represent the number of states. Today there are 50 of them, lined up in formations of 6-5-6-5-6-5-6-5-6.
+  </flag>
+
+  <flag country="Australia"
+      imageUrl="Images.australia.png"
+      adopted="02-11-1903"
+      hasShield="false"
+      url="https://en.wikipedia.org/wiki/Flag_of_Australia">
+    Few Australians know the unique and proud story of our flag –the only national flag to fly over an entire continent, but also the first to be chosen in an open public competition. Union Jack represents Australia’s historical links with the United Kingdom. The white 7-pointed Commonwealth Star stands for the unity of the six states and the territories of the Commonwealth of Australia. The Southern Cross, a constellation of five stars that can only be seen in the night skies of the Southern hemisphere, symbolizes Australia’s position in the southern hemisphere. The formal name of the Southern Cross is “Crux Australis” and the individual stars are named by the first five letters of the Greek alphabet in order of brightness – Alpha, Beta, Gamma, Delta and Epsilon.
+  </flag>
+
+</flags>

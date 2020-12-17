@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 2: Using commands to run behavior (XAM320)</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM320 Design an MVVM ViewModel in Xamarin.Forms</header>
+
+    <section id="main">
+        <h2>Exercise 2: Using commands to run behavior (XAM320)</h2>
+<p>You can control the behavior of an application in your ViewModels. For example, what happens when you tap a button or scroll a list? In this exercise, you'll examine commanding and use it to add behavior to your bindable ViewModel.</p>
+<table class="plain">
+<tr>
+<td>
+<figure class="figure">
+<img src="./images/lab3-sim2.png" alt="Screenshot of the completed exercise." class="exercise portrait bordered" />
+</figure>
+</td>
+<td>
+<figure class="figure">
+<img src="./images/lab3-sim1.png" alt="Screenshot of the completed exercise." class="exercise portrait bordered" />
+</figure>
+</td>
+</tr>
+<tr>
+<td>
+<figure class="figure">
+<img src="./images/lab3-sim3.png" alt="Screenshot of the completed exercise." class="exercise portrait bordered" />
+</figure>
+</td>
+<td>
+<figure class="figure">
+<img src="./images/lab3-sim2.png" alt="Screenshot of the completed exercise." class="exercise portrait bordered" />
+</figure>
+</td>
+</tr>
+</table>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Explore the starter application</h2>
+<p>Let's start by exploring the new starter application to see the changes.</p>
+<ol>
+<li>Open the starter solution from the <strong>Exercise 2</strong> &gt; <strong>Start</strong> folder in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM320/">course materials</a> in either <strong>Visual Studio</strong> on Windows or <strong>Visual Studio for Mac</strong>.</li>
+<li>
+<p>There are several changes in the project. In particular, we've added a new NuGet package - <strong>XamarinUniversity.Infrastructure</strong> which contains a collection of classes to work with Xamarin.Forms and MVVM.</p>
+<p>You can get full details on the library (and source code) from the <a href="https://github.com/xamarinhq/xamu-infrastructure" target="_blank">Github repo</a> but here are the highlights:</p>
+<ul>
+<li>
+<strong>DependencyServiceExtension</strong>
+This is a custom markup extension which allows XAML to lookup a dependency by type from the <code>DependencyService</code> class in Xamarin.Forms. You'll use this to lookup the <code>MainViewModel</code> for each of our pages. Use it like this:
+<pre class="prettyprint"><code>BindingContext=&quot;{infrastructure:DependencyService Type={x:Type viewModels:MainViewModel}}&quot;
+</code></pre>
+
+Where <code>infrastructure:</code> and <code>viewModels:</code> are both namespaces defined in the XAML.
+</li>
+<li>
+<strong>PickerBindBehavior</strong>
+This class allows a <code>Picker.Item</code> property to be data bound to a collection with a selection. By default, the picker does not support data binding (the property is not bindable). This behavior overcomes that restriction through a <strong>Items</strong> and <strong>SelectedItem</strong> bindable property. You can see it in use in the <code>EditQuotePage</code> XAML.
+</li>
+<li>
+<strong>TaskExtensions</strong>
+This is a simple static class with a single static extension method for <code>Task</code> which will remove compiler warnings from un-<code>await</code>ed tasks.
+</li>
+<li>
+<strong>IMessageVisualizerService</strong>
+This is an abstraction over the <code>Page.DisplayAlert</code> API which allows a View Model to show UI alerts without taking a dependency on a page or the Xamarin.Forms API directly. It is registered through the <code>DependencyService</code> in <strong>App.xaml.cs</strong> by a call to <code>XamUInfrastructure.Init()</code> to an implementation (<strong>FormsMessageVisualizerService</strong>) and you can find it being used to prompt the user when a quote is deleted in the <code>MainViewModel</code> code.
+</li>
+<li>
+<strong>INavigationService</strong>
+This is an abstraction over the navigation services provided by Xamarin.Forms. It provides a set of methods to register screens, display a screen, and navigate backwards. The default implementation is contained in the <code>FormsNavigationPageService</code> class.
+</li>
+<li>
+<strong>FormsNavigationPageService</strong>
+This is the Xamarin.Forms navigation implementation that allows a View Model to change the current page view without a dependency on Xamarin.Forms. It is specifically tailored to <code>NavigationPage</code> - it knows the pages and how to show them. It is registered through the <code>DependencyService</code> in <strong>App.xaml.cs</strong> by calling <code>XamUInfrastructure.Init()</code> and you can find it being used in the <code>MainViewModel</code> code. You need to access this type directly to register your pages.
+</li>
+<li>
+<strong>SimpleViewModel</strong>
+An enhanced version of the <code>SimpleViewModel</code> you used in earlier versions of the lab is included in the library. It has the same methods, but the source file has been removed so you'll use the NuGet version.
+</li>
+</ul>
+<blockquote class="info-quote">Navigation Details:
+The <code>FormsNavigationPageService</code> implementation provides a coupling between a &quot;key&quot; and a <code>Page</code> and has a <code>NavigateAsync</code> method which will locate the underlying <code>NavigationPage</code> in your application and direct it to a new page based on the key. In this application, the page keys are defined through an enumeration - <code>AppPages</code> and have two values: <strong>Edit</strong> and <strong>Detail</strong>. Normally, you would use the <code>RegisterPage</code> method on <code>FormsNavigationPageService</code> to associate each page key to a specific <code>Page</code> type. However if you examine the <code>App.xaml.cs</code> file, you will find that only the <strong>Edit</strong> page is registered. This is not a bug - it's intentional.
+Since your application is using a <code>MasterDetailPage</code> as the root &quot;main&quot; page, it has two pages: a &quot;master&quot; page and a &quot;details&quot; page. The <code>FormsNavigationPageService</code> implementation understands <code>MasterDetailPage</code> and expects that all navigation occurs on the &quot;details&quot; page (e.g. that the page is a <code>NavigationPage</code>. When you call the <code>NavigateAsync</code> method, it will automatically hide the &quot;master&quot; page when running on a phone device and perform the navigation on the &quot;details&quot; page. If there is no page to display (because the passed key does not exist), then it just displays the details page. So, when the code makes a call like <code>navService.NavigateAsync(AppPages.Detail)</code>, even though there is no registered page for that key, it will still cause behavior when we are running on a phone device. This automatic treatment for <code>MasterDetailsPage</code> can be turned off through a property - see the <a href="https://github.com/xamarinhq/xamu-infrastructure/wiki/FormsNavigationPageService" target="_blank">documentation</a> for more information.
+</blockquote>
+<p>In addition, there is a new <code>EditQuotePage</code> which is used to edit a quote and the <code>QuoteListPage</code> and <code>QuoteDetailPage</code> have been updated to include toolbar buttons to add, delete and edit the quotes. These are currently wired up to event handlers in the code behind which then use some shared code in the view model. These pages have also been changed to set the <code>BindingContext</code> in XAML. Finally, the <strong>App.xaml.cs</strong> writes the changed quotes back to disk using the <code>QuoteManager.Save</code> method.</p>
+<p>Finally, we have <strong>MainViewModel.cs</strong> which exposes the primary view model used by the application. It is registered with the Xamarin.Forms <code>DependencyService</code> in <strong>App.xaml.cs</strong>. The <strong>QuoteListPage.xaml</strong> and <strong>QuoteDetailPage.xaml</strong> have both been updated to look up this view model and set it as their <code>BindingContext</code>. We have a custom markup extension which provides this functionality (<strong>DependencyServiceExtension.cs</strong>).</p>
+</li>
+</ol>
+
+<hr>
+<h2>Run the application</h2>
+<ol>
+<li>Run the application and go through the various operations - select a quote, then tap the &quot;Quotes&quot; button on the top left to get back to the list. You can also try running it in a tablet form factor - in this mode, when you are in landscape orientation, the master and detail views will be shown simultaneously.</li>
+<li>When the details screen is showing, you can use the Edit and Delete buttons in the toolbar. This same functionality is exposed through either a swipe to the left gesture (iOS) or a long-click (Windows and Android) when looking at the master page (list of quotes).</li>
+<li>The master page (list of quotes) has an &quot;Add&quot; button which lets you add a new quote.</li>
+</ol>
+
+<hr>
+<h2>Add in commanding support</h2>
+<p>The toolbar buttons and <code>ListView</code> actions are all wired up in the code behind. Our first goal is to execute these using commands instead of events.</p>
+<ol>
+<li>Open the <code>MainViewModel</code> and add a new public property named <strong>AddQuote</strong> which is a <code>System.Windows.Input.ICommand</code>.</li>
+<li>In the constructor, set the value of your new command to an instance of a <code>Command</code>. Recall that this is a built-in implementation of an <code>ICommand</code> that uses delegates to forward the command to our ViewModel logic. Pass in the method <code>OnAddQuote</code> which is already part of the view model as the action. There is no need for a <code>CanExecute</code> handler - this command should always be available.</li>
+<li>
+<p>Since the <code>OnAddQuote</code> method is async and returns a <code>Task</code>, you won't be able to point the delegate <em>directly</em> at the method. Instead, use an async lambda to invoke it like this:</p>
+<pre class="prettyprint"><code>new Command(async () =&gt; await OnAddQuote());
+</code></pre>
+
+<pre class="prettyprint-collapse"><code><mark>public ICommand AddQuote { get; private set; }</mark>
+
+public MainViewModel()
+{
+    Quotes = new ObservableCollection&lt;QuoteViewModel&gt;(
+        QuoteManager.Load()
+                    .Select(q =&gt; new QuoteViewModel(q)));
+
+    SelectedQuote = Quotes.FirstOrDefault();
+
+    <mark>AddQuote = new Command(async () =&gt; await OnAddQuote());</mark>
+}
+</code></pre>
+
+</li>
+<li>
+Open the <strong>QuoteListPage.xaml</strong> UI definition and locate the <code>ToolbarItem</code> for the Add operation. Remove the <code>Click</code> event handler and replace it with a <code>Command</code> property bound to your <code>AddQuote</code> command.
+</li>
+<li>Open the code behind file and remove the existing handler <code>OnAddQuote</code> which was calling the view model - this is no longer necessary.</li>
+<li>You can change the <code>OnAddQuote</code> method in your view model to be private since it will only be used by the command now.</li>
+<li>
+<p>Run the application and test the add logic - it should still work. Try setting a breakpoint in the <code>OnAddQuote</code> logic and check the call stack if you don't completely understand how this is executing.</p>
+<pre class="prettyprint-collapse"><code>&lt;ContentPage.ToolbarItems&gt;
+    &lt;ToolbarItem Text=&quot;Add&quot; Icon=&quot;ic_action_new.png&quot; <mark>Command=&quot;{Binding AddQuote}&quot;</mark> /&gt;
+&lt;/ContentPage.ToolbarItems&gt;
+</code></pre>
+
+</li>
+<li>
+Next, let's implement the Delete logic as a command. Add a new command into the <code>MainViewModel</code> named <strong>DeleteQuote</strong>, this time, have it take a parameter of type <code>QuoteViewModel</code> - there's a <code>Command&lt;T&gt;</code> which allows you to cast the parameter to a type. Point the implementation at the <code>OnDeleteQuote</code> implementation that is already present. Again, there is no need for a <code>CanExecute</code> handler.
+</li>
+<li>
+<p>You will need to again use an async lambda - this one taking the VM and calling the <code>OnDeleteQuote</code> async method. Check the code hint below if you need some guidance.</p>
+<pre class="prettyprint-collapse"><code>public ICommand AddQuote { get; private set; }
+<mark>public ICommand DeleteQuote { get; private set; }</mark>
+
+public MainViewModel()
+{
+    Quotes = new ObservableCollection&lt;QuoteViewModel&gt;(
+        QuoteManager.Load()
+                    .Select(q =&gt; new QuoteViewModel(q)));
+
+    SelectedQuote = Quotes.FirstOrDefault();
+
+    AddQuote = new Command(async () =&gt; OnAddQuote());
+    <mark>DeleteQuote = new Command&lt;QuoteViewModel&gt;(async vm =&gt; OnDeleteQuote(vm));</mark>
+}
+</code></pre>
+
+</li>
+<li>
+Remove the <code>Clicked</code> handler from the menu item.
+</li>
+<li>
+<p>In the <strong>QuoteListPage.xaml</strong> UI, locate the <code>MenuItem</code> associated with the Delete operation and let's bind the <code>Command</code> property to your new <code>DeleteQuote</code> command. However, you need to pause and think for a minute.</p>
+<ul>
+<li>The binding context for the page is the <code>MainViewModel</code>. But the binding context for the <code>MenuItem</code> is the <code>QuoteViewModel</code> being displayed in the cell. That means that a simple statement like <code>{Binding DeleteQuote}</code> won't work here because the <code>BindingContext</code> is not correct. This is a common issue with commands - binding to the correct object.</li>
+<li>One way you can address this is to identify the <code>Binding</code>'s source by setting the <code>Source</code> property on the binding. This allows you to specify a specific object to use as the binding source, if you don't set it, then it uses <code>BindingContext</code>. That's the behavior you've been relying on up to now. In order to fix this problem, you'll need to set this <code>Source</code> property to the <code>MainViewModel</code>. Can you think of a way to do that?</li>
+</ul>
+<blockquote class="info-quote"><strong>How do I find the proper binding source?</strong> The <code>MainViewModel</code> is assigned to the <code>Page.BindingContext</code> property. Is there any way to reference this? For example, if you gave the root tag an <code>x:Name</code> value? Think about the <a href="https://msdn.microsoft.com/en-us/library/ee795380(v=vs.110).aspx" target="_blank">x:Reference</a> directive in XAML. Remember that you want to bind to the <code>DeleteQuote</code> property of the page's binding context! It's a little tricky so think about it. Check the <code>Command</code> property set in the code below if you need further help.
+</blockquote>
+</li>
+<li>
+<p>Since the command needs a parameter, bind the <code>CommandParameter</code> property to <code>{Binding}</code>. This will provide the current binding context as the parameter - this will be the row in the <code>ListView</code> - which happens to be a <code>QuoteViewModel</code>, exactly what you want.</p>
+<pre class="prettyprint-collapse"><code>&lt;ContentPage x:Class=&quot;GreatQuotes.QuoteListPage&quot;
+    <mark>x:Name=&quot;RootPage&quot;</mark> ...&gt;
+    ...
+    &lt;MenuItem <mark>Command=&quot;{Binding BindingContext.DeleteQuote, Source={x:Reference RootPage}}&quot;</mark>
+        <mark>CommandParameter=&quot;{Binding}&quot;</mark>
+        IsDestructive=&quot;True&quot;
+        Text=&quot;Delete&quot; /&gt;
+    ...
+</code></pre>
+
+</li>
+<li>
+Switch to the code behind file and remove the <code>OnDeleteQuote</code> event handler which is no longer used.
+</li>
+<li>
+<p>Do the same change to the <strong>QuoteDetailPage.xaml</strong> and <strong>QuoteDetailPage.xaml.cs</strong> to bind to the command.</p>
+<ul>
+<li>Since the Page's <code>BindingContext</code> is already <code>MainViewModel</code>, you don't need to set a <code>Source</code> - just set the <code>Path</code> for the binding.</li>
+<li>The <code>Command</code> parameter in this case should be data bound to the <code>SelectedQuote</code> property since the binding context is the <code>MainViewModel</code>. As you can see, it's very important to know what your binding context is at each level of the XAML when you are using commands!</li>
+<li>Make sure to remove the event handlers in the code behind file!</li>
+</ul>
+<pre class="prettyprint-collapse"><code>&lt;ContentPage.ToolbarItems&gt;
+    &lt;ToolbarItem Text=&quot;Delete&quot; Icon=&quot;ic_delete.png&quot; <mark>Command=&quot;{Binding DeleteQuote}&quot; CommandParameter=&quot;{Binding SelectedQuote}&quot;</mark> /&gt;
+    ...
+&lt;/ContentPage.ToolbarItems&gt;
+...
+</code></pre>
+
+</li>
+<li>
+Run the application and test the delete logic. Set breakpoints to see how you get to the <code>OnDeleteQuote</code> method in the view model.
+</li>
+<li>Do the same steps for the <strong>Edit</strong> command - the code is almost identical, except you want to use the <code>OnEditQuote</code> method in the <code>MainViewModel</code>. Make sure to make the changes for both the <strong>QuoteListPage</strong> and the <strong>QuoteDetailPage</strong>.</li>
+</ol>
+
+<hr>
+<h2>Support navigation</h2>
+<p>There is a simple <a href="https://github.com/xamarinhq/xamu-infrastructure/blob/master/src/XamU.Infrastructure/Interfaces/INavigationService.cs" target="_blank">INavigationService</a> abstraction included in the <strong>XamarinUniversity.Infrastructure</strong> library. It is already used in most places in the starter project, but there is still a spot in the <code>QuoteListPage</code> which works directly with the navigation system: the <code>ItemTapped</code> handler. Our next goal is to remove this code and push it totally into the view model.</p>
+<blockquote class="info-quote">The default implementation code in <a href="https://github.com/xamarinhq/xamu-infrastructure/blob/master/src/XamU.Infrastructure/Services/StackNavigationService.cs" target="_blank">StackNavigationService</a> is fairly simple. It has a dictionary of <code>string</code> to <code>Page</code> types and you add known pages to the navigation system using the <code>RegisterPage</code> method. You can then navigate to a page by name using the <code>NavigateAsync</code> method and you can go backwards in the stack with the <code>GoBackAsync</code> method. This is one way to manage navigation, and ultimately, the goal is to create some sort of dynamic page registry which the navigation service uses to look up pages based on the view model or some sort of key passed in. <strong>Never use pages directly in your ViewModels!</strong>
+</blockquote>
+<p>There are a few ways you could handle the <code>ItemTapped</code> event in the View Model. Since this is a <code>ListView</code>, you could use the <code>SelectedItem</code> property change notification and perform your navigation there if you select a new quote, this is simple and intuitive. The only problem is that navigation is inherently an asynchronous operation which cannot be awaited in a property setter and will therefore produce a warning if you don't block/await it. There's an extension method named <a href="https://github.com/xamarinhq/xamu-infrastructure/wiki/TaskExtensions" target="_blank">IgnoreResult</a> in the <strong>XamarinUniversity.Infrastructure</strong> library which lets you ignore the warnings produced by Visual Studio.</p>
+<p>Another option is to turn the <code>ItemTapped</code> event into a Command which you can then bind to in our View Model. This requires a <a href="https://blog.xamarin.com/turn-events-into-commands-with-behaviors/" target="_blank">bit of code</a> to perform, but luckily, the infrastructure library already has this code in place in the form of a reusable class: <a href="https://github.com/xamarinhq/xamu-infrastructure/wiki/EventToCommandBehavior" target="_blank">EventToCommandBehavior</a>.</p>
+<ol>
+<li>
+<p>Let's start by adding a new <code>ICommand</code> into our <code>MainViewModel</code>.</p>
+<ul>
+<li>Name it &quot;ShowQuoteDetail&quot;.</li>
+<li>Create a <code>Command</code> object and assign it to the property; have it take a <code>QuoteViewModel</code> as a parameter.</li>
+<li>Create a method &quot;OnShowQuoteDetail&quot; which returns a <code>Task</code> and have the command object call the method.</li>
+<li>Have the <code>OnShowQuoteDetail</code> method set the <code>SelectedQuote</code>, lookup the <code>INavigationService</code> using <code>DependencyService.Get</code> and use the <code>NavigateAsync</code> method to go to the <strong>AppPages.Detail</strong> page. Look at the implementation of the <code>OnEditQuote</code> method if you'd like a little help. It's essentially the same code, just a different page. Since the <strong>QuoteDetailPage</strong> sets the <code>BindingContext</code> itself, you can omit the second parameter to the <code>NavigateAsync</code> method. See the note above on Navigation Details to get a full explanation of navigating to pages in the app.</li>
+</ul>
+<pre class="prettyprint-collapse"><code>private async Task OnShowQuoteDetails(QuoteViewModel qvm)
+{
+    SelectedQuote = qvm;
+    await DependencyService.Get&lt;INavigationService&gt;()
+        .NavigateAsync(AppPages.Detail);
+}
+</code></pre>
+
+</li>
+<li>
+Open the <strong>QuoteListPage.xaml.cs</strong> and locate the <code>ItemTapped</code> event handler and remove it. This was originally using the page navigation API directly. We've moved this logic into our <code>MainViewModel</code>.
+</li>
+<li>
+<p>Next, open the <strong>QuoteListPage.xaml</strong> UI and remove the <code>ItemTapped</code> event on the <code>ListView</code>.</p>
+<blockquote class="info-quote">The <code>EventToCommandBehavior</code> converts an event into a command, and it can optionally pass information to the command in the form of the <code>CommandParameter</code> property, just like the other places where you used the command. The problem is that the information you want is in the <code>ItemTappedEventArgs</code> passed with the event. You don't want to rely <em>directly</em> on this data structure since it's UI and Forms specific. That's why the <code>EventArgsConverter</code> property exists. It lets you assign a <code>IValueConverter</code> to the behavior which will take the sender/EventArgs and turn it into some object passed as the command parameter. In this case, you just want the <code>ItemTappedEventArgs.Item</code> property. <code>EventToCommandBehavior</code> will pass the <strong>sender</strong> as the <strong>value</strong> parameter and the <strong>EventArgs</strong> as the <strong>parameter</strong> parameter to the <code>IValueConverter</code>. See the <a href="https://github.com/xamarinhq/xamu-infrastructure/wiki/EventToCommandBehavior" target="_blank">documentation</a> for more detail if you are interested.
+</blockquote>
+</li>
+<li>
+Add a new source file to your project in the <strong>Converters</strong> folder. Name it &quot;ItemTappedValueConverter&quot;.
+</li>
+<li>The <code>Convert</code> method should take the <strong>parameter</strong> and cast it to a <code>ItemTappedEventArgs</code> and then return the <code>Item</code> property.</li>
+<li>
+<p>Leave the default <code>throw</code> in place for the <code>ConvertBack</code> implementation. It won't be used.</p>
+<pre class="prettyprint-collapse"><code>using System;
+using System.Globalization;
+using Xamarin.Forms;
+
+namespace GreatQuotes.Converters
+{
+    public class ItemTappedValueConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType,
+                              object parameter, CultureInfo culture)
+        {
+            ItemTappedEventArgs e = (ItemTappedEventArgs)parameter;
+            return e.Item;
+        }
+
+        public object ConvertBack(object value, Type targetType,
+                                  object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
+</code></pre>
+
+</li>
+<li>
+<p>Now, create a new <code>ResourceDictionary</code> and apply it to the <strong>QuoteListPage.xaml</strong> page. Create an instance of your <code>ItemTappedValueConverter</code> and add it to the resource dictionary and name it &quot;itemTappedConverter&quot;. Remember that you'll need to define a XAML namespace to help XAML find the class. You can do this globally, on the <code>ContentPage</code> tag, or directly on your resource. Check the code below if you need a hint.</p>
+<pre class="prettyprint-collapse"><code>&lt;ContentPage.Resources&gt;
+    &lt;ResourceDictionary&gt;
+        &lt;ItemTappedValueConverter xmlns=&quot;clr-namespace:GreatQuotes.Converters;assembly=GreatQuotes&quot; x:Key=&quot;itemTappedConverter&quot; /&gt;
+    &lt;/ResourceDictionary&gt;
+&lt;/ContentPage.Resources&gt;
+</code></pre>
+
+</li>
+<li>
+<p>Finally, let's use the <code>EventToCommandBehavior</code>. This ties an event on a UI element to a command on the <code>BindingContext</code>. Here's the code you need to add:</p>
+<pre class="prettyprint"><code>&lt;ListView ItemsSource=&quot;{Binding Quotes}&quot;
+    SeparatorColor=&quot;#c0c0c0&quot;
+    SelectedItem=&quot;{Binding SelectedQuote, Mode=TwoWay}&quot;&gt;
+    <mark>&lt;ListView.Behaviors&gt;</mark>
+    <mark>    &lt;infrastructure:EventToCommandBehavior EventName=&quot;ItemTapped&quot;</mark>
+    <mark>        Command=&quot;{Binding ShowQuoteDetail}&quot;</mark>
+    <mark>        EventArgsConverter=&quot;{StaticResource itemTappedConverter}&quot; /&gt;</mark>
+    <mark>&lt;/ListView.Behaviors&gt;</mark>
+    ...
+</code></pre>
+
+</li>
+<li>
+Run the code and tap a quote. Make sure the details change, and if in the phone form factor, you navigate to the details screen. Just as you did before.
+</li>
+</ol>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you've created commands to model the Add and Delete logic. You also utilized those commands in XAML so that you have most of the business style logic all present in the view models.</p>
+<p>You can view the completed solution in the <strong>Exercise 2</strong> &gt; <strong>Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM320/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

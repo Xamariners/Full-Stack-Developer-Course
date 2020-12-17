@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 3: Use Grid to build a UI</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM135 Layout in Xamarin.Forms</header>
+
+    <section id="main">
+        <h2>Exercise 3: Use Grid to build a UI</h2>
+<p>The goal of this lab is to use a <code>Grid</code> to arrange the views in a UI.</p>
+<p>The first screenshot below shows the <strong>Starter</strong> project and the second shows the <strong>Completed</strong> project. Your job is to use a <code>Grid</code> to turn the starter project into the completed version. There is no single &quot;correct&quot; answer here. Use your judgment to produce a UI that looks good to you.</p>
+<img src="./images/ex3-start.png" alt="Initial application screenshot" style="max-width: 250px; border: 1px solid #000;" />
+<img src="./images/ex3-completed.png" alt="Final application screenshot" style="max-width: 250px; border: 1px solid #000;" />
+<p>The images shown above may be sufficient to allow you to complete the lab. If you would like addition guidance, please use the steps on the next pages.</p>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>Open the <strong>Tip Calculator</strong> starter solution from the <strong>Exercise 3 &gt; Start</strong> solution in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM135/">course materials</a> in either <strong>Visual Studio for Windows</strong> or <strong>Visual Studio for Mac</strong>.</p>
+
+<hr>
+<h2>Create a grid layout</h2>
+<p>This section gives step-by-step guidance to create the <code>Grid</code> for the <strong>TipCalculator</strong> UI as it was pictured in the <strong>Completed</strong> screenshot. Attempt to create the UI yourself before following these steps. If you have already created the rows and columns based on the high-level goals given earlier, you can either review these instructions or skip to the next section.</p>
+<ol>
+<li>
+Open <strong>MainPage.xaml</strong>. All your work will be done in this file; there is no need to modify the code-behind.
+</li>
+<li>
+Before we design the <code>Grid</code>, add <code>Padding</code> to the page to avoid overlap of the UI and the iOS status bar. The <code>Top</code> value for the <code>Padding</code> should be at least <code>20</code>.
+</li>
+<li>
+Change the layout from a <code>StackLayout</code> to a <code>Grid</code>.
+</li>
+<li>
+Define 7 rows and 2 columns for the <code>Grid</code>. The image below shows the rows and columns used by the <strong>Completed</strong> project. All the rows are <code>Auto</code> size except the fourth row, which uses <code>*</code>, so it will be allocated all the extra space. The columns both use <code>*</code> sizing. Note that <code>*</code> is the default; however, the <strong>Completed</strong> solution uses it explicitly for clarity.
+</li>
+</ol>
+<figure class="figure">
+<img src="./images/ex3-grid-dissection.png" alt="Sample completed application screenshot with guidelines showing the grid cells" style="max-width: 250px;" />
+</figure>
+<p>The row and column definitions are provided below.</p>
+<pre class="prettyprint-collapse"><code>&lt;Grid.RowDefinitions&gt;
+  &lt;RowDefinition Height=&quot;Auto&quot; /&gt;
+  &lt;RowDefinition Height=&quot;Auto&quot; /&gt;
+  &lt;RowDefinition Height=&quot;Auto&quot; /&gt;
+  &lt;RowDefinition Height=&quot;*&quot; /&gt;
+  &lt;RowDefinition Height=&quot;Auto&quot; /&gt;
+  &lt;RowDefinition Height=&quot;Auto&quot; /&gt;
+  &lt;RowDefinition Height=&quot;Auto&quot; /&gt;
+&lt;/Grid.RowDefinitions&gt;
+
+&lt;Grid.ColumnDefinitions&gt;
+  &lt;ColumnDefinition Width=&quot;*&quot; /&gt;
+  &lt;ColumnDefinition Width=&quot;*&quot; /&gt;
+&lt;/Grid.ColumnDefinitions&gt;
+</code></pre>
+
+
+<hr>
+<h2>Position views in cells</h2>
+<p>This section gives step-by-step guidance to add views to the <code>Grid</code> for the <strong>TipCalculator</strong> UI as it was pictured in the <strong>Completed</strong> screenshot. Attempt to create the UI yourself before following these steps. If you have already finished the exercise based on the high-level goals given earlier, you can either review these instructions or skip to the next section.</p>
+<ol>
+<li>Add settings for <code>Grid.Row</code> and <code>Grid.Column</code> to each of the views to assign them to the appropriate cell in the grid. Note that both of these default to <code>0</code>; however, it is fairly common to assign this value explicitly for clarity. The code below shows an example of this syntax.</li>
+</ol>
+<pre class="prettyprint"><code>&lt;Slider Grid.Row=&quot;4&quot; Grid.Column=&quot;0&quot; ... /&gt;
+</code></pre>
+
+<ol start="2">
+<li>Align the &quot;Bill&quot; <code>Label</code> and the <code>Entry</code> by setting <code>VerticalOptions</code> to <code>Center</code> on the <code>Label</code> (see below).</li>
+</ol>
+<pre class="prettyprint"><code>&lt;Label Text=&quot;Bill&quot; VerticalOptions=&quot;Center&quot; ... /&gt;
+</code></pre>
+
+<ol start="3">
+<li>Add a setting for <code>Grid.ColumnSpan</code> to the <code>Slider</code> so it spans both columns.</li>
+</ol>
+<pre class="prettyprint"><code>&lt;Slider ... Grid.ColumnSpan=&quot;2&quot; ... /&gt;
+</code></pre>
+
+<ol start="4">
+<li>Locate the <code>Label</code> with text of &quot;Tip Percentage&quot;. Set it so it will occupy the bottom-left spot inside its rectangle (see below).</li>
+</ol>
+<pre class="prettyprint"><code>&lt;Label Text=&quot;Tip Percentage&quot; VerticalOptions=&quot;End&quot; HorizontalOptions=&quot;Start&quot; ... /&gt;
+</code></pre>
+
+<ol start="5">
+<li>Locate the <code>Label</code> with a name of <code>tipPercent</code>. Set it so it will occupy the bottom-right spot inside its rectangle (see below).</li>
+</ol>
+<pre class="prettyprint"><code>&lt;Label x:Name=&quot;tipPercent&quot; VerticalOptions=&quot;End&quot; HorizontalOptions=&quot;End&quot; ... /&gt;
+</code></pre>
+
+<ol start="6">
+<li>Run the app to test your work.</li>
+</ol>
+<figure class="figure">
+<img src="./images/ex3-grid-dissection.png" alt="Sample completed application screenshot with guidelines showing the grid cells" style="max-width: 250px;" />
+</figure>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you used a <code>Grid</code> to improve the aesthetics of an existing UI. <code>Grid</code> is more powerful than <code>StackLayout</code>; in particular, <code>Grid</code> makes it easy to align views across different rows.</p>
+<p>You can view the completed solution in the <strong>Exercise 3 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM135/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

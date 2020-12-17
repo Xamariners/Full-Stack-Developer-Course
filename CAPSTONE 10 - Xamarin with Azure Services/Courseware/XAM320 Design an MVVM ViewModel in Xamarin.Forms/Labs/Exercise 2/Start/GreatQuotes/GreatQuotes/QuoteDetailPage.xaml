@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage 
+      xmlns="http://xamarin.com/schemas/2014/forms" 
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:infrastructure="clr-namespace:XamarinUniversity.Infrastructure;assembly=XamU.Infrastructure"
+      xmlns:viewModels="clr-namespace:GreatQuotes.ViewModels;assembly=GreatQuotes"
+      x:Class="GreatQuotes.QuoteDetailPage"
+      BindingContext="{infrastructure:DependencyService Type={x:Type viewModels:MainViewModel}}">
+     
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Delete" Icon="ic_delete.png" Clicked="OnDeleteQuote" />
+        <ToolbarItem Text="Edit" Icon="ic_edit.png" Clicked="OnEditQuote" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowSpacing="10" Padding="5" BindingContext="{Binding SelectedQuote}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Label FontSize="Large" Text="{Binding QuoteText}" 
+                HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+
+        <Label Grid.Row="1" Text="{Binding Author}" 
+                TextColor="Blue"
+                HorizontalOptions="End" HorizontalTextAlignment="End">
+            <Label.Triggers>
+                <DataTrigger TargetType="Label" 
+                            Binding="{Binding Gender}"
+                            Value="Female">
+                    <Setter Property="TextColor" Value="Pink" />
+                </DataTrigger>
+            </Label.Triggers>
+        </Label>
+    </Grid>
+</ContentPage>
+

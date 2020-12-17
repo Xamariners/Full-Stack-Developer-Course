@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Name="RootPage"
+		xmlns="http://xamarin.com/schemas/2014/forms"
+		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+		xmlns:infrastructure="clr-namespace:XamarinUniversity.Infrastructure;assembly=XamU.Infrastructure"
+		xmlns:viewModels="clr-namespace:GreatQuotes.ViewModels;assembly=GreatQuotes"
+		x:Class="GreatQuotes.QuoteListPage" 
+		Title="Quotes" Icon = "ic_action_chat.png"
+    BindingContext="{infrastructure:DependencyService Type={x:Type viewModels:MainViewModel}}">
+
+		<ContentPage.ToolbarItems>
+				<ToolbarItem Text="Add" Icon="ic_action_new.png" Command="{Binding AddQuote}" />
+		</ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+      <ResourceDictionary>
+        <ItemTappedValueConverter xmlns="clr-namespace:GreatQuotes.Converters;assembly=GreatQuotes" x:Key="itemTappedConverter" />
+      </ResourceDictionary>    
+    </ContentPage.Resources>
+
+		<ListView ItemsSource="{Binding Quotes}" 
+			        SeparatorColor="#c0c0c0" 
+              SelectedItem="{Binding SelectedQuote, Mode=TwoWay}">
+      <ListView.Behaviors>
+        <infrastructure:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ShowQuoteDetail}" EventArgsConverter="{StaticResource itemTappedConverter}" />
+      </ListView.Behaviors>
+			<ListView.ItemTemplate>
+			    <DataTemplate>
+    				<TextCell Text="{Binding QuoteText}"
+    								Detail="{Binding Author}" 
+    								DetailColor="{Binding Gender, Converter={StaticResource genderToColorConverter}}">
+    						<TextCell.ContextActions>
+    								<MenuItem Text="Edit" 
+                              Command="{Binding BindingContext.EditQuote, Source={x:Reference RootPage}}"
+                              CommandParameter="{Binding}"  />
+    								<MenuItem Text="Delete" IsDestructive="True" 
+                              Command="{Binding BindingContext.DeleteQuote, Source={x:Reference RootPage}}" 
+                              CommandParameter="{Binding}" />
+    						</TextCell.ContextActions>
+    				</TextCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+
+</ContentPage>

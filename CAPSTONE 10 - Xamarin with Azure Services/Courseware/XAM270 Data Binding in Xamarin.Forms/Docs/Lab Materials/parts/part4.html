@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 4: Homework: Abstracting out the shared code (XAM270)</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM270 Data Binding in Xamarin.Forms</header>
+
+    <section id="main">
+        <h2>Exercise 4: Homework: Abstracting out the shared code (XAM270)</h2>
+<p>In this homework assignment, you will pull all the sharable code out of the code-behind now that it no longer depends on the UI controls and place it into a separate class which can be unit tested.</p>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>This exercise is a continuation of the previous exercise. You can use your existing solution or begin from the prior <strong>Exercise 3</strong> &gt; <strong>Completed</strong> solution in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM270/">course materials</a>.</p>
+
+<hr>
+<h2>Implement INotifyPropertyChanged from a view model</h2>
+<p>See if you can pull the basic flag state out of the code behind and put it into a shared class in the <strong>FlagData</strong> project. Think about how this class could use <code>INotifyPropertyChanged</code> to update the <code>BindingContext</code>. You will need to leave the event handlers in place for the buttons - but the actual logic can be shifted into a shared class, sometimes referred to as a &quot;ViewModel&quot;. Check out the completed lab for a full implementation - it has a new class in the <strong>FlagData</strong> project named <code>FunFlactsViewModel</code>.</p>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>You can view the completed homework solution in the <strong>Exercise 4</strong> &gt; <strong>Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM270/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TipCalculator.CustomTipPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Custom Tip">
+
+    <Grid x:Name="LayoutRoot" Padding="10">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label
+            x:Name="billLabel"
+            Grid.Row="0"
+            Grid.Column="0"
+            FontAttributes="Bold"
+            FontSize="22"
+            Text="Bill" />
+        <Label
+            x:Name="tipLabel"
+            Grid.Row="1"
+            Grid.Column="0"
+            FontAttributes="Bold"
+            FontSize="22"
+            Text="Tip" />
+        <Label
+            x:Name="totalLabel"
+            Grid.Row="2"
+            Grid.Column="0"
+            FontAttributes="Bold"
+            FontSize="22"
+            Text="Total" />
+
+        <Entry
+            x:Name="billInput"
+            Grid.Row="0"
+            Grid.Column="1"
+            Keyboard="Numeric"
+            Placeholder="Enter Amount" />
+        <Label
+            x:Name="tipOutput"
+            Grid.Row="1"
+            Grid.Column="1"
+            FontSize="22"
+            Text="0.00" />
+        <Label
+            x:Name="totalOutput"
+            Grid.Row="2"
+            Grid.Column="1"
+            FontSize="22"
+            Text="0.00" />
+
+        <Grid
+            Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Padding="10"
+            ColumnSpacing="10"
+            VerticalOptions="End">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                FontAttributes="Bold"
+                FontSize="Medium"
+                Text="Tip Percentage" />
+            <Label
+                x:Name="tipPercent"
+                Grid.Row="0"
+                Grid.Column="1"
+                FontSize="Medium"
+                HorizontalOptions="End"
+                Text="15%"
+                YAlign="End" />
+            <Slider
+                x:Name="tipPercentSlider"
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Maximum="100"
+                Minimum="0"
+                Value="15" />
+
+            <Button
+                Grid.Row="2"
+                Grid.Column="0"
+                BorderColor="Accent"
+                BorderRadius="5"
+                BorderWidth="2"
+                Clicked="OnNormalTip"
+                Text="15%" />
+            <Button
+                Grid.Row="2"
+                Grid.Column="1"
+                BorderColor="Accent"
+                BorderRadius="5"
+                BorderWidth="2"
+                Clicked="OnGenerousTip"
+                Text="20%" />
+
+            <Button
+                x:Name="roundDown"
+                Grid.Row="3"
+                Grid.Column="0"
+                BorderColor="Accent"
+                BorderRadius="5"
+                BorderWidth="2"
+                Text="Round Down" />
+            <Button
+                x:Name="roundUp"
+                Grid.Row="3"
+                Grid.Column="1"
+                BorderColor="Accent"
+                BorderRadius="5"
+                BorderWidth="2"
+                Text="Round Up" />
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 6: Use application-wide resources</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM140 Resources and Styles</header>
+
+    <section id="main">
+        <h2>Exercise 6: Use application-wide resources</h2>
+<p>The goal of this exercise is to make resources available across multiple pages by moving them to a resource dictionary in your app class.</p>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>This exercise is a continuation of the previous exercise. You can use your existing solution or begin from the prior <strong>Exercise 5 &gt; Completed</strong> solution in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM140/">course materials</a>.</p>
+
+<hr>
+<h2>Page-level resources</h2>
+<p>This section asks you to verify that resources defined on one page are not available in another page. 
+Your app will not run correctly at the end of this section; however, you will fix it in the next section.</p>
+<ol>
+<li>Open the <strong>TipCalculator</strong> project.</li>
+<li>Open <strong>CustomTipPage.xaml</strong>.</li>
+<li>
+<p>Set the <strong>infoLabelStyle</strong> resource as the <code>Style</code> of the <strong>billLabel</strong> as shown below.</p>
+<blockquote>
+<strong>Note</strong>: if you have extra time, you can apply the appropriate Style to the other labels on the page; however, it is not necessary.
+</blockquote>
+</li>
+</ol>
+<pre class="prettyprint-collapse"><code>&lt;Label x:Name=&quot;billLabel&quot; Text=&quot;Bill&quot; Style=&quot;{StaticResource infoLabelStyle}&quot; Grid.Row=&quot;0&quot; Grid.Column=&quot;0&quot; /&gt;
+</code></pre>
+
+<ol start="4">
+<li>Run the app on a platform of your choice. Navigate to <strong>CustomTipPage</strong>. The app should fail with a message saying the resource lookup failed. This is the correct behavior: the dictionary in <strong>StandardTipPage.xaml</strong> is not searched for resources used in <strong>CustomTipPage.xaml</strong>.</li>
+</ol>
+
+<hr>
+<h2>Application-level resources</h2>
+<p>Now, let's create an application-wide resource dictionary to hold Resources that can be used on multiple pages. Depending on the template selected to create your Xamarin.Forms application, this step may be unnecessary.</p>
+<p>If you already have  <strong>app.xaml.cs</strong> and <strong>app.xaml</strong> files in your project, go to the next page.</p>
+<ol>
+<li>Delete the current <strong>App.cs</strong> file from the PCL project.</li>
+<li>Add a new Forms Xaml Page to the PCL project. Name it <strong>App</strong>.</li>
+<li>Open <strong>App.xaml.cs</strong> and replace the contents with the code below:</li>
+</ol>
+<pre class="prettyprint"><code>using Xamarin.Forms;
+
+namespace TipCalculator
+{
+  public partial class App : Application
+  {
+    public App()
+    {
+      InitializeComponent();
+      MainPage = new NavigationPage(new StandardTipPage());
+    }
+  }
+}
+</code></pre>
+
+<ol start="4">
+<li>Open <strong>App.xaml</strong> and replace the contents with the code below:</li>
+</ol>
+<pre class="prettyprint"><code>&lt;Application
+  xmlns=&quot;http://xamarin.com/schemas/2014/forms&quot;
+  xmlns:x=&quot;http://schemas.microsoft.com/winfx/2009/xaml&quot;
+  x:Class=&quot;TipCalculator.App&quot;&gt;
+
+  &lt;Application.Resources&gt;
+    &lt;ResourceDictionary&gt;
+    &lt;/ResourceDictionary&gt;
+  &lt;/Application.Resources&gt;
+
+&lt;/Application&gt;
+</code></pre>
+
+
+<hr>
+<h2>Move the styles</h2>
+<ol>
+<li>Move your two Styles from <strong>StandardTipPage.xaml</strong> to <strong>App.xaml</strong>.</li>
+</ol>
+<figure class="figure">
+<img src="./images/MoveStyles.gif" alt="image" />
+</figure>
+
+<hr>
+<h2>Run the application</h2>
+<ol>
+<li>Run the app on a platform of your choice.</li>
+<li>Navigate to <strong>CustomTipPage</strong> and verify that the app now works correctly.</li>
+</ol>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you have created and applied Styles to the TipCalculator project.</p>
+<p>You can view the completed solution in the <strong>Exercise 6 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM140/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

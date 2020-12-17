@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+        xmlns="http://xamarin.com/schemas/2014/forms" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+        xmlns:inf="clr-namespace:XamarinUniversity.Infrastructure;assembly=XamU.Infrastructure"
+        x:Class="GreatQuotes.EditQuotePage">
+    
+      <Grid Padding="20">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+          
+          <Entry Text="{Binding FirstName, Mode=TwoWay}" Placeholder="First Name" Grid.Row="0"/>
+          <Entry Text="{Binding LastName, Mode=TwoWay}" Placeholder="Last Name" Grid.Row="1"/>
+          <Picker Title="Gender" Grid.Row="2">
+            <Picker.Behaviors>
+              <inf:PickerBindBehavior Items="{Binding GenderChoices}" SelectedItem="{Binding Gender, Mode=TwoWay}" />
+            </Picker.Behaviors>
+            
+          </Picker>
+          <Editor Text="{Binding QuoteText, Mode=TwoWay}" Keyboard="Text" Grid.Row="3" />
+          <Button Text="Done" Clicked="OnGoBack" Grid.Row="4" />
+      </Grid>
+
+</ContentPage>
