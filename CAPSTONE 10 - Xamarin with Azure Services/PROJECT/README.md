@@ -46,6 +46,8 @@ Overall
 ### Day 1 - 
 Implementing the Home Page UI
 
+<img src="/XFAudioPlayer/screenshots/Full Functionality iOS.gif" width="203"/> <img src="/XFAudioPlayer/screenshots/Home Page iOS.png" width="203"/> <img src="/XFAudioPlayer/screenshots/Audio List Page iOS.png" width="203"/>
+
 Completion criteria:
 Use of ToolBar Button
 Use of Grid/Stack Layout
@@ -55,7 +57,8 @@ Use of ScrollView Element
 
 #### Instructions:
 
-The Home Page consists of 3 main sections.
+Your objective is to implement the Home Page UI as shown in the design, and the final outcome of your implementation should be similar to it. The Home Page consists of 3 main sections.
+
 1st Section - Frame element with a border and shadow effect is wrapping its content inside. The Frame element consists of 3 elements inside it, two Labels and 1 Image element. The 2nd Label needs to wrap its content inside a ScrollView layout. The Image is loading a JPG image from the app package which is already provided in the Project Solution. The Image will be loaded as an Embedded Resource, hence would require an Extension class, which is already provided in the Starter Solution.
 
 2nd Section - Frame element with 2 Label elements inside it. As for the data displayed, feel free to use any hard coded dummy data.
@@ -63,9 +66,13 @@ The Home Page consists of 3 main sections.
 3rd Section - Frame element with 3 other Frame elements inside it. The content inside should be able to scroll horizontally. In each Frame element there are 3 Labels displaying Weather data. As for the data displayed, feel free to use any hard coded dummy data. You need to make sure to apply the Text attributes according to the design such as Bold, Font Sizing and etc.
 
 Useful Resources: 
+
 Xamarin.Forms UI Controls - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/controls/
 Using Image Element - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/images?tabs=windows
 Using ToolbarItem Buttons - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/toolbaritem
+Using Frame Layout - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/layouts/frame
+Using Grid Layout - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/layouts/grid
+Using StackLayout - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/layouts/stacklayout
 
 ### Day 2 - 
 
