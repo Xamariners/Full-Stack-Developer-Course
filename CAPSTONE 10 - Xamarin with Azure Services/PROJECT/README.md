@@ -13,14 +13,12 @@ Project Concept: Contoso University Mobile App
 - Read/Write Data from device
 - Use of CollectionView
 - Use of Data Binding
-- Implementing Detailed View pattern
-- Implementing data CRUD Add/Edit/Delete
+- Implementing CRUD ops (Add/View/Edit/Delete) on data
 
 ### Overall Page Structure
 Home Page
 - Images
 - Navigation Bar Button
-- CarouelView
 - Access Device Location API
 - Call Weather API
 
@@ -31,10 +29,9 @@ https://docs.microsoft.com/en-us/xamarin/essentials/geolocation?tabs=android
 
 Course List Page
 - CollectionView
-- Detailed View
 - Binding
-- Add/Edit/Delete
-- Write to Storage
+- Add/View/Edit/Delete
+- Write to File Storage
 
 https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/collectionview/
 https://docs.microsoft.com/en-us/xamarin/essentials/file-system-helpers?context=xamarin%2Fxamarin-forms&tabs=android
@@ -43,17 +40,17 @@ Overall
 - Color Theme
 - Styles
 
-### Day 1 - 
+### Day 1 (28th December) - 
 Implementing the Home Page UI
 
 <img src="/PROJECT/screenshots/Home Page - Android.png" width="203"/> <img src="/PROJECT/Screenshots/Home Page - iOS.png" width="203"/> <img src="/PROJECT/Screenshots/Home Page - UWP.png" width="203"/>
 
 Completion criteria:
-Use of ToolBar Button
-Use of Grid/Stack Layout
-Use of Image Element
-Use of Frame Element
-Use of ScrollView Element
+- Use of ToolBar Button
+- Use of Grid/Stack Layout
+- Use of Image Element
+- Use of Frame Element
+- Use of ScrollView Element
 
 #### Instructions:
 
@@ -65,7 +62,9 @@ Your objective is to implement the Home Page UI as shown in the design, and the 
 
 3rd Section - Frame element with 3 other Frame elements inside it. The content inside should be able to scroll horizontally. In each Frame element there are 3 Labels displaying Weather data. As for the data displayed, feel free to use any hard coded dummy data. You need to make sure to apply the Text attributes according to the design such as Bold, Font Sizing and etc.
 
-Useful Resources: 
+You need to implement the button at the top right corner of the Home Page which is implemented using ToolbarItem Button as well.
+
+Resources: 
 
 - Xamarin.Forms UI Controls - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/controls/
 - Using Image Element - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/images?tabs=windows
@@ -74,7 +73,39 @@ Useful Resources:
 - Using Grid Layout - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/layouts/grid
 - Using StackLayout - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/layouts/stacklayout
 
-### Day 2 - 
+### Day 2 (29th December) - 
+Implementing Features of Home Page using APIs
+
+Completion criteria:
+- Use of Device Location API
+- Use of RestClient to connect to Weather API
+- Use of JSON data parsing
+
+### Day 3 (30th December) - 
+Implementing Course List Page and Course Create Page 
+
+Completion criteria:
+- Use of Page Navigation
+- Use of File System API
+- Use of Read/Write data with Device Storage
+- Use of CollectionView
+
+### Day 4 (04th January) - 
+Course View Page and Course Delete feature
+
+Completion criteria:
+- Use of CRUD operations on data
+WIP
+
+### Day 5 (05th January) - 
+Styles and Color Themes management
+
+Completion criteria:
+WIP
+
+### Day 6 (06th January, 1/2 day) - 
+
+...
 
 WIP
 
