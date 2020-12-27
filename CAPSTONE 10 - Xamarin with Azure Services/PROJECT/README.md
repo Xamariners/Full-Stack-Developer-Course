@@ -46,7 +46,7 @@ Overall
 ### Day 1 - 
 Implementing the Home Page UI
 
-<img src="/XFAudioPlayer/screenshots/Full Functionality iOS.gif" width="203"/> <img src="/XFAudioPlayer/screenshots/Home Page iOS.png" width="203"/> <img src="/XFAudioPlayer/screenshots/Audio List Page iOS.png" width="203"/>
+<img src="/PROJECT/screenshots/Home Page - Android.png" width="203"/> <img src="/PROJECT/Screenshots/Home Page - iOS.png" width="203"/> <img src="/PROJECT/Screenshots/Home Page - UWP.png" width="203"/>
 
 Completion criteria:
 Use of ToolBar Button
