@@ -43,7 +43,7 @@ Overall
 ### Day 1 (28th December) - 
 Implementing the Home Page UI
 
-<img src="/PROJECT/screenshots/Home Page - Android.png" width="203"/> <img src="/PROJECT/Screenshots/Home Page - iOS.png" width="203"/> <img src="/PROJECT/Screenshots/Home Page - UWP.png" width="203"/>
+<img src="Screenshots/Home Page - Android.png" height="450"/> <img src="Screenshots/Home Page - iOS.png" height="450"/> <img src="Screenshots/Home Page - UWP.png" height="450"/>
 
 Completion criteria:
 - Use of ToolBar Button
