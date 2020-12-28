@@ -232,10 +232,10 @@ Then the CollectionView, we're going to use this for populating the list of Cour
 </CollectionView>
 ```
 
-A Course contains 4 mandatory fields ```Id```, ```Title```, ```Credits``` and ```Department```, as shown in the ```Course.cs``` model class. In the new CourseCreatePage, add 3 pairs of Label and Entry elements for fields Course Id, Title, and Department. Make sure to set up the Keyboard property accordingly
+A Course contains 4 mandatory fields ```Id```, ```Title```, ```Credits``` and ```Department```, as shown in the ```Course.cs``` model class. In the new CourseCreatePage, add 3 pairs of Label and Entry elements for fields Course Id, Title, and Department. Make sure to set up the Keyboard and MaxLength properties accordingly. 
 ```xaml
 <Label Text="Id:" />
-<Entry x:Name="CourseIdEntry" Keyboard="..." />
+<Entry x:Name="CourseIdEntry" Keyboard="..." MaxLength="..." />
 ```
 
 Then for the Credits field you need to set up a Label and a Slider element for selecting the value between 1 - 10 credits. Make sure to set up the ```Binding``` between the Slider ```Value``` and Label's ```Text``` property. We need to format the value displayed in the Label, hence use the  ```StringFormat``` extension to display it as, "Credits: (4) Allocated".
