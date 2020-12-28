@@ -78,18 +78,28 @@ Resources:
 
 #### Implementing Features of Home Page using APIs
 
+You are to implement the features of the Home Page such as loading the Greeting, distance to the University from User's location, and Weather Report of the User's location. (deploy and test on at least 1 or more platforms as you prefer)
+
 Completion criteria:
 - Use of Device Location API
 - Use of RestClient to connect to Weather API
 - Use of JSON data parsing
 
 #### Instructions:
-WIP
+
+Your objective is to implement the features Home Page that are shown in the UI.
+
+Display the Greeting - In Home Page, 2nd Section there's a Label element that shows a greeting message to the user such as "Hey there, Good Morning!", which needs to be handled in the C# code behind according to the time of the day (Morning, Afternoon, Evening times).  
+
+Display the distance to the University from User's location - In Home Page, 2nd Section there's a Label element below the greeting message as "You are 5 km away from the University!", which needs to be handled in the C# code behind according to the time of the day (Morning, Afternoon, Evening times).  
+
+
 
 Resources: 
 
 - Xamarin.Essentials: Geolocation - https://docs.microsoft.com/en-us/xamarin/essentials/geolocation?tabs=android
 - Consume a RESTful Web Service - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/data-cloud/web-services/rest
+- Parsing JSON data with Newtonsoft.JSON - https://www.newtonsoft.com/json
 
 ---
 
