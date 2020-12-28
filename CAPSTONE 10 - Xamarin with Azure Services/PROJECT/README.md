@@ -40,16 +40,16 @@ Each day you should be able to deploy to at least 1 or more Platforms (Android/i
 
 #### Implementing the Home Page UI
 
-You are to implement the Home Page UI as shown below, on Android, on iOS and on Windows UWP (deploy to at least 1 or more platforms as you prefer)
+You are to implement the ```Home Page``` UI as shown below, on Android, on iOS and on Windows UWP (deploy to at least 1 or more platforms as you prefer)
 
-<img src="Screenshots/Home Page - Android.png" height="450"/> <img src="Screenshots/Home Page - iOS.png" height="450"/> <img src="Screenshots/Home Page - UWP.png" height="450"/>
+<img src="Screenshots/Home Page - Android.png" height="450" /> <img src="Screenshots/Home Page - iOS.png" height="450" /> <img src="Screenshots/Home Page - UWP.png" height="450" />
 
 Completion criteria:
 - Use of ToolBar Button
 - Use of Grid/Stack Layout
 - Use of Image Element
-- Use of Frame Element
-- Use of ScrollView Element
+- Use of Frame Layout
+- Use of ScrollView Layout
 
 #### Instructions:
 
@@ -117,6 +117,7 @@ Completion criteria:
 - Use of Device Location API
 - Use of RestClient to connect to Weather API
 - Use of JSON data parsing
+- Use of dynamic data updating in UI Elements
 
 #### Instructions:
 
@@ -142,7 +143,7 @@ double distance = Location.CalculateDistance(
                            contosoUniLocation,
                            DistanceUnits.Kilometers);
 
-Label.Text = "You are " + Math.Floor(distance) + " km away from the University!";
+YourLabel.Text = "You are " + Math.Floor(distance) + " km away from the University!";
 ...
 ```
 
@@ -177,13 +178,16 @@ Resources:
 
 #### Implementing Navigation, Course List and Create Pages
 
-You are to create new Pages, ```Course List Page``` and ```Course Create Page``` to implement Navigation from Home Page. (deploy and test on at least 1 or more platforms as you prefer)
+Your objective is to create new Pages, ```Course List Page``` and ```Course Create Page``` along with their UI as shown in the design, and implement Navigation from Home Page. (deploy and test on at least 1 or more platforms as you prefer)
+
+<img src="Screenshots/Course List Page Empty - Android.png" height="450" /> <img src="Screenshots/Course Create Page - Android.png" height="450" />
 
 Completion criteria:
 - Use of Page Navigation
-- Use of File System API
-- Use of Read/Write data with Device Storage
-- Use of CollectionView
+- Use of CollectionView Element
+- Use of Entry Element
+- Use of Slider Element
+- Use of Simple Binding in UI
 
 #### Instructions:
 
@@ -201,7 +205,7 @@ private void CoursesButton_Clicked(object sender, EventArgs e)
 ```
 You can use the ```Navigation.PushAsync(...)``` method to Navigate to CourseListPage.
 
-In the new CourseListPage, you need to add a ```CollectionView``` element and ```Button``` element, preferably in a Grid Layout. We're going to use this Button to navigate to ```CourseCreatePage```, so let's name it accordingly. 
+In the new CourseListPage, you need to add a ```CollectionView``` element and ```Button``` element, preferably in a Grid Layout. We're going to use this Button to navigate to ```CourseCreatePage```, so let's name it accordingly and set up the click event handler with navigation. 
 ```xaml
 <CollectionView
 	x:Name="CourseListCollectionView"
@@ -210,13 +214,14 @@ In the new CourseListPage, you need to add a ```CollectionView``` element and ``
 	... />
 <Button
 	x:Name="AddNewCourseButton"
-	Grid.Row="1"
 	Text="Create New Course"
+	Clicked="AddNewCourseButton_Clicked"
+	Grid.Row="1"
 	...	/>
 ```
 
-Then the CollectionView, we're going to use this for populating the list of Courses, which we'll do on the next day, but for now let's just add an Empty data declaration View using the ```Collection.EmptyView``` property.
-```
+Then the CollectionView, we're going to use this for populating the list of Courses, which we'll do on the next day, but for now let's just add an Empty data declaration View using the ```Collection.EmptyView``` property. Additionally decorate the view with a Frame layout with border and shadow effect.
+```xaml
 <CollectionView
 	... >
 	<CollectionView.EmptyView>
@@ -227,31 +232,84 @@ Then the CollectionView, we're going to use this for populating the list of Cour
 </CollectionView>
 ```
 
+A Course contains 4 mandatory fields ```Id```, ```Title```, ```Credits``` and ```Department```, as shown in the ```Course.cs``` model class. In the new CourseCreatePage, add 3 pairs of Label and Entry elements for fields Course Id, Title, and Department. Make sure to set up the Keyboard property accordingly
+```xaml
+<Label Text="Id:" />
+<Entry x:Name="CourseIdEntry" Keyboard="..." />
+```
 
+Then for the Credits field you need to set up a Label and a Slider element for selecting the value between 1 - 10 credits. Make sure to set up the ```Binding``` between the Slider ```Value``` and Label's ```Text``` property. We need to format the value displayed in the Label, hence use the  ```StringFormat``` extension to display it as, "Credits: (4) Allocated".
+```xaml
+<Label
+	BindingContext="..."
+	Text="{Binding Path=Value, StringFormat='Credits: ({0:F0}) Allocated'}" />
+<Slider
+	x:Name="CourseCreditsSlider" Maximum="..." Minimum="..." />
+```
 
+Implement a Button at the bottom with text, "Create Course" with a click event handler, which will navigate back to the previous page using ```Navigation.PopAsync();```
+```xaml
+<ToolbarItem
+	Clicked="SaveNewCourseButton_Clicked"
+	Text="Create Course" ... />
+```
+```csharp
+private void SaveNewCourseButton_Clicked(object sender, EventArgs e)
+{ ... }
+```
+
+Additionally decorate the view with a Frame layout with border and shadow effect. You need to make sure to apply the Color styling for Text and Background of the elements according to the design provided.
 
 Resources: 
 
 - Xamarin.Forms Navigation - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/navigation/
 - Xamarin.Forms CollectionView - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/collectionview/
+- Xamarin.Forms Entry - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/text/entry
+- Xamarin.Forms Slider - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/slider
+- Xamarin.Forms Basic Binding - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings
+
+---
+
+### Day 4 (04th January) - 
+
+#### Read/Write data in Device Storage
+
+Your objective is to access Device Storage and save Course data that you create in ```CourseCreatePage```. You will perform simple validations on input data through the UI elements and perform data read/write operations in the Device File System to save your data. Once you have saved enough data, you need to populate them in the CollectionView element in the ```CourseListPage```. (deploy and test on at least 1 or more platforms as you prefer)
+
+Completion criteria:
+- Use of Simple data validation
+- Use of File System API
+- Use of Read/Write data in Device Storage
+- Use of CollectionView to populate data
+
+#### Instructions:
+
+Starter Project located in DAY4/Starter.zip file.
+
+WIP
+
+Reference: 
+
+- Xamarin.Forms CollectionView with Data - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/collectionview/populate-data
 - Xamarin.Essentials: File System Helpers - 
 https://docs.microsoft.com/en-us/xamarin/essentials/file-system-helpers?context=xamarin%2Fxamarin-forms&tabs=android
 
 ---
 
-### Day 4 (04th January) - 
-Course View Page and Course Delete feature
-
-Completion criteria:
-- Use of CRUD operations on data
-WIP
-
----
-
 ### Day 5 (05th January) - 
-Styles and Color Themes management
+
+#### Advanced Navigation and App Styles Management
 
 Completion criteria:
+- Use of Confirmation Alert Dialogs
+- Use of Resources and Styles in XAML
+
+#### Instructions:
+
+Starter Project located in DAY5/Starter.zip file.
+
+Reference: 
+
 WIP
 
 ---
