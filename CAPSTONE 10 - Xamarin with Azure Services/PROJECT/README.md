@@ -29,15 +29,16 @@ Each day you should be able to deploy to at least 1 or more Platforms (Android/i
 	- Data Binding
 	- Read/Write with System File Storage
 
-- Course Create, View, Delete Pages
-- Student Create, View, Delete Pages (Optional)
-- Department Create, View, Delete Pages (Optional)
-- Instructor Create, View, Delete Pages (Optional)
+- Course Create, View, Edit Pages
+- Student Create, View, Edit Pages (Optional)
+- Department Create, View, Edit Pages (Optional)
+- Instructor Create, View, Edit Pages (Optional)
 
 ### Day 1 (28th December) - 
-Implementing the Home Page UI
+#### Implementing the Home Page UI
 
 You are to implement the Home Page UI as shown below, on Android, on iOS and on Windows UWP (deploy to at least 1 or more platforms as you prefer)
+
 <img src="Screenshots/Home Page - Android.png" height="450"/> <img src="Screenshots/Home Page - iOS.png" height="450"/> <img src="Screenshots/Home Page - UWP.png" height="450"/>
 
 Completion criteria:
