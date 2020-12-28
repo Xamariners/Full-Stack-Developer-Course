@@ -53,6 +53,8 @@ Completion criteria:
 
 #### Instructions:
 
+Starter Project located in DAY1/Starter.zip file.
+
 Your objective is to implement the Home Page UI as shown in the design, and the final outcome of your implementation should be similar to it. The Home Page consists of 3 main sections.
 ```xaml
 <Grid ... >
@@ -88,8 +90,7 @@ Your objective is to implement the Home Page UI as shown in the design, and the 
 You need to implement the button at the top right corner of the Home Page which is implemented using ToolbarItem Button as well.
 ```xaml
 <ContentPage.ToolbarItems>
-	<ToolbarItem Text="Courses" 
-	... />
+	<ToolbarItem Text="Courses" ... />
 </ContentPage.ToolbarItems>
 ```
 
@@ -119,6 +120,8 @@ Completion criteria:
 
 #### Instructions:
 
+Starter Project located in DAY2/Starter.zip file.
+
 Your objective is to implement the features Home Page that are shown in the UI.
 
 Display the Greeting - In Home Page, 2nd Section there's a Label element that shows a greeting message to the user such as "Hey there, Good Morning!", which needs to be handled in the C# code behind according to the time of the day (Morning, Afternoon, Evening times).  
@@ -130,16 +133,34 @@ if (DateTime.Now.Hour < 12)
 ...
 ```
 
-Display the distance to the University from User's location - In Home Page, 2nd Section there's a Label element below the greeting message as "You are 5 km away from the University!", which needs to be handled in the C# code behind according to the time of the day (Morning, Afternoon, Evening times).  
+Display the distance to the University from User's location - In Home Page, 2nd Section there's a Label element below the greeting message as "You are 5 km away from the University!", which needs to be handled in the C# code behind by using the Xamarin.Essential's Geolocation API.
 ```csharp
 var locationResult = await Geolocation.GetLastKnownLocationAsync();
 ... 
 double distance = Location.CalculateDistance(
-					deviceLocation, 
-					contosoUniLocation,
-                    DistanceUnits.Kilometers);
+                           deviceLocation, 
+                           contosoUniLocation,
+                           DistanceUnits.Kilometers);
+
+Label.Text = "You are " + Math.Floor(distance) + " km away from the University!";
 ...
-"You are " + Math.Floor(distance) + " km away from the University!";
+```
+
+Retrieve the User's location Weather data using the REST API endpoint, ```https://wedra.azurewebsites.net/api/``` hosted in Azure for you. You may use the RestClient to consume the REST API calls. We have already included the Model classes required in the Starter project. Below shows how to use the API along with the RestClient, which you can directly use in your own project.
+
+First execute the location search endpoint, ```/api/location/search``` to retrieve the Weather location data using the ```Latitude``` and ```Longitude``` values you retrieved from the Geolocation API.
+```csharp
+var locationDataUrl = $"https://wedra.azurewebsites.net/api/location/search?lattlong={deviceLocation.Latitude},{deviceLocation.Longitude}";
+HttpClient client = new HttpClient();
+string locationDataResult = await client.GetStringAsync(locationDataUrl);
+var locationData = JsonConvert.DeserializeObject<WeatherLocationData>(locationDataResult);
+```
+Once you retrive the WeatherLocationData result, finally you can use the Weather data endpoint with the ```WeatherLocationData.Woeid``` parameter to retrieve the Weather data for the location.
+
+```csharp
+var locationWeatherDataUrl = $"https://wedra.azurewebsites.net/api/location/{locationData.Woeid}";
+string locationWeatherDataResult = await client.GetStringAsync(locationWeatherDataUrl);
+var locationWeatherData = JsonConvert.DeserializeObject<WeatherData>(locationWeatherDataResult);
 ```
 
 
