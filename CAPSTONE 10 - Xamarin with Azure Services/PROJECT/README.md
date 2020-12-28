@@ -54,14 +54,47 @@ Completion criteria:
 #### Instructions:
 
 Your objective is to implement the Home Page UI as shown in the design, and the final outcome of your implementation should be similar to it. The Home Page consists of 3 main sections.
+```xaml
+<Grid ... >
+	<Frame ... />
+	<Frame ... />
+	<Frame ... />
+</Grid>
+```
 
-1st Section - Frame element with a border and shadow effect is wrapping its content inside. The Frame element consists of 3 elements inside it, two Labels and 1 Image element. The 2nd Label needs to wrap its content inside a ScrollView layout. The Image is loading a JPG image from the app package which is already provided in the Project Solution. The Image will be loaded as an ```Embedded Resource```, hence would require an ```Extension``` class, which is already provided in the Starter Solution .
+1st Section - Frame element with a border and shadow effect is wrapping its content inside. The Frame element consists of 3 elements inside it, two Labels and 1 Image element. The 2nd Label needs to wrap its content inside a ScrollView layout. The Image is loading a JPG image from the app package which is already provided in the Project Solution. The Image will be loaded as an ```Embedded Resource```, hence would require an ```Extension``` class, which is already provided in the Starter Solution.
+```xaml
+<Image 
+	Source="{extensions:ImageResource ....banner1.jpg}" />
+```
 
 2nd Section - Frame element with 2 Labels inside it. As for the data displayed, feel free to use any hard coded dummy data.
 
 3rd Section - Frame element with 3 other Frame elements inside it. The content inside should be able to scroll horizontally. In each Frame element there are 3 Labels displaying Weather data. As for the data displayed, feel free to use any hard coded dummy data. You need to make sure to apply the Text attributes according to the design such as Bold, Font Sizing and etc.
+```xaml
+<Frame ... >
+	<Grid>
+		<Label ... />
+		<ScrollView Orientation="Horizontal">
+			<Grid ... >
+				<Frame ... />
+				<Frame ... />
+				<Frame ... />
+			</Grid>
+		</ScrollView>
+	</Grid>
+</Frame>
+```
 
-You need to implement the button at the top right corner of the Home Page which is implemented using ToolbarItem Button as well. You may feel free to pick any UI Elements/Controls available in Xamarin.Forms as you prefer to build the UI.
+You need to implement the button at the top right corner of the Home Page which is implemented using ToolbarItem Button as well.
+```xaml
+<ContentPage.ToolbarItems>
+	<ToolbarItem Text="Courses" 
+	... />
+</ContentPage.ToolbarItems>
+```
+
+You may pick any UI Elements/Controls available in Xamarin.Forms as you prefer to build the UI.
 
 Resources: 
 
@@ -90,6 +123,20 @@ Completion criteria:
 Your objective is to implement the features Home Page that are shown in the UI.
 
 Display the Greeting - In Home Page, 2nd Section there's a Label element that shows a greeting message to the user such as "Hey there, Good Morning!", which needs to be handled in the C# code behind according to the time of the day (Morning, Afternoon, Evening times).  
+```csharp
+if (DateTime.Now.Hour < 12)
+{
+	return "Hey there, Good morning!";
+}
+else if (DateTime.Now.Hour < 17)
+{
+	return "Hey there, Good afternoon!";
+}
+else
+{
+	return "Hey there, Good evening!";
+}
+```
 
 Display the distance to the University from User's location - In Home Page, 2nd Section there's a Label element below the greeting message as "You are 5 km away from the University!", which needs to be handled in the C# code behind according to the time of the day (Morning, Afternoon, Evening times).  
 
