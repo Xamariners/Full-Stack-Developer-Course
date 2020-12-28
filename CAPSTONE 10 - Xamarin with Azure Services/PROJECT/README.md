@@ -64,8 +64,7 @@ Your objective is to implement the Home Page UI as shown in the design, and the 
 
 1st Section - Frame element with a border and shadow effect is wrapping its content inside. The Frame element consists of 3 elements inside it, two Labels and 1 Image element. The 2nd Label needs to wrap its content inside a ScrollView layout. The Image is loading a JPG image from the app package which is already provided in the Project Solution. The Image will be loaded as an ```Embedded Resource```, hence would require an ```Extension``` class, which is already provided in the Starter Solution.
 ```xaml
-<Image 
-	Source="{extensions:ImageResource ....banner1.jpg}" />
+<Image Source="{extensions:ImageResource ....banner1.jpg}" />
 ```
 
 2nd Section - Frame element with 2 Labels inside it. As for the data displayed, feel free to use any hard coded dummy data.
@@ -128,18 +127,20 @@ if (DateTime.Now.Hour < 12)
 {
 	return "Hey there, Good morning!";
 }
-else if (DateTime.Now.Hour < 17)
-{
-	return "Hey there, Good afternoon!";
-}
-else
-{
-	return "Hey there, Good evening!";
-}
+...
 ```
 
 Display the distance to the University from User's location - In Home Page, 2nd Section there's a Label element below the greeting message as "You are 5 km away from the University!", which needs to be handled in the C# code behind according to the time of the day (Morning, Afternoon, Evening times).  
-
+```csharp
+var locationResult = await Geolocation.GetLastKnownLocationAsync();
+... 
+double distance = Location.CalculateDistance(
+					deviceLocation, 
+					contosoUniLocation,
+                    DistanceUnits.Kilometers);
+...
+"You are " + Math.Floor(distance) + " km away from the University!";
+```
 
 
 Resources: 
