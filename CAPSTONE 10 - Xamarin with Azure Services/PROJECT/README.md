@@ -155,14 +155,15 @@ HttpClient client = new HttpClient();
 string locationDataResult = await client.GetStringAsync(locationDataUrl);
 var locationData = JsonConvert.DeserializeObject<WeatherLocationData>(locationDataResult);
 ```
-Once you retrive the WeatherLocationData result, finally you can use the Weather data endpoint with the ```WeatherLocationData.Woeid``` parameter to retrieve the Weather data for the location.
 
+Once you retrive the WeatherLocationData result, finally you can use the Weather data endpoint, ```/api/location/{locationid}``` with the ```WeatherLocationData.Woeid``` parameter to retrieve the Weather data for the location.
 ```csharp
 var locationWeatherDataUrl = $"https://wedra.azurewebsites.net/api/location/{locationData.Woeid}";
 string locationWeatherDataResult = await client.GetStringAsync(locationWeatherDataUrl);
 var locationWeatherData = JsonConvert.DeserializeObject<WeatherData>(locationWeatherDataResult);
 ```
 
+Once you retrieve the data from the API, you can populate the data in the Home Page UI elements. Keep in mind the use of Newtonsoft.JSON library, ```JsonConvert``` here to parse JSON data to C# objects, so make sure to add the necessary reference to your project.
 
 Resources: 
 
@@ -173,7 +174,10 @@ Resources:
 ---
 
 ### Day 3 (30th December) - 
-Implementing Course List Page and Course Create Page 
+
+#### Implementing Navigation, Course List and Create Pages
+
+You are to create new Pages, ```Course List Page``` and ```Course Create Page``` to implement Navigation from Home Page. (deploy and test on at least 1 or more platforms as you prefer)
 
 Completion criteria:
 - Use of Page Navigation
@@ -182,10 +186,24 @@ Completion criteria:
 - Use of CollectionView
 
 #### Instructions:
-WIP
+
+Starter Project located in DAY3/Starter.zip file.
+
+Your objective is to create two new XAML Pages, ```CourseListPage.xaml```, ```CourseCreatePage.xaml``` and navigate to them from Home Page. The navigation from Home Page to the ```CourseListPage``` should be handled using the ToolbarItem's Click event.
+```xaml
+<ToolbarItem
+	Clicked="CoursesButton_Clicked"
+	Text="Courses" ... />
+```
+```csharp
+private void CoursesButton_Clicked(object sender, EventArgs e)
+{ ... }
+```
+You can use the ```Navigation.PushAsync(...)``` method to Navigate to CourseListPage.
 
 Resources: 
 
+- Xamarin.Forms Navigation - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/navigation/
 - Xamarin.Forms CollectionView - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/collectionview/
 - Xamarin.Essentials: File System Helpers - 
 https://docs.microsoft.com/en-us/xamarin/essentials/file-system-helpers?context=xamarin%2Fxamarin-forms&tabs=android
