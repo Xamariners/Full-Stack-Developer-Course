@@ -34,7 +34,10 @@ Each day you should be able to deploy to at least 1 or more Platforms (Android/i
 - Department Create, View, Edit Pages (Optional)
 - Instructor Create, View, Edit Pages (Optional)
 
+---
+
 ### Day 1 (28th December) - 
+
 #### Implementing the Home Page UI
 
 You are to implement the Home Page UI as shown below, on Android, on iOS and on Windows UWP (deploy to at least 1 or more platforms as you prefer)
@@ -69,8 +72,11 @@ Resources:
 - Using Grid Layout - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/layouts/grid
 - Using StackLayout - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/layouts/stacklayout
 
+---
+
 ### Day 2 (29th December) - 
-Implementing Features of Home Page using APIs
+
+#### Implementing Features of Home Page using APIs
 
 Completion criteria:
 - Use of Device Location API
@@ -85,6 +91,7 @@ Resources:
 - Xamarin.Essentials: Geolocation - https://docs.microsoft.com/en-us/xamarin/essentials/geolocation?tabs=android
 - Consume a RESTful Web Service - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/data-cloud/web-services/rest
 
+---
 
 ### Day 3 (30th December) - 
 Implementing Course List Page and Course Create Page 
@@ -104,6 +111,8 @@ Resources:
 - Xamarin.Essentials: File System Helpers - 
 https://docs.microsoft.com/en-us/xamarin/essentials/file-system-helpers?context=xamarin%2Fxamarin-forms&tabs=android
 
+---
+
 ### Day 4 (04th January) - 
 Course View Page and Course Delete feature
 
@@ -111,11 +120,15 @@ Completion criteria:
 - Use of CRUD operations on data
 WIP
 
+---
+
 ### Day 5 (05th January) - 
 Styles and Color Themes management
 
 Completion criteria:
 WIP
+
+---
 
 ### Day 6 (06th January, 1/2 day) - 
 
