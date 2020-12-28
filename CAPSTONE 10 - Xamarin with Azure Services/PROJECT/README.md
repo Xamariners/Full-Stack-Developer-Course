@@ -201,6 +201,35 @@ private void CoursesButton_Clicked(object sender, EventArgs e)
 ```
 You can use the ```Navigation.PushAsync(...)``` method to Navigate to CourseListPage.
 
+In the new CourseListPage, you need to add a ```CollectionView``` element and ```Button``` element, preferably in a Grid Layout. We're going to use this Button to navigate to ```CourseCreatePage```, so let's name it accordingly. 
+```xaml
+<CollectionView
+	x:Name="CourseListCollectionView"
+	Grid.Row="0"
+	SelectionMode="Single"
+	... />
+<Button
+	x:Name="AddNewCourseButton"
+	Grid.Row="1"
+	Text="Create New Course"
+	...	/>
+```
+
+Then the CollectionView, we're going to use this for populating the list of Courses, which we'll do on the next day, but for now let's just add an Empty data declaration View using the ```Collection.EmptyView``` property.
+```
+<CollectionView
+	... >
+	<CollectionView.EmptyView>
+		<Grid>
+			<!--  Empty data declaration view  -->
+		</Grid>
+	</CollectionView.EmptyView>
+</CollectionView>
+```
+
+
+
+
 Resources: 
 
 - Xamarin.Forms Navigation - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/navigation/
