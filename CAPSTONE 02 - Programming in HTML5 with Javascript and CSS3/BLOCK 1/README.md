@@ -3,7 +3,7 @@
 ## Day 2
 Home Page (HTML 5)
 
-###Contoso University Homepage
+### Contoso University Homepage
 using HTML5, Bootstrap, Font Awesome
 
 1. Top Nav within (home, students, courses, instructors, departments)
@@ -16,5 +16,5 @@ using HTML5, Bootstrap, Font Awesome
 
 Code: Completed static homepage
 
-
-[](homepage-static.png)
+### STATIC HOMEPAGE
+![](homepage-static.png)

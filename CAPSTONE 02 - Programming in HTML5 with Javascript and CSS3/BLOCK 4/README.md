@@ -5,8 +5,11 @@ Detail, Edit, Delete : student
 
 Code: Completed detail, edit, delete modules for student
 
-[](create.png)
+### CREATE STUDENT
+![](create.png)
 
-[](edit.png)
+### EDIT STUDENT
+![](edit.png)
 
-[](delete.png)
+### DELETE STUDENT
+![](delete.png)

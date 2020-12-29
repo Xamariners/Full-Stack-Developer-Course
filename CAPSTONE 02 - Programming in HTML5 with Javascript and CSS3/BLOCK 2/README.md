@@ -15,6 +15,8 @@ see the repo @ wwroot/scripts/ for API implementation
 
 Code: Completed dynamic Homepage
 
-[](homepage-dynamic.png)
+### DYNAMIC HOMEPAGE
+![](homepage-dynamic.png)
 
-[](homepage-dynamic-2.png)
+### DYNAMIC HOMEPAGE SERVICES
+![](homepage-dynamic-2.png)

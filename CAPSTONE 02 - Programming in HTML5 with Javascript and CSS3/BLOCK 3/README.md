@@ -6,10 +6,14 @@ Extra: department, course, instructor
 
 Code: Completed listing modules
 
-[](list-student.png)
+### STUDENT LIST
+![](list-student.png)
 
-[](list-course.png)
+### COURSE LIST
+![](list-course.png)
 
-[](list-department.png)
+### DEPARTMENT LIST
+![](list-department.png)
 
-[](list-instructor.png)
+### INSTRUCTOR LIST
+![](list-instructor.png)
