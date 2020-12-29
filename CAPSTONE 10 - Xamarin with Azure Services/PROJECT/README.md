@@ -126,7 +126,7 @@ Starter Project located in DAY2/Starter.zip file.
 
 Your objective is to implement the features Home Page that are shown in the UI. You are to implement the functional logic in the page behind class ```HomePage.xaml.cs``` of the ```HomePage.xaml```. As a best practice all the Page behind logic should be executed on the ```OnAppearing()``` event of the Page, which you can override in the ```HomePage.xaml.cs``` class. The Starter project has already set it up for you in the code, so you may start off there itself.
 
-Display the Greeting - In Home Page, 2nd Section there's a Label element that shows a greeting message to the user such as "Hey there, Good Morning!", which needs to be handled in the C# code behind according to the time of the day (Morning, Afternoon, Evening times).  
+In Home Page, 2nd Section there's a Label element that shows a greeting message to the user such as "Hey there, Good Morning!", which needs to be handled in the C# code behind according to the time of the day (Morning, Afternoon, Evening times).  
 ```csharp
 if (DateTime.Now.Hour < 12)
 {
@@ -135,7 +135,7 @@ if (DateTime.Now.Hour < 12)
 ...
 ```
 
-Display the distance to the University from User's location - In Home Page, 2nd Section there's a Label element below the greeting message as "You are 5 km away from the University!", which needs to be handled in the C# code behind by using the Xamarin.Essential's Geolocation API.
+Then we need to display the distance to the University from User's location in Home Page, 2nd Section, there's a Label element below the greeting message as "You are 5 km away from the University!", which needs to be handled in the C# code behind by using the Xamarin.Essential's Geolocation API. Usually you need to set up Location access permission declaration in each platform project separately, but for this exercise we have already set it up for you in the project, so you only have to write the code to access the Location features from the Geolocation API.
 ```csharp
 var deviceLocation = await Geolocation.GetLastKnownLocationAsync();
 ... 
@@ -149,7 +149,7 @@ YourLabel.Text = "You are " + Math.Floor(distance) + " km away from the Universi
 ...
 ```
 
-Retrieve the User's location Weather data using the REST API endpoint, ```https://wedra.azurewebsites.net/api/``` hosted in Azure for you. You may use the RestClient to consume the REST API calls. We have already included the Model classes required in the Starter project. Below shows how to use the API along with the RestClient, which you can directly use in your own project.
+You need to retrieve the User's location Weather data using the REST API endpoint, ```https://wedra.azurewebsites.net/api/``` hosted in Azure for you. You may use the RestClient to consume the REST API calls. We have already included the Model classes required in the Starter project. Below shows how to use the API along with the RestClient, which you can directly use in your own project.
 
 First execute the location search endpoint, ```/api/location/search``` to retrieve the Weather location data using the ```Latitude``` and ```Longitude``` values you retrieved from the Geolocation API.
 ```csharp
@@ -290,7 +290,7 @@ Completion criteria:
 
 Starter Project located in DAY4/Starter.zip file.
 
-Your objective is to save Course data that you create in the ```CourseCreatePage```, into the Device storage using File System API provided by the Xamarin.Essentials library. Then you can access those data in the ```CourseListPage``` directly and populate them in the CollectionView element.
+Your objective is to save Course data that you create in the ```CourseCreatePage```, into the Device storage using File System API provided by the Xamarin.Essentials library and System.IO classes in .NET framework. Then you can access those data in the ```CourseListPage``` directly and populate them in the CollectionView element.
 
 Before we write/save data, we need to make sure the User enters valid data into the fields in UI. In your  ```CourseCreatePage``` page, when the User enter data into the Entry fields, and click on "Create Course" Button, we should check for the validity of the entered data. You can add this logic in the ```SaveNewCourseButton_Clicked``` event handler and perform this validation for each input element.
 ```csharp
@@ -308,15 +308,66 @@ private async void SaveNewCourseButton_Clicked(object sender, EventArgs e)
 }
 ```
 
-Once the validation is success 
+Once the validation is success we construct a new Course object with the data.
+```csharp
+var newCourse = new Course()
+{...}
+```
+
+Keep in mind here, we're trying to maintain a list of Courses provided by our Contoso University. So we need to maintain a list of Course objects when we save our new Course.
+```csharp
+List<Course> courseList = new List<Course>();
+courseList.Add(newCourse);
+```
+
+Then we convert that list of Courses into a JSON text using the Newtonsoft.Json plugin.
+```csharp
+var courseListJson = JsonConvert.SerializeObject(courseList);
+```
+
+Next we use the Xamarin.Essential plugin's File System API to save our data to the App cache directory. Every app has its own cache directory in Android,iOS and Windows, which we can use to save our Course data. We can retrieve the Cache folder path using ```FileSystem.CacheDirectory``` and use it with ```System.IO.Path``` class provided by .NET itself, which allows us to construct a full path to the file that we're going to create to save our data. We're going to save our data in JSON format in the the file, so let's name it as ```CourseListData.json``` and retrieve the full path.
+```csharp
+var dataFilePath = Path.Combine(FileSystem.CacheDirectory, "CourseListData.json");
+```
+
+Then we use the ```System.IO.File``` class provided by .NET itself, which allows us to write files into the App's Cache folder. We could use ```File.WriteAllText()``` method to write the JSON data into the file. 
+```
+File.WriteAllText(dataFilePath, courseListJson);
+```
+
+
+Then we convert it to JSON and write it into the ```CourseListData.json```
+
+
+```
+List<Course> courseList = new List<Course>();
+
+// update existing course list
+if (File.Exists(dataFilePath))
+{
+	var currentDataJson = File.ReadAllText(dataFilePath);
+	courseList = JsonConvert.DeserializeObject<List<Course>>(currentDataJson);
+}
+
+// or create new course list
+courseList.Add(newCourse);
+
+// save course list data
+var courseListJson = JsonConvert.SerializeObject(courseList);
+File.WriteAllText(dataFilePath, courseListJson);
+```
+
+
 
 WIP
 
-Reference: 
+Resources: 
 
-- Xamarin.Forms CollectionView with Data - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/collectionview/populate-data
 - Xamarin.Essentials: File System Helpers - 
 https://docs.microsoft.com/en-us/xamarin/essentials/file-system-helpers?context=xamarin%2Fxamarin-forms&tabs=android
+System.IO.Path in .NET - https://docs.microsoft.com/en-us/dotnet/api/system.io.path?view=net-5.0
+System.IO.File in .NET - https://docs.microsoft.com/en-us/dotnet/api/system.io.file?view=net-5.0
+- Xamarin.Forms CollectionView with Data - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/collectionview/populate-data
 
 ---
 
