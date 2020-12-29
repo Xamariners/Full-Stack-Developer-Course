@@ -196,7 +196,7 @@ Completion criteria:
 
 Starter Project located in DAY3/Starter.zip file.
 
-Your objective is to create two new XAML Pages, ```CourseListPage.xaml```, ```CourseCreatePage.xaml``` and navigate to them from Home Page. The navigation from Home Page to the ```CourseListPage``` should be handled using the ToolbarItem's Click event.
+Your objective is to create two new XAML Pages in the "Pages" folder, ```CourseListPage.xaml```, ```CourseCreatePage.xaml``` and navigate to them from Home Page. The navigation from ```HomePage``` to the ```CourseListPage``` should be handled using the ToolbarItem's Click event, which should be placed inside ```HomePage.xaml.cs``` class.
 ```xaml
 <ToolbarItem
 	Clicked="CoursesButton_Clicked"
@@ -208,7 +208,7 @@ private void CoursesButton_Clicked(object sender, EventArgs e)
 ```
 You can use the ```Navigation.PushAsync(...)``` method to Navigate to CourseListPage.
 
-In the new CourseListPage, you need to add a ```CollectionView``` element and ```Button``` element, preferably in a Grid Layout. We're going to use this Button to navigate to ```CourseCreatePage```, so let's name it accordingly and set up the click event handler with navigation. 
+In the new CourseListPage, you need to add a ```CollectionView``` element and ```Button``` element, preferably in a Grid Layout. We're going to use this Button to navigate to ```CourseCreatePage```, so let's name it accordingly and set up the click event handler with navigation in ```CourseListPage.xaml.cs``` class. 
 ```xaml
 <CollectionView
 	x:Name="CourseListCollectionView"
@@ -235,7 +235,7 @@ Then the CollectionView, we're going to use this for populating the list of Cour
 </CollectionView>
 ```
 
-A Course contains 4 mandatory fields ```Id```, ```Title```, ```Credits``` and ```Department```, as shown in the ```Course.cs``` model class. In the new CourseCreatePage, add 3 pairs of Label and Entry elements for fields Course Id, Title, and Department. Make sure to set up the ```Keyboard``` and ```MaxLength``` properties accordingly. 
+A "Course" contains 4 mandatory fields ```Id```, ```Title```, ```Credits``` and ```Department```, as shown in the ```Course.cs``` model class. In the new CourseCreatePage, add 3 pairs of Label and Entry elements for fields Course Id, Title, and Department. Make sure to set up the ```Keyboard``` property to enable numeric keyboard and ```MaxLength``` property to set up maximum of 4 characters input limit accordingly. 
 ```xaml
 <Label Text="Id:" />
 <Entry x:Name="CourseIdEntry" Keyboard="..." MaxLength="..." />
@@ -277,17 +277,21 @@ Resources:
 
 #### Read/Write data in Device Storage
 
-Your objective is to access Device Storage and save Course data that you create in ```CourseCreatePage```. You will perform simple validations on input data through the UI elements and perform data read/write operations in the Device File System to save your data. Once you have saved enough data, you need to populate them in the CollectionView element in the ```CourseListPage```. (deploy and test on at least 1 or more platforms as you prefer)
+You are to access Device Storage and save Course data. You will perform simple validations on input data through the UI elements and perform data read/write operations in the Device File System to save your data. Then you will populate your data in the CollectionView element. (deploy and test on at least 1 or more platforms as you prefer)
 
 Completion criteria:
 - Use of Simple data validation
 - Use of File System API
 - Use of Read/Write data in Device Storage
 - Use of CollectionView to populate data
+- Use of ItemTemplating to populate data
 
 #### Instructions:
 
 Starter Project located in DAY4/Starter.zip file.
+
+Your objective is to create two new XAML Pages in the "Pages" folder, ```CourseListPage.xaml```, ```CourseCreatePage.xaml``` and navigate to them from Home Page. The navigation from ```HomePage``` to the ```CourseListPage``` should be handled using the ToolbarItem's Click event, which should be placed inside ```HomePage.xaml.cs``` class.
+
 
 WIP
 
