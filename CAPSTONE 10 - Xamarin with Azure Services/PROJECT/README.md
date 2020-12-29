@@ -290,8 +290,25 @@ Completion criteria:
 
 Starter Project located in DAY4/Starter.zip file.
 
-Your objective is to create two new XAML Pages in the "Pages" folder, ```CourseListPage.xaml```, ```CourseCreatePage.xaml``` and navigate to them from Home Page. The navigation from ```HomePage``` to the ```CourseListPage``` should be handled using the ToolbarItem's Click event, which should be placed inside ```HomePage.xaml.cs``` class.
+Your objective is to save Course data that you create in the ```CourseCreatePage```, into the Device storage using File System API provided by the Xamarin.Essentials library. Then you can access those data in the ```CourseListPage``` directly and populate them in the CollectionView element.
 
+Before we write/save data, we need to make sure the User enters valid data into the fields in UI. In your  ```CourseCreatePage``` page, when the User enter data into the Entry fields, and click on "Create Course" Button, we should check for the validity of the entered data. You can add this logic in the ```SaveNewCourseButton_Clicked``` event handler and perform this validation for each input element.
+```csharp
+private async void SaveNewCourseButton_Clicked(object sender, EventArgs e)
+{
+	var courseIdValue = CourseIdEntry.Text;
+	...
+
+	if (!string.IsNullOrEmpty(courseIdValue) &&
+		...
+		...)
+	{
+		...
+	}
+}
+```
+
+Once the validation is success 
 
 WIP
 
