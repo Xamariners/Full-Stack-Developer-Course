@@ -6,7 +6,7 @@ Intro to project
 ## Day 2
 Home Page UI #2
 
-## Day 3 & 4
+## Day 3
 Homepage with services
 
 ## Day 4
