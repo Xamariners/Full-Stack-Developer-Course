@@ -3,6 +3,8 @@
 ## Day 5
 Detail, Edit, Delete : student
 
+Code: Completed detail, edit, delete modules for student
+
 [](create.png)
 
 [](edit.png)
