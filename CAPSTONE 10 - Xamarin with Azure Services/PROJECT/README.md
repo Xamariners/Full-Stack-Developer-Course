@@ -165,7 +165,7 @@ string locationWeatherDataResult = await client.GetStringAsync(locationWeatherDa
 var locationWeatherData = JsonConvert.DeserializeObject<WeatherData>(locationWeatherDataResult);
 ```
 
-Once you retrieve the data from the API, you can populate the data in the Home Page UI elements. Keep in mind the use of Newtonsoft.JSON library, ```JsonConvert``` here to parse JSON data to C# objects, so make sure to add the necessary reference to your project.
+Once you retrieve the data from the API, you can populate the data in the Home Page UI elements. Then you need to set ```WeatherDataDisplayGrid``` to Visible in order to make the weather panel visible. Keep in mind the use of Newtonsoft.JSON library, ```JsonConvert``` here to parse JSON data to C# objects, so make sure to add the necessary reference to your project.
 
 Resources: 
 
