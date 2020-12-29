@@ -136,8 +136,9 @@ if (DateTime.Now.Hour < 12)
 
 Display the distance to the University from User's location - In Home Page, 2nd Section there's a Label element below the greeting message as "You are 5 km away from the University!", which needs to be handled in the C# code behind by using the Xamarin.Essential's Geolocation API.
 ```csharp
-var locationResult = await Geolocation.GetLastKnownLocationAsync();
+var deviceLocation = await Geolocation.GetLastKnownLocationAsync();
 ... 
+Location contosoUniLocation = new Location(1.3521, 103.8198);
 double distance = Location.CalculateDistance(
                            deviceLocation, 
                            contosoUniLocation,
@@ -232,7 +233,7 @@ Then the CollectionView, we're going to use this for populating the list of Cour
 </CollectionView>
 ```
 
-A Course contains 4 mandatory fields ```Id```, ```Title```, ```Credits``` and ```Department```, as shown in the ```Course.cs``` model class. In the new CourseCreatePage, add 3 pairs of Label and Entry elements for fields Course Id, Title, and Department. Make sure to set up the Keyboard and MaxLength properties accordingly. 
+A Course contains 4 mandatory fields ```Id```, ```Title```, ```Credits``` and ```Department```, as shown in the ```Course.cs``` model class. In the new CourseCreatePage, add 3 pairs of Label and Entry elements for fields Course Id, Title, and Department. Make sure to set up the ```Keyboard``` and ```MaxLength``` properties accordingly. 
 ```xaml
 <Label Text="Id:" />
 <Entry x:Name="CourseIdEntry" Keyboard="..." MaxLength="..." />
@@ -249,7 +250,7 @@ Then for the Credits field you need to set up a Label and a Slider element for s
 
 Implement a Button at the bottom with text, "Create Course" with a click event handler, which will navigate back to the previous page using ```Navigation.PopAsync();```
 ```xaml
-<ToolbarItem
+<Button
 	Clicked="SaveNewCourseButton_Clicked"
 	Text="Create Course" ... />
 ```
