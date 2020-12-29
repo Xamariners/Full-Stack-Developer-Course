@@ -114,6 +114,7 @@ Resources:
 You are to implement the features of the Home Page such as loading the Greeting, distance to the University from User's location, and Weather Report of the User's location. (deploy and test on at least 1 or more platforms as you prefer)
 
 Completion criteria:
+- Use of Page behind code implementation
 - Use of Device Location API
 - Use of RestClient to connect to Weather API
 - Use of JSON data parsing
@@ -123,7 +124,7 @@ Completion criteria:
 
 Starter Project located in DAY2/Starter.zip file.
 
-Your objective is to implement the features Home Page that are shown in the UI.
+Your objective is to implement the features Home Page that are shown in the UI. You are to implement the functional logic in the page behind class ```HomePage.xaml.cs``` of the ```HomePage.xaml```. As a best practice all the Page behind logic should be executed on the ```OnAppearing()``` event of the Page, which you can override in the ```HomePage.xaml.cs``` class. The Starter project has already set it up for you in the code, so you may start off there itself.
 
 Display the Greeting - In Home Page, 2nd Section there's a Label element that shows a greeting message to the user such as "Hey there, Good Morning!", which needs to be handled in the C# code behind according to the time of the day (Morning, Afternoon, Evening times).  
 ```csharp
@@ -169,6 +170,7 @@ Once you retrieve the data from the API, you can populate the data in the Home P
 
 Resources: 
 
+- Xamarin.Forms Page Life Cycle -  https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/app-lifecycle#page-navigation-events
 - Xamarin.Essentials: Geolocation - https://docs.microsoft.com/en-us/xamarin/essentials/geolocation?tabs=android
 - Consume a RESTful Web Service - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/data-cloud/web-services/rest
 - Parsing JSON data with Newtonsoft.JSON - https://www.newtonsoft.com/json
