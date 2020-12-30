@@ -362,7 +362,7 @@ Now that we have our list of Course objects, we can populate it in our Collectio
 CourseListCollectionView.ItemsSource = courseList;
 ```
 
-That's not all though, since we're dealing with a list of objects that needs to be populated in a repeatable set of UI Elements, we need to use the concept of Item Templating. We can define the each Items appearance in the CollectionView by using the ```CollectionView.ItemTemplate``` property. You basically 
+That's not all though, since we're dealing with a list of objects that needs to be populated in a repeatable set of UI Elements, we need to use the concept of Item Templating. We can define the each Items appearance in the CollectionView by using the ```CollectionView.ItemTemplate``` property. You basically set up you UI elements inside the ItemTemplate by wrapping it around a DataTemplate object.
 ```xaml
 <CollectionView
 	x:Name="CourseListCollectionView"
@@ -380,7 +380,12 @@ That's not all though, since we're dealing with a list of objects that needs to 
 </CollectionView>
 ```
 
-That's it! pretty straight foward eh!, but here's the next challenge for you. You need to make sure to check if the file already exists in the 
+Make sure to follow the Design you see on the screenshots, with all 4 Label elements and their styling.
+
+**DATA WRITE CHALLENGE**
+
+That's it! pretty straight foward eh!, but here's the next challenge for you. We go back to the 
+ You need to make sure to check if the file already exists in the 
 
 ```
 List<Course> courseList = new List<Course>();
