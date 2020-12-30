@@ -208,7 +208,7 @@ private void CoursesButton_Clicked(object sender, EventArgs e)
 ```
 You can use the ```Navigation.PushAsync(...)``` method to Navigate to CourseListPage.
 
-In the new CourseListPage, you need to add a ```CollectionView``` element and ```Button``` element, preferably in a Grid Layout. We're going to use this Button to navigate to ```CourseCreatePage```, so let's name it accordingly and set up the click event handler with navigation in ```CourseListPage.xaml.cs``` class. 
+In the new CourseListPage, you need to add a ```CollectionView``` element with a name reference as ```CourseListCollectionView``` and ```Button``` element, preferably in a Grid Layout. We're going to use this Button to navigate to ```CourseCreatePage```, so let's name it accordingly and set up the click event handler with navigation in ```CourseListPage.xaml.cs``` class. 
 ```xaml
 <CollectionView
 	x:Name="CourseListCollectionView"
@@ -292,11 +292,11 @@ Starter Project located in DAY4/Starter.zip file.
 
 Your objective is to save Course data that you create in the ```CourseCreatePage```, into the Device storage using File System API provided by the Xamarin.Essentials library and System.IO classes in .NET framework. Then you can access those data in the ```CourseListPage``` directly and populate them in the CollectionView element.
 
-Before we write/save data, we need to make sure the User enters valid data into the fields in UI. In your  ```CourseCreatePage``` page, when the User enter data into the Entry fields, and click on "Create Course" Button, we should check for the validity of the entered data. You can add this logic in the ```SaveNewCourseButton_Clicked``` event handler and perform this validation for each input element.
+First we need to make sure the User enters valid data into the fields in UI. In your  ```CourseCreatePage``` page, when the User enter data into the Entry fields, and click on "Create Course" Button, we should check for the validity of the entered data. You can add this logic in the ```SaveNewCourseButton_Clicked``` event handler and perform this validation for each input element.
 ```csharp
 private async void SaveNewCourseButton_Clicked(object sender, EventArgs e)
 {
-	var courseIdValue = CourseIdEntry.Text;
+	string courseIdValue = CourseIdEntry.Text;
 	...
 
 	if (!string.IsNullOrEmpty(courseIdValue) &&
@@ -310,34 +310,58 @@ private async void SaveNewCourseButton_Clicked(object sender, EventArgs e)
 
 Once the validation is success we construct a new Course object with the data.
 ```csharp
-var newCourse = new Course()
+Course newCourse = new Course()
 {...}
 ```
 
-Keep in mind here, we're trying to maintain a list of Courses provided by our Contoso University. So we need to maintain a list of Course objects when we save our new Course.
+Keep in mind here, we're trying to maintain a list of Courses provided by our Contoso University. So we need to use a list of Course objects when we save our new Course data.
 ```csharp
 List<Course> courseList = new List<Course>();
 courseList.Add(newCourse);
 ```
 
-Then we convert that list of Courses into a JSON text using the Newtonsoft.Json plugin.
+Then you can convert that list of Courses into a JSON text using the ```Newtonsoft.Json``` plugin with```JsonConvert.SerializeObject()```. Your Starter project is already set up with this package, hence you only need to write the code.
+
+**WRITE DATA TO FILE SYSTEM**
+
+Every app has its own Cache directory in Android, iOS and Windows, which we can use to save our Course data. So we use the Xamarin.Essential plugin's File System API to save our data to the App cache directory. We can retrieve the Cache folder path using ```FileSystem.CacheDirectory``` and use it with ```System.IO.Path``` class provided by .NET itself, which allows us to construct a full path to the file that we're going to create and use to save our data. We're going to save our data in JSON format in the file, so let's name it as ```CourseListData.json``` and retrieve the full path.
 ```csharp
-var courseListJson = JsonConvert.SerializeObject(courseList);
+string dataFilePath = Path.Combine(FileSystem.CacheDirectory, "CourseListData.json");
 ```
 
-Next we use the Xamarin.Essential plugin's File System API to save our data to the App cache directory. Every app has its own cache directory in Android,iOS and Windows, which we can use to save our Course data. We can retrieve the Cache folder path using ```FileSystem.CacheDirectory``` and use it with ```System.IO.Path``` class provided by .NET itself, which allows us to construct a full path to the file that we're going to create to save our data. We're going to save our data in JSON format in the the file, so let's name it as ```CourseListData.json``` and retrieve the full path.
+Then we use the ```System.IO.File``` class provided by .NET itself, which allows us to write files into the App's Cache folder. We could use ```File.WriteAllText(...)``` method to write our JSON data into the ```CourseListData.json``` file. 
 ```csharp
-var dataFilePath = Path.Combine(FileSystem.CacheDirectory, "CourseListData.json");
-```
-
-Then we use the ```System.IO.File``` class provided by .NET itself, which allows us to write files into the App's Cache folder. We could use ```File.WriteAllText()``` method to write the JSON data into the file. 
-```
 File.WriteAllText(dataFilePath, courseListJson);
 ```
 
+**READ DATA FROM FILE SYSTEM**
 
-Then we convert it to JSON and write it into the ```CourseListData.json```
+Now that we've written and saved our data in File System, next we should be able to to read it yeah? That should basically be done in ```CourseListPage```, where you should override the ```OnAppearing``` method in the code behind class, just like how we did in ```HomePage.xaml.cs``` class.
 
+Let's read the file by using the same Xamarin.Essential plugin's File System API and with the help from ```System.IO.Path``` and ```System.IO.File``` .NET classes. First we construct the path to our ```CourseListData.json``` file,
+```csharp
+string dataFilePath = Path.Combine(FileSystem.CacheDirectory, "CourseListData.json");
+```
+
+Before we try to read a file, we need to make sure it exists in the given directory, so let's do that with the help of ```File.Exists(...)``` method which returns a boolean value based on the result. Then if we're certain the file exists, we should read it using ```File.ReadAllText(...)``` method provided by same .NET ```System.IO.File``` class.
+```csharp
+if (File.Exists(dataFilePath))
+{
+	string currentDataJson = File.ReadAllText(dataFilePath);
+}
+```
+
+Then you should be able to convert JSON text into a list of Courses ```List<Course>``` using the ```Newtonsoft.Json``` plugin  ```JsonConvert.DeserializeObject<T>()```.
+
+Now that we have our list of Course objects, we can populate it in our CollectionView, using the ```CollectionView.ItemsSource``` property.
+```csharp
+CourseListCollectionView.ItemsSource = courseList;
+```
+
+
+
+
+That's it! pretty straight foward eh!, but here's the next challenge for you. You need to make sure to check if the file already exists in the 
 
 ```
 List<Course> courseList = new List<Course>();
@@ -376,6 +400,7 @@ System.IO.File in .NET - https://docs.microsoft.com/en-us/dotnet/api/system.io.f
 #### Advanced Navigation and App Styles Management
 
 Completion criteria:
+- Use of CollectionView's Item Selection feature
 - Use of Confirmation Alert Dialogs
 - Use of Resources and Styles in XAML
 
