@@ -380,34 +380,29 @@ That's not all though, since we're dealing with a list of objects that needs to 
 </CollectionView>
 ```
 
-Make sure to follow the Design you see on the screenshots, with all 4 Label elements and their styling.
+Make sure to follow the Design you see on the screenshots, with all 4 Label elements and their styling. Once you set up your Labels, then you need to add Binding to their Text properties to display each field in the ```Course``` modal class.
+```csharp
+<Label
+	...
+	Text="{Binding Id, StringFormat='Id: {0}'}" />
+<Label 
+	...
+	Text="{Binding Title}" />
+```
 
 **DATA WRITE CHALLENGE**
 
-That's it! pretty straight foward eh!, but here's the next challenge for you. We go back to the 
- You need to make sure to check if the file already exists in the 
+That's it! pretty straight foward eh!, but here's the next challenge for you. We go back to the ```CourseCreatePage```, where we save the data, and from what we have done so far, we're directly writing our new Course data into the ```CourseListData.json``` file in the Cache folder. As of now, this is creating a problem where every time we save the new Course data, its overriding the previously stored data, which needs to be fixed. Your challenge is to fix this bug. Below are the logical steps that will help you to achieve this solution,
+- check data validation on new Course data
+- check if there is previously saved 
+	- if previously saved data exists
+		- load the previously saved data into a list
+		- append the new Course data into the existing list
+	- if no previously saved data exists
+		- add the new Course data into a new list
+- save the final data into the file
 
-```
-List<Course> courseList = new List<Course>();
-
-// update existing course list
-if (File.Exists(dataFilePath))
-{
-	var currentDataJson = File.ReadAllText(dataFilePath);
-	courseList = JsonConvert.DeserializeObject<List<Course>>(currentDataJson);
-}
-
-// or create new course list
-courseList.Add(newCourse);
-
-// save course list data
-var courseListJson = JsonConvert.SerializeObject(courseList);
-File.WriteAllText(dataFilePath, courseListJson);
-```
-
-
-
-WIP
+One more tip, you may have to use both Read and Write logic that we implemented before in order to solve this. Good luck!
 
 Resources: 
 
