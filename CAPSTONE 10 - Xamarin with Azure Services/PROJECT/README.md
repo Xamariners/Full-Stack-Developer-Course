@@ -381,7 +381,7 @@ That's not all though, since we're dealing with a list of objects that needs to 
 ```
 
 Make sure to follow the Design you see on the screenshots, with all 4 Label elements and their styling. Once you set up your Labels, then you need to add Binding to their Text properties to display each field in the ```Course``` modal class.
-```csharp
+```xaml
 <Label
 	...
 	Text="{Binding Id, StringFormat='Id: {0}'}" />
@@ -393,14 +393,14 @@ Make sure to follow the Design you see on the screenshots, with all 4 Label elem
 **DATA WRITE CHALLENGE**
 
 That's it! pretty straight foward eh!, but here's the next challenge for you. We go back to the ```CourseCreatePage```, where we save the data, and from what we have done so far, we're directly writing our new Course data into the ```CourseListData.json``` file in the Cache folder. As of now, this is creating a problem where every time we save the new Course data, its overriding the previously stored data, which needs to be fixed. Your challenge is to fix this bug. Below are the logical steps that will help you to achieve this solution,
-- check data validation on new Course data
-- check if there is previously saved 
-	- if previously saved data exists
-		- load the previously saved data into a list
-		- append the new Course data into the existing list
-	- if no previously saved data exists
-		- add the new Course data into a new list
-- save the final data into the file
+1. Check data validation on new Course data
+1. Check if there is previously saved 
+   1. If previously saved data exists
+      1. Then load the previously saved data into a list
+      1. And append the new Course data into the existing list
+   1. If no previously saved data exists
+      1. Then add the new Course data into a new list
+1. Finally save the finalized data into the file
 
 One more tip, you may have to use both Read and Write logic that we implemented before in order to solve this. Good luck!
 
