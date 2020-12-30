@@ -279,6 +279,8 @@ Resources:
 
 You are to access Device Storage and save Course data. You will perform simple validations on input data through the UI elements and perform data read/write operations in the Device File System to save your data. Then you will populate your data in the CollectionView element. (deploy and test on at least 1 or more platforms as you prefer)
 
+<img src="Screenshots/Course List Page - Android.png" height="450" /> <img src="Screenshots/Course List Page - iOS.png" height="450" /> <img src="Screenshots/Course List Page - UWP.png" height="450" />
+
 Completion criteria:
 - Use of Simple data validation
 - Use of File System API
@@ -353,13 +355,30 @@ if (File.Exists(dataFilePath))
 
 Then you should be able to convert JSON text into a list of Courses ```List<Course>``` using the ```Newtonsoft.Json``` plugin  ```JsonConvert.DeserializeObject<T>()```.
 
+**COLLECTIONVIEW AND DATA**
+
 Now that we have our list of Course objects, we can populate it in our CollectionView, using the ```CollectionView.ItemsSource``` property.
 ```csharp
 CourseListCollectionView.ItemsSource = courseList;
 ```
 
-
-
+That's not all though, since we're dealing with a list of objects that needs to be populated in a repeatable set of UI Elements, we need to use the concept of Item Templating. We can define the each Items appearance in the CollectionView by using the ```CollectionView.ItemTemplate``` property. You basically 
+```xaml
+<CollectionView
+	x:Name="CourseListCollectionView"
+	... >
+	<CollectionView.EmptyView>
+		...
+	</CollectionView.EmptyView>
+	<CollectionView.ItemTemplate>
+		<DataTemplate>
+			<Grid>
+				...
+			</Grid>
+		</DataTemplate>
+	</CollectionView.ItemTemplate>
+</CollectionView>
+```
 
 That's it! pretty straight foward eh!, but here's the next challenge for you. You need to make sure to check if the file already exists in the 
 
@@ -389,9 +408,11 @@ Resources:
 
 - Xamarin.Essentials: File System Helpers - 
 https://docs.microsoft.com/en-us/xamarin/essentials/file-system-helpers?context=xamarin%2Fxamarin-forms&tabs=android
-System.IO.Path in .NET - https://docs.microsoft.com/en-us/dotnet/api/system.io.path?view=net-5.0
-System.IO.File in .NET - https://docs.microsoft.com/en-us/dotnet/api/system.io.file?view=net-5.0
+- System.IO.Path in .NET - https://docs.microsoft.com/en-us/dotnet/api/system.io.path?view=net-5.0
+- System.IO.File in .NET - https://docs.microsoft.com/en-us/dotnet/api/system.io.file?view=net-5.0
 - Xamarin.Forms CollectionView with Data - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/collectionview/populate-data
+- Xamarin.Forms CollectionView with ItemTemplating - 
+https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/collectionview/populate-data#define-item-appearance
 
 ---
 
