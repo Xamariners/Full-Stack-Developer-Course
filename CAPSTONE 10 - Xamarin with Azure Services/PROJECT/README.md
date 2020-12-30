@@ -390,7 +390,7 @@ Make sure to follow the Design you see on the screenshots, with all 4 Label elem
 	Text="{Binding Title}" />
 ```
 
-**DATA WRITE CHALLENGE**
+**DATA WRITE CHALLENGE!**
 
 That's it! pretty straight foward eh!, but here's the next challenge for you. We go back to the ```CourseCreatePage```, where we save the data, and from what we have done so far, we're directly writing our new Course data into the ```CourseListData.json``` file in the Cache folder. As of now, this is creating a problem where every time we save the new Course data, its overriding the previously stored data, which needs to be fixed. Your challenge is to fix this bug. Below are the logical steps that will help you to achieve this solution,
 1. Check data validation on new Course data
