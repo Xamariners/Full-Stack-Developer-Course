@@ -310,7 +310,7 @@ private async void SaveNewCourseButton_Clicked(object sender, EventArgs e)
 }
 ```
 
-Bonus Tip: You can validate numerical values using int.TryParse() method, which will return you a boolean value based on the validity of the input.
+Bonus Tip: You can validate numerical input values using ```int.TryParse()``` method, which will return you a boolean value based on the validity of the input. The TryParse method will also return you the converted value as an out parameter, which can be set up as an example below,
 ```csharp
 bool courseIdValueParseResult = int.TryParse(courseIdValue, out int courseIdIntValue)
 ```
