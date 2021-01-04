@@ -521,7 +521,7 @@ Now let's handle the Delete button, which allows your User to delete the selecte
 	... />
 ```
 
-It is best practice, to implement confirmation barrier when it comes to executing sensitive operations such as deleting data. So let's follow the same principle here. In the code behind click event handler, you need need to use the Xamarin.Forms ```Page.DisplayAlert()``` method to show a confirmation dialog before executing our data delete logic.
+It is best practice to implement confirmation barrier when it comes to executing sensitive operations such as deleting data. So let's follow the same principle here. In the code behind click event handler, you need need to use the Xamarin.Forms ```Page.DisplayAlert()``` method to show a confirmation dialog before executing our data delete logic.
 ```csharp
 private async void DeleteCourseButton_OnClicked(object sender, EventArgs e)
 {
@@ -570,9 +570,11 @@ Remember the ```Edit Button``` we added in our ```CourseViewPage``` page? This i
 
 Your objective is to add new Page ```CourseEditPage```, pass in the selected Course to update, then save the update changes in it, and finally navigate back to the previous page. Additionally, you should be navigating back to the ```CourseListPage``` direction upon successfully saving the data. You will have to use a mix of both logic of, ```CourseViewPage``` navigation and data delete implementation that we did today. Good luck!
 
-Resources: 
+Resources:
 
-WIP
+Xamarin.Forms CollectionView with Item Selection - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/collectionview/selection 
+Xamarin.Forms Display Confirmation Pop-ups - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/pop-ups
+Xamarin.Forms Page Navigation and Parameters - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/navigation/hierarchical#passing-data-through-a-page-constructor
 
 ---
 
