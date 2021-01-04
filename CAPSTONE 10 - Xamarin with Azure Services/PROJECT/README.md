@@ -455,10 +455,10 @@ First we create the new XAML Page, ```CourseViewPage.xaml``` inside the "Pages" 
                 x:Name="CourseIdLabel" ... />
             <Label
                 x:Name="CourseTitleLabel" ... />
-			...
+            ...
 			
             <Grid
-				... >
+                ... >
                 <Button
                     Text="Delete"
                     ... />
@@ -470,6 +470,8 @@ First we create the new XAML Page, ```CourseViewPage.xaml``` inside the "Pages" 
     </ContentPage.Content>
 </ContentPage>
 ```
+
+**COLLECTIONVIEW AND ITEM SELECTION**
 
 Next you need to modify the ```CollectionView``` in the ```CourseListPage``` to enable Selection feature, which will allow your users to select any given Course item in the list. Use the ```CollectionView.SelectionMode``` property and set up the event handler for ```CollectionView.SelectionChanged``` event in the CollectionView as follows,
 ```xaml
@@ -492,6 +494,8 @@ Course selectedCourse = (Course) e.CurrentSelection.First();
 this.Navigation.PushAsync(new CourseViewPage(selectedCourse));
 ```
 
+**NAVIGATION AND DATA**
+
 Do not forget to modify your ```CourseViewPage``` code behind constructor to accept the parameter and set up the values in the UI elements that you set up earlier. Go through all the properties in the passed in Course object and popuplate them in the Label elements.
 ```csharp
 public partial class CourseViewPage : ContentPage
@@ -507,6 +511,8 @@ public partial class CourseViewPage : ContentPage
 }
 ```
 
+**CONFIRMATION AND DATA DELETE**
+
 Now let's handle the Delete button, which allows your User to delete the selected Course item. First you need to make sure you have added the Click event handler in the code behind,
 ```xaml
 <Button
@@ -515,7 +521,7 @@ Now let's handle the Delete button, which allows your User to delete the selecte
 	... />
 ```
 
-In the code behind click event handler, you need need to use the Xamarin.Forms ```Page.DisplayAlert()``` method to show a confirmation dialog before executing our data delete logic.
+It is best practice, to implement confirmation barrier when it comes to executing sensitive operations such as deleting data. So let's follow the same principle here. In the code behind click event handler, you need need to use the Xamarin.Forms ```Page.DisplayAlert()``` method to show a confirmation dialog before executing our data delete logic.
 ```csharp
 private async void DeleteCourseButton_OnClicked(object sender, EventArgs e)
 {
@@ -558,9 +564,11 @@ var isRemoveSuccess =  courseList.Remove(courseList.First(x => x.Id == _course.I
 
 **HOMEWORK - DATA EDIT CHALLENGE!**
 
+Now that we managed to Delete our data, next we can look into Editing or Updating the data. This is going to be a home work assignment, where you will handle the logic and implementation yourself. 
 
+Remember the ```Edit Button``` we added in our ```CourseViewPage``` page? This is where Data Edit execution should begin by navigating to a new Page which allows you to Edit and save your selected Course data.
 
-
+Your objective is to add new Page ```CourseEditPage```, pass in the selected Course to update, then save the update changes in it, and finally navigate back to the previous page. Additionally, you should be navigating back to the ```CourseListPage``` direction upon successfully saving the data. You will have to use a mix of both logic of, ```CourseViewPage``` navigation and data delete implementation that we did today. Good luck!
 
 Resources: 
 
