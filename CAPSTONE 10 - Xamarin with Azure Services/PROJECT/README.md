@@ -451,10 +451,10 @@ First we create the new XAML Page, ```CourseViewPage.xaml``` inside the "Pages" 
 <ContentPage>
     <ContentPage.Content>
         <Grid>
-			<Label
-				x:Name="CourseIdLabel" ... />
-			<Label
-				x:Name="CourseTitleLabel" ... />
+            <Label
+                x:Name="CourseIdLabel" ... />
+            <Label
+                x:Name="CourseTitleLabel" ... />
 			...
 			
             <Grid
@@ -531,7 +531,7 @@ private async void DeleteCourseButton_OnClicked(object sender, EventArgs e)
 	}
 	else
 	{
-        // Do nothing. Delete operation cancelled by User
+		// Do nothing. Delete operation cancelled by User
 	}
 }
 ```
