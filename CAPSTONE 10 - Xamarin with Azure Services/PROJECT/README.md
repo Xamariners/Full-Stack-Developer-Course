@@ -426,9 +426,13 @@ https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/collection
 
 ### Day 5 (05th January) - 
 
-#### Advanced Navigation and App Styles Management
+#### CollectionView Item Selection and Advanced Navigation 
 
 You are to let your User select an item from the list of Courses and Navigate to the Detailed Page of it. Here you will be passing an object across pages as a parameter. Then you will perform a delete operation on your data with a confirmation from your User. (deploy and test on at least 1 or more platforms as you prefer)
+
+<img src="Screenshots/Course View Page - Android.png" height="450" /> <img src="Screenshots/Course View Page - iOS.png" height="450" /> <img src="Screenshots/Course View Page - UWP.png" height="450" />
+
+<img src="Screenshots/Course View Page - Delete - Android.png" height="450" /> <img src="Screenshots/Course View Page - Delete - iOS.png" height="450" /> <img src="Screenshots/Course View Page - Delete - UWP.png" height="450" />
 
 Completion criteria:
 - Use of CollectionView's Item Selection feature
@@ -440,11 +444,122 @@ Completion criteria:
 
 Starter Project located in DAY5/Starter.zip file.
 
-Your objective is to create a new XAML Page in the "Pages" folder, ```CourseViewPage.xaml```, which will display all the details of a selected Course. Then you're going to enable item selection in the ```CollectionView``` of the  ```CourseListPage``` and you will navigate to the new page while passing in the selected Course item as a parameter to display the Course in full details. Finally you will be able to delete a selected Course upon an alert confirmation from the User.
+Your objective is to create a new XAML Page in the "Pages" folder, ```CourseViewPage.xaml```, which will display all the details of a selected Course. Then you're going to enable item selection in the ```CollectionView``` of the ```CourseListPage``` and you will navigate to the new page while passing in the selected Course item as a parameter. Then at the end you implement logic to delete a selected Course upon an alert confirmation from the User.
 
-Your objective is to create two new XAML Pages in the "Pages" folder, ```CourseListPage.xaml```, ```CourseCreatePage.xaml``` and navigate to them from Home Page. 
+First we create the new XAML Page, ```CourseViewPage.xaml``` inside the "Pages" folder. Then you need to implement the UI as shown in the screenshots, also making sure to set up naming for each Label element so that later you can access them from your Page behind code.
+```xaml
+<ContentPage>
+    <ContentPage.Content>
+        <Grid>
+			<Label
+				x:Name="CourseIdLabel" ... />
+			<Label
+				x:Name="CourseTitleLabel" ... />
+			...
+			
+            <Grid
+				... >
+                <Button
+                    Text="Delete"
+                    ... />
+                <Button
+                    Text="Edit"
+                    ... />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+```
 
-save Course data that you create in the ```CourseCreatePage```, into the Device storage using File System API provided by the Xamarin.Essentials library and System.IO classes in .NET framework. Then you can access those data in the ```CourseListPage``` directly and populate them in the CollectionView element.
+Next you need to modify the ```CollectionView``` in the ```CourseListPage``` to enable Selection feature, which will allow your users to select any given Course item in the list. Use the ```CollectionView.SelectionMode``` property and set up the event handler for ```CollectionView.SelectionChanged``` event in the CollectionView as follows,
+```xaml
+<CollectionView
+	SelectionChanged="..."
+	SelectionMode="..."
+	... >
+	<CollectionView.EmptyView>
+		...
+	</CollectionView.EmptyView>
+	<CollectionView.ItemTemplate>
+		...
+	</CollectionView.ItemTemplate>
+</CollectionView>
+```
+
+In the code behind ```CollectionView.SelectionChanged``` event handler, you can retrieve the selected item using ```CurrentSelection``` property provided in the ```SelectionChangedEventArgs``` parameter. You may take that value and pass into the constructor of your new ```CourseViewPage``` while navigating as shown below,
+```csharp
+Course selectedCourse = (Course) e.CurrentSelection.First();
+this.Navigation.PushAsync(new CourseViewPage(selectedCourse));
+```
+
+Do not forget to modify your ```CourseViewPage``` code behind constructor to accept the parameter and set up the values in the UI elements that you set up earlier. Go through all the properties in the passed in Course object and popuplate them in the Label elements.
+```csharp
+public partial class CourseViewPage : ContentPage
+{
+	public CourseViewPage(Course course)
+	{
+		_course = course;
+		InitializeComponent();
+
+		CourseIdLabel.Text = _course.Id.ToString();
+		...
+	}
+}
+```
+
+Now let's handle the Delete button, which allows your User to delete the selected Course item. First you need to make sure you have added the Click event handler in the code behind,
+```xaml
+<Button
+	x:Name="DeleteCourseButton"
+	Clicked="DeleteCourseButton_OnClicked"
+	... />
+```
+
+In the code behind click event handler, you need need to use the Xamarin.Forms ```Page.DisplayAlert()``` method to show a confirmation dialog before executing our data delete logic.
+```csharp
+private async void DeleteCourseButton_OnClicked(object sender, EventArgs e)
+{
+	bool isDeleteConfirmed = 
+		await this.DisplayAlert(
+			"Warning!", 
+			"Are you sure, you want to delete?", 
+			"Yes", "Cancel");
+
+	if (isDeleteConfirmed)
+	{
+		// Implement Delete data logic
+	}
+	else
+	{
+        // Do nothing. Delete operation cancelled by User
+	}
+}
+```
+
+Once we confirm with our User that they acutually want to delete the Course item from our data store, then we can implement the logic following these steps,
+
+1. Check if there is previously saved data
+	1. Yes, previously saved data exists
+		1. Then load the previously saved data into a list
+	1. If no previously saved data exists
+		1. Then ignore the execution and return
+1. Delete the selected Course object from the list
+1. Check if item was successfully removed
+	1. Yes, successfully removed
+		1. Then save the updated list of Courses
+		1. Navigate back to the previous Page
+	1. Nope, removal failed
+		1. Then stay in the current page
+		
+Tip: You can delete an item from a List in C# using the ```List.Remove(...)``` method, by passing in that list item object. Then to retrieve that targeted list item, you can using use C# LINQ queries and look it up using the unique Id value as follows.
+```csharp
+var isRemoveSuccess =  courseList.Remove(courseList.First(x => x.Id == _course.Id));
+```
+
+**HOMEWORK - DATA EDIT CHALLENGE!**
+
+
+
 
 
 Resources: 
@@ -453,7 +568,9 @@ WIP
 
 ---
 
-### Day 6 (06th January, 1/2 day) - 
+### Day 6 (06th January, 1/2 day) -
+
+#### App Styles Management
 
 Completion criteria:
 - Use of Resources and Styles in XAML
