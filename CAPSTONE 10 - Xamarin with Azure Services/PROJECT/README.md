@@ -310,6 +310,12 @@ private async void SaveNewCourseButton_Clicked(object sender, EventArgs e)
 }
 ```
 
+Bonus Tip: You can validate numerical values using int.TryParse() method, which will return you a boolean value based on the validity of the input.
+```csharp
+bool courseIdValueParseResult = int.TryParse(courseIdValue, out int courseIdIntValue)
+```
+You can use the out parameter ```courseIdIntValue``` as the resulting value.
+
 Once the validation is success we construct a new Course object with the data.
 ```csharp
 Course newCourse = new Course()
@@ -394,7 +400,7 @@ Make sure to follow the Design you see on the screenshots, with all 4 Label elem
 
 That's it! pretty straight foward eh!, but here's the next challenge for you. We go back to the ```CourseCreatePage```, where we save the data, and from what we have done so far, we're directly writing our new Course data into the ```CourseListData.json``` file in the Cache folder. As of now, this is creating a problem where every time we save the new Course data, its overriding the previously stored data, which needs to be fixed. Your challenge is to fix this bug. Below are the logical steps that will help you to achieve this solution,
 1. Check data validation on new Course data
-1. Check if there is previously saved 
+1. Check if there is previously saved data
    1. If previously saved data exists
       1. Then load the previously saved data into a list
       1. And append the new Course data into the existing list
@@ -403,6 +409,8 @@ That's it! pretty straight foward eh!, but here's the next challenge for you. We
 1. Finally save the finalized data into the file
 
 One more tip, you may have to use both Read and Write logic that we implemented before in order to solve this. Good luck!
+
+Make sure to add the ```Navigation.PopAsync();``` at the end of this logic block to perform a backward navigation upon saving the new Course data.
 
 Resources: 
 
@@ -420,16 +428,26 @@ https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/collection
 
 #### Advanced Navigation and App Styles Management
 
+You are to let your User select an item from the list of Courses and Navigate to the Detailed Page of it. Here you will be passing an object across pages as a parameter. Then you will perform a delete operation on your data with a confirmation from your User. (deploy and test on at least 1 or more platforms as you prefer)
+
 Completion criteria:
 - Use of CollectionView's Item Selection feature
-- Use of Confirmation Alert Dialogs
-- Use of Resources and Styles in XAML
+- Use of Passing data between Pages
+- Use of Deleting data
+- Use of Confirmation Alert Dialog
 
 #### Instructions:
 
 Starter Project located in DAY5/Starter.zip file.
 
-Reference: 
+Your objective is to create a new XAML Page in the "Pages" folder, ```CourseViewPage.xaml```, which will display all the details of a selected Course. Then you're going to enable item selection in the ```CollectionView``` of the  ```CourseListPage``` and you will navigate to the new page while passing in the selected Course item as a parameter to display the Course in full details. Finally you will be able to delete a selected Course upon an alert confirmation from the User.
+
+Your objective is to create two new XAML Pages in the "Pages" folder, ```CourseListPage.xaml```, ```CourseCreatePage.xaml``` and navigate to them from Home Page. 
+
+save Course data that you create in the ```CourseCreatePage```, into the Device storage using File System API provided by the Xamarin.Essentials library and System.IO classes in .NET framework. Then you can access those data in the ```CourseListPage``` directly and populate them in the CollectionView element.
+
+
+Resources: 
 
 WIP
 
@@ -437,8 +455,19 @@ WIP
 
 ### Day 6 (06th January, 1/2 day) - 
 
+Completion criteria:
+- Use of Resources and Styles in XAML
+
 ...
 
+#### Instructions:
+
+Starter Project located in DAY6/Starter.zip file.
+
+Resources: 
+
 WIP
+
+---
 
 
