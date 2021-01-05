@@ -709,15 +709,15 @@ Built with Xamarin.Forms, and deployed to Android/iOS/Windows,
 
 Android:
 
-<img src="Screenshots/Home Page - Android.png" height="350" /> <img src="Screenshots/Course List Page - Android.png" height="350" /> <img src="Screenshots/Course Create Page - Android.png" height="350" /> <img src="Screenshots/Course View Page - Android.png" height="350" /> <img src="Screenshots/Course View Page - Delete - Android.png" height="350" /> <img src="Screenshots/Course Edit Page - Android.png" height="350" />
+<img src="Screenshots/Home Page - Android.png" height="250" /> <img src="Screenshots/Course List Page - Android.png" height="250" /> <img src="Screenshots/Course Create Page - Android.png" height="250" /> <img src="Screenshots/Course View Page - Android.png" height="250" /> <img src="Screenshots/Course View Page - Delete - Android.png" height="250" /> <img src="Screenshots/Course Edit Page - Android.png" height="250" />
 
 iOS:
 
-<img src="Screenshots/Home Page - iOS.png" height="350" /> <img src="Screenshots/Course List Page - iOS.png" height="350" /> <img src="Screenshots/Course Create Page - iOS.png" height="350" /> <img src="Screenshots/Course View Page - iOS.png" height="350" /> <img src="Screenshots/Course View Page - Delete - iOS.png" height="350" /> <img src="Screenshots/Course Edit Page - iOS.png" height="350" />
+<img src="Screenshots/Home Page - iOS.png" height="250" /> <img src="Screenshots/Course List Page - iOS.png" height="250" /> <img src="Screenshots/Course Create Page - iOS.png" height="250" /> <img src="Screenshots/Course View Page - iOS.png" height="250" /> <img src="Screenshots/Course View Page - Delete - iOS.png" height="250" /> <img src="Screenshots/Course Edit Page - iOS.png" height="250" />
 
 Windows UWP:
 
-<img src="Screenshots/Home Page - UWP.png" height="350" /> <img src="Screenshots/Course List Page - UWP.png" height="350" /> <img src="Screenshots/Course Create Page - UWP.png" height="350" /> <img src="Screenshots/Course View Page - UWP.png" height="350" /> <img src="Screenshots/Course View Page - Delete - UWP.png" height="350" /> <img src="Screenshots/Course Edit Page - UWP.png" height="350" />
+<img src="Screenshots/Home Page - UWP.png" height="250" /> <img src="Screenshots/Course List Page - UWP.png" height="250" /> <img src="Screenshots/Course Create Page - UWP.png" height="250" /> <img src="Screenshots/Course View Page - UWP.png" height="250" /> <img src="Screenshots/Course View Page - Delete - UWP.png" height="250" /> <img src="Screenshots/Course Edit Page - UWP.png" height="250" />
 
 Cheers!
 
