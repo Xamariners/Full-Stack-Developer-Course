@@ -34,6 +34,12 @@ Each day you should be able to deploy to at least 1 or more Platforms (Android/i
 - Department Create, View, Edit Pages (Optional)
 - Instructor Create, View, Edit Pages (Optional)
 
+Best practices guidelines:
+- Read through the provided Resource links before starting each section
+- Thoroughly read the step by step guidelines in each section
+- Type the code implementation yourself rather than copying and pasting
+- Create your own code solutions by following the step by step guidelines
+
 ---
 
 ### Day 1 (28th December) - 
@@ -580,21 +586,137 @@ Resources:
 
 ### Day 6 (06th January, 1/2 day) -
 
-#### App Styles Management
+#### Adopting Resources and Styles in XAML
+
+You are to improve your XAML UI implementation with the help of Resources and Styles, in order to reduce code repetition, minimize complexity, improve readability and maintenance. (deploy and test on at least 1 or more platforms as you prefer)
 
 Completion criteria:
-- Use of Resources and Styles in XAML
-
-...
+- Use of Resources in XAML
+- Use of Styles in XAML
 
 #### Instructions:
 
 Starter Project located in DAY6/Starter.zip file.
 
+Your objective is to identify repeated XAML code and use Resources isolation and Style extraction to properly structure the XAML code, while improving readability and maintainability.
+
+**PAGE CONTEXT XAML RESOURCE AND STYLES**
+
+Let's take a look at the HomePage, where you have used multiple ```Frame``` elements to implement the UI. You may notice that all the Frame elements share the same background color value, ```#593196```. This can be extracted out as a XAML Resource and shared across all the elements that uses this Color. In order to do this, you need to set up the ```ResourceDictionary``` in your ```HomePage.xaml```,
+```xaml
+<ContentPage
+    x:Class="ContosoUniMobileApp.Pages.HomePage"
+	... >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            ...
+        </ResourceDictionary>
+    </ContentPage.Resources>
+	...
+</ContentPage>
+```
+
+**XAML RESOURCES**
+
+Then inside the ```ResourceDictionary``` you can create your new Resource as a Color resource which holds the Color value, ```#593196``` as follows settings it's Key name as ```AppThemeColor```,
+```xaml
+<Color x:Key="AppThemeColor">#593196</Color>
+```
+After that you can update all your Frame elements to reference the new ```AppThemeColor``` Resource to for their ```Frame.BorderColor``` property value using ```StaticResource``` markup extension. Now you no longer have to set up the Color property individually in your Frame elements,
+```xaml
+<Frame
+    Margin="7"
+    HasShadow="False" 
+    BorderColor="{StaticResource AppThemeColor}"
+	... >
+		...
+</Frame>
+```
+
+**XAML STYLES**
+
+If you take a closer look you may have noticed that all your Frame elements in the HomePage shares a bunch of common visual properties and values such as Margin, HasShadow, and BorderColor. This is a good opportunity to make use of XAML Styles and reduce this repetition of code, all over your XAML. Let's create our first Style object as ```FrameElementStyle```, targeting the Frame element, in the same HomePage ```ResourceDictionary``` as follows,
+```xaml
+<Style x:Key="FrameElementStyle" TargetType="Frame">
+	<Setter Property="BorderColor" Value="{StaticResource AppThemeColor}" />
+	<Setter Property="Margin" Value="7" />
+	<Setter Property="HasShadow" Value="True" />
+</Style>
+```
+
+After that you can update all your Frame elements to reference the new ```FrameElementStyle``` Style using the ```StaticResource``` markup extension. Now you no longer have to set up the visual properties in each Frame element individually,
+```xaml
+<Frame Style="{StaticResource FrameElementStyle}">
+	...
+</Frame>
+```
+
+**APP CONTEXT XAML RESOURCE AND STYLES**
+
+Now looking at all the Pages you have in your project solution, you may have noticed that we're using the same Color value ```#593196``` and Frame element styling in multiple pages. So its a good idea to elevate our HomePage level Resources and Styles to the App global context level, allowing them to accessible from all the Pages in the app. In order to do this, you need to move the Resource ```AppThemeColor``` and Style ```FrameElementStyle``` over to your ```App.xaml```'s ```ResourceDictionary``` as follows,
+```xaml
+<Application
+    x:Class="ContosoUniMobileApp.App"
+	... >
+    <Application.Resources>
+
+        <!--  Resources  -->
+        <Color x:Key="AppThemeColor">#593196</Color>
+
+        <!--  Styles  -->
+        <Style x:Key="FrameElementStyle" TargetType="Frame">
+            ...
+        </Style>
+
+		...
+    </Application.Resources>
+</Application>
+```
+
+This will allow you to use the ```AppThemeColor``` and Style ```FrameElementStyle``` across all your Pages, CourseListPage, CourseCreatePage, CourseViewPage, etc. Go ahead and upload all the UI elements that uses the ```#593196``` color, ```AppThemeColor``` Resource and all the Frame elements with the ```FrameElementStyle``` Style, increasing the readability, maintainability and reducing repetition in your XAML.
+
+Following the same approach you create Style object for all the Button elements as follows,
+```xaml
+<Style x:Key="ButtonElementStyle" TargetType="Button">
+	<Setter Property="BackgroundColor" Value="{StaticResource AppThemeColor}" />
+	<Setter Property="Margin" Value="7,0,7,7" />
+	<Setter Property="FontSize" Value="Medium" />
+	<Setter Property="TextColor" Value="White" />
+</Style>
+```
+
+And you may simplify all your Button elements as follows,
+```xaml
+<Button
+	Style="{StaticResource ButtonElementStyle}"
+	... />
+```
+
+Build and run your app to make sure everything is in order, and the UI is behaving as expected.
+
+You can proceed to apply the same approach to create a Style object for all the Label elements as well in your app. As you can see the use of Resources and Styles in XAML greatly reduces repetition, improves reusability and maintainability.
+
 Resources: 
 
-WIP
+- Xamarin.Forms XAML Resources - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/xaml/resource-dictionaries#create-resources-in-xaml
+- Xamarin.Forms XAML Styles - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/styles/xaml/
 
 ---
 
+### Final Result - Contoso University App
+
+Android:
+
+<img src="Screenshots/Course View Page - Delete - Android.png" height="450" /> <img src="Screenshots/Course View Page - Delete - iOS.png" height="450" /> <img src="Screenshots/Course View Page - Delete - UWP.png" height="450" />
+
+iOS:
+
+<img src="Screenshots/Course View Page - Delete - Android.png" height="450" /> <img src="Screenshots/Course View Page - Delete - iOS.png" height="450" /> <img src="Screenshots/Course View Page - Delete - UWP.png" height="450" />
+
+UWP:
+
+<img src="Screenshots/Course View Page - Delete - Android.png" height="450" /> <img src="Screenshots/Course View Page - Delete - iOS.png" height="450" /> <img src="Screenshots/Course View Page - Delete - UWP.png" height="450" />
+
+
+Cheers!
 
