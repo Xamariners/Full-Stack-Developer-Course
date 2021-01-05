@@ -572,9 +572,9 @@ Your objective is to add new Page ```CourseEditPage```, pass in the selected Cou
 
 Resources:
 
-Xamarin.Forms CollectionView with Item Selection - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/collectionview/selection 
-Xamarin.Forms Display Confirmation Pop-ups - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/pop-ups
-Xamarin.Forms Page Navigation and Parameters - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/navigation/hierarchical#passing-data-through-a-page-constructor
+- Xamarin.Forms CollectionView with Item Selection - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/collectionview/selection 
+- Xamarin.Forms Display Confirmation Pop-ups - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/pop-ups
+- Xamarin.Forms Page Navigation and Parameters - https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/navigation/hierarchical#passing-data-through-a-page-constructor
 
 ---
 
