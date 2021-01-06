@@ -602,7 +602,7 @@ Your objective is to identify repeated XAML code and use Resources isolation and
 
 **PAGE CONTEXT XAML RESOURCE AND STYLES**
 
-Let's take a look at the HomePage, where you have used multiple ```Frame``` elements to implement the UI. You may notice that all the Frame elements share the same background color value, ```#593196```. This can be extracted out as a XAML Resource and shared across all the elements that uses this Color. In order to do this, you need to set up the ```ResourceDictionary``` in your ```HomePage.xaml```,
+Let's take a look at the HomePage, where you have used multiple ```Frame``` elements to implement the UI. You may notice that all the Frame elements share the same Border Color value, ```#593196```. This can be extracted out as a XAML Resource and shared across all the elements that uses this Color. In order to do this, you need to set up the ```ResourceDictionary``` in your ```HomePage.xaml```,
 ```xaml
 <ContentPage
     x:Class="ContosoUniMobileApp.Pages.HomePage"
@@ -622,7 +622,7 @@ Then inside the ```ResourceDictionary``` you can create your new Resource as a C
 ```xaml
 <Color x:Key="AppThemeColor">#593196</Color>
 ```
-After that you can update all your Frame elements to reference the new ```AppThemeColor``` Resource to for their ```Frame.BorderColor``` property value using ```StaticResource``` markup extension. Now you no longer have to set up the Color property individually in your Frame elements,
+After that you can update all your Frame elements to reference the new ```AppThemeColor``` Resource for their ```Frame.BorderColor``` property value using ```StaticResource``` markup extension. Now you no longer have to set up the Color property individually in your Frame elements,
 ```xaml
 <Frame
     Margin="7"
@@ -653,7 +653,7 @@ After that you can update all your Frame elements to reference the new ```FrameE
 
 **APP CONTEXT XAML RESOURCE AND STYLES**
 
-Now looking at all the Pages you have in your project solution, you may have noticed that we're using the same Color value ```#593196``` and Frame element styling in multiple pages. So its a good idea to elevate our HomePage level Resources and Styles to the App global context level, allowing them to accessible from all the Pages in the app. In order to do this, you need to move the Resource ```AppThemeColor``` and Style ```FrameElementStyle``` over to your ```App.xaml```'s ```ResourceDictionary``` as follows,
+Now looking at all the Pages you have in your project solution, you may have noticed that we're using the same Color value ```#593196``` and Frame element styling in multiple pages. So its a good idea to elevate our HomePage level Resources and Styles to the App global context level, allowing them to be accessible from all the Pages in the app. In order to do this, you need to move the Resource ```AppThemeColor``` and Style ```FrameElementStyle``` over to your ```App.xaml```'s ```ResourceDictionary``` as follows,
 ```xaml
 <Application
     x:Class="ContosoUniMobileApp.App"
@@ -673,7 +673,7 @@ Now looking at all the Pages you have in your project solution, you may have not
 </Application>
 ```
 
-This will allow you to use the ```AppThemeColor``` and Style ```FrameElementStyle``` across all your Pages, CourseListPage, CourseCreatePage, CourseViewPage, etc. Go ahead and upload all the UI elements that uses the ```#593196``` color, ```AppThemeColor``` Resource and all the Frame elements with the ```FrameElementStyle``` Style, increasing the readability, maintainability and reducing repetition in your XAML.
+This will allow you to use the ```AppThemeColor``` and Style ```FrameElementStyle``` across all your Pages, CourseListPage, CourseCreatePage, CourseViewPage, etc. Go ahead and update all the UI elements that uses the ```#593196``` color, with the ```AppThemeColor``` Resource and all the Frame elements with the ```FrameElementStyle``` Style, increasing the readability, maintainability and reducing repetition in your XAML.
 
 Following the same approach you create Style object for all the Button elements as follows,
 ```xaml
