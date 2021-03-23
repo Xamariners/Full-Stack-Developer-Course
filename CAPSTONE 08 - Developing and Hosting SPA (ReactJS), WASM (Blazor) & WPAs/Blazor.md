@@ -1,5 +1,6 @@
 # CAPSTONE 8 - Developing and Hosting SPA (ReactJS), WASM (Blazor) & WPAs
 
+## Blazor
 -------- PREPARE THE API PROJECT
 
 01. Add the Blank Solution
